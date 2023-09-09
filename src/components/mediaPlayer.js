@@ -41,8 +41,7 @@ export default function MediaPlayer(){
                       </svg>
                     </div>
                     <div className="track-play__author">
-                      <a className="track-play__author-link" href="http://"
-                        >Ты та...</a
+                      <a className="track-play__author-link" href="http://">Ты та...</a
                       >
                     </div>
                     <div className="track-play__album">
