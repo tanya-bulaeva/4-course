@@ -883,3 +883,14 @@ body {
 .volume__progress-line {
   width: 109px;
 }
+
+.skeleton{
+  background-color: #4e4e4e;
+  color: #4e4e4e;
+}
+
+.skeleton-trek{
+  width: 321px;
+  background-color: #4e4e4e;
+  color: #4e4e4e;
+}

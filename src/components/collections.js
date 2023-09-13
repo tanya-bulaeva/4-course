@@ -1,7 +1,7 @@
-export default function Collections(){
-    return(
+export default function Collections({loading}){
+    return (
         <div className="sidebar__block">
-        <div className="sidebar__list">
+{loading ? (        <div className="sidebar__list">
           <div className="sidebar__item">
             <a className="sidebar__link" href="#">
               <img
@@ -29,7 +29,15 @@ export default function Collections(){
               />
             </a>
           </div>
-        </div>
+        </div>) : 
+        (       <div className="sidebar__list">
+          <div className="sidebar__item skeleton">
+          </div>
+          <div className="sidebar__item skeleton">
+          </div>
+          <div className="sidebar__item skeleton">
+          </div>
+        </div>)}
       </div>
     )
 }

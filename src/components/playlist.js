@@ -1,5 +1,6 @@
-export default function Playlist (){
-    return(
+import {skeletonPlayer } from "./skeletonPlayer.js"
+export default function Playlist ({loading}) {
+    return (
         <div className="centerblock__content">
           <div className="content__title playlist-title">
             <div className="playlist-title__col col01">Трек</div>
@@ -11,7 +12,8 @@ export default function Playlist (){
               </svg>
             </div>
           </div>
-          <div className="content__playlist playlist">
+          {loading ? 
+          (<div className="content__playlist playlist">
             <div className="playlist__item">
               <div className="playlist__track track">
                 <div className="track__title">
@@ -553,7 +555,9 @@ export default function Playlist (){
                 </div>
               </div>
             </div>
-          </div>
+          </div>)
+           : 
+          (skeletonPlayer)}
       </div>
     )
 }
