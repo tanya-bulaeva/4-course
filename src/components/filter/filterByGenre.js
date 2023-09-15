@@ -1,7 +1,8 @@
 import './style.css';
 export default function FilterByGenre (){
     return (
-<ul className="scrollable">
+< div className='drop'>
+<ul className="dropdown-content">
 <li className = "filter-link">Рок</li>
 <li className = "filter-link">Хип-хоп</li>
 <li className = "filter-link"> Поп-музыка</li>
@@ -10,5 +11,6 @@ export default function FilterByGenre (){
 <li className = "filter-link">Металл</li>
 <li className = "filter-link">Классическая музыка</li>
 </ul>
+</div>
     )
 }

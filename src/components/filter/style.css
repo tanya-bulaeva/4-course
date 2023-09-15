@@ -1,15 +1,22 @@
-.scrollable{
+.dropdown{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} 
+.dropdown-content{
     overflow: auto;
     height: 200px; 
-    width: auto;
+    width:  auto;
     background-color: #313131;
     border-radius: 20px;
+    position: absolute;
   }
   .filter-link:hover{
     border-color: #d9b6ff;
     color: #d9b6ff;
-    cursor: pointer;
   }
 .centerblock ul li {
     margin: 10px 10px;
 }
+
+
