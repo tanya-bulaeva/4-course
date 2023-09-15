@@ -5,7 +5,7 @@ import Search from './components/search.js';
 import Filter from './components/filter/filter.js';
 import UserAccount from './components/userAccount.js';
 import Collections from './components/collections.js';
-import Playlist from './components/playlist.js';
+import Playlist from './components/playlist/playlist.js';
 import MediaPlayer from './components/mediaPlayer.js';
 function App() {
   const [loading, setLoading] = useState(false)

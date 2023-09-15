@@ -1,0 +1,15 @@
+.scrollable{
+    overflow: auto;
+    height: 200px; 
+    width: auto;
+    background-color: #313131;
+    border-radius: 20px;
+  }
+  .filter-link:hover{
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+    cursor: pointer;
+  }
+.centerblock ul li {
+    margin: 10px 10px;
+}

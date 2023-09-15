@@ -1,13 +1,14 @@
+import './style.css';
 export default function FilterByGenre (){
     return (
-<div>
-<span className = "track__title-link">Рок</span>
-<span className = "track__title-link">Хип-хоп</span>
-<span className = "track__title-link"> Поп-музыка</span>
-<span className = "track__title-link">Техно</span>
-<span className = "track__title-link">Инди</span>
-<span className = "track__title-link">Металл</span>
-<span className = "track__title-link">Классическая музыка</span>
-</div>
+<ul className="scrollable">
+<li className = "filter-link">Рок</li>
+<li className = "filter-link">Хип-хоп</li>
+<li className = "filter-link"> Поп-музыка</li>
+<li className = "filter-link">Техно</li>
+<li className = "filter-link">Инди</li>
+<li className = "filter-link">Металл</li>
+<li className = "filter-link">Классическая музыка</li>
+</ul>
     )
 }

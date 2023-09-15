@@ -1,9 +1,10 @@
+import './style.css';
 export default function FilterByYear (){
     return (
-<div>
-<span className = "track__title-link">1991</span>
-<span className = "track__title-link">1992</span>
-<span className = "track__title-link"> 1993</span>
-</div>
+<ul className="scrollable">
+<li className = "filter-link">1991</li>
+<li className = "filter-link">1992</li>
+<li className = "filter-link"> 1993</li>
+</ul>
     )
 }

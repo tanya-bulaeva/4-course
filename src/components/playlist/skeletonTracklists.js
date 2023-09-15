@@ -1,4 +1,43 @@
-export  const skeletonPlayer = <div className="content__playlist playlist">
+import { tracks } from "./tracks.js"
+export function skeletonPlayer(){
+  return (
+      <>
+      {tracks.map((track) => (
+          <div className="playlist__item" key = {tracks.id}>
+          <div className="playlist__track track">
+            <div className="track__title">
+              <div className="track__title-image skeleton">
+                <svg className="track__title-svg" alt="music">
+                  <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                </svg>
+              </div>
+              <div className="track__title-text skeleton-trek">
+                <a className="track__title-link skeleton-trek" href="http://"
+                  >{track.name}<span className="track__title-span">{track.trackTitle}</span
+                ></a>
+              </div>
+            </div>
+            <div className="track__author skeleton">
+              <a className="track__author-link skeleton" href="http://">{track.author}</a>
+            </div>
+            <div className="track__album skeleton">
+              <a className="track__album-link skeleton" href="http://"
+                >{track.album}</a>
+            </div>
+            <div className="track__time skeleton">
+              <svg className="track__time-svg" alt="time">
+                <use xlinkHref="img/icon/sprite.svg#icon-like skeleton"></use>
+              </svg>
+              <span className="track__time-text skeleton">{track.time}</span>
+            </div>
+          </div>
+          </div>
+        )
+      )}
+      </>
+  )
+}
+/*export  const skeletonPlayer = <div className="content__playlist playlist">
 <div className="playlist__item">
   <div className="playlist__track track">
     <div className="track__title">
@@ -541,3 +580,4 @@ export  const skeletonPlayer = <div className="content__playlist playlist">
   </div>
 </div>
 </div>
+*/
