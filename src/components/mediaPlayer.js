@@ -1,4 +1,4 @@
-export default function MediaPlayer(){
+export default function MediaPlayer({loading}){
     return(
         <div className="bar">
           <div className="bar__content">
@@ -34,12 +34,13 @@ export default function MediaPlayer(){
                 </div>
 
                 <div className="player__track-play track-play">
-                  <div className="track-play__contain">
+{loading ? ( <div className="track-play__contain">
                     <div className="track-play__image">
                       <svg className="track-play__svg" alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
                       </svg>
                     </div>
+
                     <div className="track-play__author">
                       <a className="track-play__author-link" href="http://">Ты та...</a
                       >
@@ -47,7 +48,22 @@ export default function MediaPlayer(){
                     <div className="track-play__album">
                       <a className="track-play__album-link" href="http://">Баста</a>
                     </div>
-                  </div>
+                  </div>) 
+                  : 
+                  (                  <div className="track-play__contain">
+                    <div className="track-play__image skeleton">
+                      <svg className="track-play__svg" alt="music">
+                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                      </svg>
+                    </div>
+
+                    <div className="track-play__author ">
+                      <a className="track-play__author-link skeleton" href="http://">Ты та...</a>
+                    </div>
+                    <div className="track-play__album skeleton">
+                      <a className=" skeleton" href="http://">Баста</a>
+                    </div>
+                  </div>) }
 
                   <div className="track-play__like-dis">
                     <div className="track-play__like _btn-icon">
