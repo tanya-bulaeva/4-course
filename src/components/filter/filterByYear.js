@@ -1,11 +1,12 @@
-import './style.css';
+import * as S from "./style.js"
+
 export default function FilterByYear (){
-    return (< div className='drop'>
-<ul className="dropdown-content">
-<li className = "filter-link">1991</li>
-<li className = "filter-link">1992</li>
-<li className = "filter-link"> 1993</li>
-</ul>
-</div>
+    return (<S.DropStyle >
+<S.DropdownContent>
+<S.FilterLink>1991</S.FilterLink>
+<S.FilterLink>1992</S.FilterLink>
+<S.FilterLink> 1993</S.FilterLink>
+</S.DropdownContent>
+</S.DropStyle>
     )
 }

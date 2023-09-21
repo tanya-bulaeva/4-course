@@ -1,13 +1,14 @@
-import './style.css';
+import * as S from "./style.js"
 import { tracks } from "../playlist/tracks"
-export default function FilterByArtist (){
-    return (<div className='drop'>
-<ul className = "dropdown-content">
-{tracks.map((track) => (<li key = {track.id}>
-    <a className = "filter-link">{track.author}</a>
-</li>
 
+export default function FilterByArtist (){
+    return (<S.DropStyle>
+<S.DropdownContent>
+{tracks.map((track) => (<S.FilterLink key = {track.id}>
+    {track.author}
+</S.FilterLink>
 ))}
-</ul></div>
+</S.DropdownContent>
+</S.DropStyle>
 )
 }

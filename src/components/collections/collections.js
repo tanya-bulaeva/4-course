@@ -1,57 +1,55 @@
+import * as S from "./style.js"
 export default function Collections({loading}){
   return (
-      <div className="sidebar__block">
-      <div className="sidebar__list">
+      <S.SidebarBlock>
+      <S.SidebarList>
         {loading ? (
-          <> <div className="sidebar__item">
-          <a className="sidebar__link" href="#">
-            <img
-              className="sidebar__img"
+          <> <S.SidebarItem>
+          <S.SidebarLink href="#">
+            <S.SidebarImg
               src="img/playlist01.png"
               alt="day's playlist"
             />
-          </a>
-        </div>
+          </S.SidebarLink>
+        </S.SidebarItem>
           </>
-        ) : (<><div className="sidebar__item skeleton">
-        </div>
+        ) : (<><S.Skeleton>
+        </S.Skeleton>
         </>)}
         {loading ? (
-          <>         <div className="sidebar__item">
-          <a className="sidebar__link" href="#">
-            <img
-              className="sidebar__img"
+          <>         <S.SidebarItem>
+          <S.SidebarLink  href="#">
+            <S.SidebarImg
               src="img/playlist02.png"
               alt="day's playlist"
             />
-          </a>
-        </div>
+          </S.SidebarLink>
+        </S.SidebarItem>
           </>
-        ) : (<><div className="sidebar__item skeleton">
-        </div>
+        ) : (<><S.Skeleton>
+        </S.Skeleton>
         </>)}
         {loading ? (
-          <>                 <div className="sidebar__item">
-          <a className="sidebar__link" href="#">
-            <img
-              className="sidebar__img"
+          <><S.SidebarItem>
+          <S.SidebarLink  href="#">
+            <S.SidebarImg
               src="img/playlist03.png"
               alt="day's playlist"
             />
-          </a>
-        </div>
+          </S.SidebarLink>
+        </S.SidebarItem>
           </>
-        ) : (<><div className="sidebar__item skeleton">
-        </div>
+        ) : (<><S.Skeleton>
+        </S.Skeleton>
         </>)}
 
-      </div>
-      </div>
+      </S.SidebarList>
+      </S.SidebarBlock>
   )
 }
 /*export default function Collections({loading}){
     return (
-        <div className="sidebar__block">
+        <div className="SidebarBlock">
 {loading ? (        <div className="sidebar__list">
           <div className="sidebar__item">
             <a className="sidebar__link" href="#">
