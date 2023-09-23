@@ -1,22 +1,47 @@
-import {skeletonPlayer } from "./skeletonTracklists.js"
-import { tracklists } from "./tracklists.js"
+import * as S from "./style.js"
+import {SkeletonPlayer} from "./skeletonTracklists.js"
+import { Tracklists } from "./tracklists.js"
+
 export default function Playlist ({loading}) {
     return (<>
-        <div className="centerblock__content">
-          <div className="content__title playlist-title">
-            <div className="playlist-title__col col01">Трек</div>
-            <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-            <div className="playlist-title__col col03">АЛЬБОМ</div>
-            <div className="playlist-title__col col04">
-              <svg className="playlist-title__svg" alt="time">
+        <S.CenterblockContent >
+          <S.ContentTitle>
+            <S.PlaylistTitleCol01 className="col01">Трек</S.PlaylistTitleCol01>
+            <S.PlaylistTitleCol02 className="col02">ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
+            <S.PlaylistTitleCol03 className="col03">АЛЬБОМ</S.PlaylistTitleCol03>
+            <S.PlaylistTitleCol04 className="col04">
+              <S.PlaylistTitleSvg alt="time">
                 <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
-              </svg>
-            </div>
-          </div>
+              </S.PlaylistTitleSvg>
+            </S.PlaylistTitleCol04>
+          </S.ContentTitle>
           {loading ? 
-          (tracklists())
+          (<Tracklists/>)
            : 
-          (skeletonPlayer())}
-      </div></>
+          (<SkeletonPlayer/>)}
+      </S.CenterblockContent></>
     )
 }
+
+/*
+export default function Playlist ({loading}) {
+    return (<>
+        <S.CenterblockContent >
+          <S.ContentTitle>
+            <S.PlaylistTitleCol01 className="col01">Трек</S.PlaylistTitleCol01>
+            <S.PlaylistTitleCol02 className="col02">ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
+            <S.PlaylistTitleCol03 className="col03">АЛЬБОМ</S.PlaylistTitleCol03>
+            <S.PlaylistTitleCol04 className="col04">
+              <S.PlaylistTitleSvg alt="time">
+                <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+              </S.PlaylistTitleSvg>
+            </S.PlaylistTitleCol04>
+          </S.ContentTitle>
+          {loading ? 
+          (<Tracklists/>)
+           : 
+          (<SkeletonPlayer/>)}
+      </S.CenterblockContent></>
+    )
+}
+*/

@@ -1,12 +1,14 @@
+import * as S from "./Appstyle.js"
 import { useState, useEffect } from 'react';
-import './App.css';
-import NavMenu from './components/navMenu.js'
-import Search from './components/search.js';
+import NavMenu from './components/navMenu/navMenu.js'
+import Search from './components/search/search.js';
 import Filter from './components/filter/filter.js';
-import UserAccount from './components/userAccount.js';
-import Collections from './components/collections.js';
+import UserAccount from './components/userAccount/userAccount.js';
+import Collections from './components/collections/collections';
 import Playlist from './components/playlist/playlist.js';
-import MediaPlayer from './components/mediaPlayer.js';
+import MediaPlayer from './components/mediaplayer/mediaPlayer.js';
+
+
 function App() {
   const [loading, setLoading] = useState(false)
   useEffect(() => {
@@ -20,25 +22,27 @@ function App() {
 	}, []);
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <main className="main">
+    <><S.GlobalStyle />
+    <S.WrapperStyle>
+      <S.ContainerStyle>
+        <S.MainStyle>
         <NavMenu />
-          <div className="main__centerblock centerblock">
+          <S.MainCenterblock>
         <Search />
-            <h2 className="centerblock__h2">Треки</h2>
+            <S.CenterclockH2>Треки</S.CenterclockH2>
           <Filter />
           <Playlist loading = {loading} />      
-          </div>
-          <div className="main__sidebar sidebar">
+          </S.MainCenterblock>
+          <S.MainSidebar>
         <UserAccount />
         <Collections loading = {loading}/>
-          </div>
-        </main>
+          </S.MainSidebar>
+        </S.MainStyle>
         <MediaPlayer loading = {loading}/>
         <footer className="footer"></footer>
-      </div>
-    </div>
+      </S.ContainerStyle>
+    </S.WrapperStyle>
+</>
   );
 }
 

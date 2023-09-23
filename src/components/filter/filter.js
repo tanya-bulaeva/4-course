@@ -1,8 +1,10 @@
+import * as S from "./style.js"
 import { useState } from 'react';
-import './style.css';
 import FilterByArtist from './filterByArtist.js';
 import FilterByGenre from './filterByGenre.js';
 import FilterByYear from './filterByYear.js';
+
+
 export default function Filter(){
   const [openArtist, setOpenArtist] = useState(false);
   const [openYear, setOpenYear] = useState(false);
@@ -23,6 +25,26 @@ export default function Filter(){
     setOpenGenre(openGenre ? false : true);
     setOpenYear(false)
   }
+
+    return (
+      <S.CenterblockFilter>
+      <S.FilterTitle >Искать по:</S.FilterTitle>
+      <S.Dropdown>
+       { openArtist ? (<><S.ButtonActive className = "_btn-text" onClick = {toggleVisibilityArtist}>исполнителю</S.ButtonActive>
+        <FilterByArtist/></>): ( <><S.FilterButton className = "_btn-text" onClick = {toggleVisibilityArtist}>исполнителю</S.FilterButton>
+</>)
+     } 
+     {openYear ? (<> <S.ButtonActive className="_btn-text" onClick = {toggleVisibilityYear}>году выпуска</S.ButtonActive>
+       <FilterByYear/></>) : (<><S.FilterButton className="_btn-text" onClick = {toggleVisibilityYear}>году выпуска</S.FilterButton></>)}
+
+     {openGenre ? (<><S.ButtonActive className="_btn-text" onClick = {toggleVisibilityGenre}>жанру</S.ButtonActive>
+        <FilterByGenre/></>) : (<><S.FilterButton className="_btn-text" onClick = {toggleVisibilityGenre}>жанру</S.FilterButton></>)}
+     </S.Dropdown>
+     
+     </S.CenterblockFilter>
+     )
+    
+}
 /*
     return (
         <div className="centerblock__filter filter">
@@ -36,22 +58,3 @@ export default function Filter(){
       </div>
      
     )*/
-    return (
-      <div className="centerblock__filter filter">
-      <div className="filter__title">Искать по:</div>
-      <div className="dropdown">
-       { openArtist ? (<><button className = "button-active _btn-text" onClick = {toggleVisibilityArtist}>исполнителю</button>
-        <FilterByArtist/></>): ( <><div className = "filter__button  _btn-text" onClick = {toggleVisibilityArtist}>исполнителю</div>
-</>)
-     } 
-     {openYear ? (<> <button className="button-active _btn-text" onClick = {toggleVisibilityYear}>году выпуска</button>
-       <FilterByYear/></>) : (<><div className="filter__button  _btn-text" onClick = {toggleVisibilityYear}>году выпуска</div></>)}
-
-     {openGenre ? (<><button className="button-active _btn-text" onClick = {toggleVisibilityGenre}>жанру</button>
-        <FilterByGenre/></>) : (<><div className="filter__button  _btn-text" onClick = {toggleVisibilityGenre}>жанру</div></>)}
-     </div>
-     
-     </div>
-     )
-    
-}
