@@ -1,6 +1,6 @@
-import NavMenu from "./components/navMenu/navMenu";
 import { useState } from "react";
 import {AppRoutes} from "./routes"
+
 
 function App() {
 /*  return (
