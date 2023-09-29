@@ -1,16 +1,31 @@
-import * as S from "./style.js"
-export default function Collections({loading}){
+import { CategoryList } from "./categoryList.js";
+import * as S from "./style.js";
+//import { NavLink } from "react-router-dom";
+export default function Collections(){
+
+return (
+  <S.SidebarBlock>
+<S.SidebarList>
+<CategoryList />
+  </S.SidebarList>
+  </S.SidebarBlock>
+
+
+)
+/*
   return (
       <S.SidebarBlock>
       <S.SidebarList>
         {loading ? (
           <> <S.SidebarItem>
-          <S.SidebarLink href="#">
+            <NavLink to = "/category/1">
+          <S.SidebarLink>
             <S.SidebarImg
-              src="img/playlist01.png"
+              src="/img/playlist01.png"
               alt="day's playlist"
             />
           </S.SidebarLink>
+            </NavLink>
         </S.SidebarItem>
           </>
         ) : (<><S.Skeleton>
@@ -18,25 +33,26 @@ export default function Collections({loading}){
         </>)}
         {loading ? (
           <>         <S.SidebarItem>
-          <S.SidebarLink  href="#">
+            <NavLink to = "/category/2">
+          <S.SidebarLink>
             <S.SidebarImg
-              src="img/playlist02.png"
-              alt="day's playlist"
+              src="/img/playlist02.png"
+              alt="dance hit"
             />
-          </S.SidebarLink>
+          </S.SidebarLink></NavLink>
         </S.SidebarItem>
           </>
         ) : (<><S.Skeleton>
         </S.Skeleton>
         </>)}
         {loading ? (
-          <><S.SidebarItem>
-          <S.SidebarLink  href="#">
+          <><S.SidebarItem><NavLink to = "/category/3">
+          <S.SidebarLink>
             <S.SidebarImg
-              src="img/playlist03.png"
-              alt="day's playlist"
+              src="/img/playlist03.png"
+              alt="indie"
             />
-          </S.SidebarLink>
+          </S.SidebarLink></NavLink>
         </S.SidebarItem>
           </>
         ) : (<><S.Skeleton>
@@ -45,7 +61,7 @@ export default function Collections({loading}){
 
       </S.SidebarList>
       </S.SidebarBlock>
-  )
+  )*/
 }
 /*export default function Collections({loading}){
     return (

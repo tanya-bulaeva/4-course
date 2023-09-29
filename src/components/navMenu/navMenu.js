@@ -1,13 +1,13 @@
 import * as S from "./style.js"
 import { useState } from 'react';
+import Logo from "../logo/logo.js";
+import { NavLink } from "react-router-dom";
 export default function NavMenu (){
   const [openMenu, setOpenMenu] = useState(false);
   const toggleVisibility  = () => setOpenMenu(!openMenu);
     return (
         <S.MainNav>
-        <S.NavLogo>
-          <S.LogoImage src="img/logo.png" alt="logo" />
-        </S.NavLogo>
+        <Logo />
         <S.NavBurger onClick ={toggleVisibility}>
           <S.BurgerLine></S.BurgerLine>
           <S.BurgerLine></S.BurgerLine>
@@ -17,13 +17,13 @@ export default function NavMenu (){
         (<S.NavMenu>
           <S.MenuList>
             <S.MenuItem>
-              <S.Menulink href="#">Главное</S.Menulink>
+              <S.Menulink to="/">Главное</S.Menulink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.Menulink href="#">Мой плейлист</S.Menulink>
+              <S.Menulink to="/favorites">Мой плейлист</S.Menulink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.Menulink href="#">Войти</S.Menulink>
+              <S.Menulink to="/login">Войти</S.Menulink>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>) 

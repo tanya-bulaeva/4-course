@@ -19,7 +19,7 @@ flex-direction: row;
 align-items: center;
 margin-bottom: 51px;
 ul li {
-margin: 10px 10px;}
+margin: 18px 10px;}
 `
 
 export const FilterTitle = styled.div`
