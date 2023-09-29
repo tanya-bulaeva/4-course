@@ -10,13 +10,17 @@ function App() {
   const [user, setUser] = useState(false);
   const handleLogin = () =>   {
     localStorage.setItem('user', true)
-    
     setUser(localStorage.getItem('user'));}
- 
-  console.log(localStorage)
+
+    
+  console.log(localStorage);
+   console.log (user);
+
+
   const handleLogout = () => setUser(localStorage.clear());
+
   return (
-        <AppRoutes user={user} onAuthButtonClick={user ? handleLogout : handleLogin} />
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } />
 
   );
 

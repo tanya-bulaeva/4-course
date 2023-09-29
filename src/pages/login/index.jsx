@@ -30,8 +30,8 @@ export const Login = () => {
             name="password"
             placeholder="Пароль"
           />
-          <S.ModalBtnEnter type="button" onClick={handleButtonClick}>
-            <a>Войти</a>
+          <S.ModalBtnEnter onClick={handleButtonClick} >
+            <a >Войти</a>
           </S.ModalBtnEnter>
           <S.ModalBtnSignup>
             <Link to ="/register">Зарегистрироваться</Link>
