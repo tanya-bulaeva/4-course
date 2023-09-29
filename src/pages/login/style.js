@@ -185,6 +185,7 @@ body {
     justify-content: center;
   }
  ` 
+
   export const ModalBtnSignup = styled.button`
   width: 278px;
   height: 52px;

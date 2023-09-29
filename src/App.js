@@ -7,10 +7,12 @@ function App() {
       <AppRoutes />
   )
   */
-  const [user, setUser] = useState(null);
-
-  const handleLogin = () =>   setUser(localStorage.setItem('user', 'user'));
-  
+  const [user, setUser] = useState(false);
+  const handleLogin = () =>   {
+    localStorage.setItem('user', true)
+    
+    setUser(localStorage.getItem('user'));}
+ 
   console.log(localStorage)
   const handleLogout = () => setUser(localStorage.clear());
   return (

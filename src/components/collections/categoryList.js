@@ -15,7 +15,7 @@ export const CategoryList = () => {
     return (
 <>
 {categoryItems.map((categoryItem) => (
-<> {loading ? ( <> <S.SidebarItem >
+<> {loading ? ( <> <S.SidebarItem>
           <S.SidebarLink to = {`/category/${categoryItem.id}`}>
           <S.SidebarImg
             src={categoryItem.image}

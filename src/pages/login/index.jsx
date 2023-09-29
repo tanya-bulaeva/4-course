@@ -6,7 +6,7 @@ export const Login = () => {
    </div>)*/
    const navigate = useNavigate()
    const handleButtonClick = () => {
-    localStorage.setItem('user', 'user')
+    localStorage.getItem('user')
     navigate('/', {replace: true})
    }
    return ( <>
@@ -30,8 +30,8 @@ export const Login = () => {
             name="password"
             placeholder="Пароль"
           />
-          <S.ModalBtnEnter>
-            <Link to ="/" onClick={handleButtonClick} >Войти</Link>
+          <S.ModalBtnEnter type="button" onClick={handleButtonClick}>
+            <a>Войти</a>
           </S.ModalBtnEnter>
           <S.ModalBtnSignup>
             <Link to ="/register">Зарегистрироваться</Link>
