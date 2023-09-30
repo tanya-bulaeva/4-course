@@ -1,28 +1,36 @@
-import * as S from "./Appstyle.js"
-import { useState, useEffect } from 'react';
-import NavMenu from './components/navMenu/navMenu.js'
-import Search from './components/search/search.js';
-import Filter from './components/filter/filter.js';
-import UserAccount from './components/userAccount/userAccount.js';
-import Collections from './components/collections/collections';
-import Playlist from './components/playlist/playlist.js';
-import MediaPlayer from './components/mediaplayer/mediaPlayer.js';
+import { useState } from "react";
+import {AppRoutes} from "./routes"
 
 
 function App() {
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-		// Заводим таймер
-		const timerId = setInterval(() => setLoading(!loading), 5000);		
-		// Данная функция вызывается при удалении компонента из DOM
-		return () => {
-			// Наводим порядок после удаления компонента
-			clearInterval(timerId);
-		};
-	}, []);
+/*  return (
+      <AppRoutes />
+  )
+  */
+  const [user, setUser] = useState(false);
+  const handleLogin = () =>   {
+    localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
+    setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
+    
+  console.log(localStorage);
+   console.log (user);
+
+
+  const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
   return (
-    <><S.GlobalStyle />
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } />
+
+  );
+
+}
+
+export default App;
+
+/*
+  return (
+        <>
+        <S.GlobalStyle />
     <S.WrapperStyle>
       <S.ContainerStyle>
         <S.MainStyle>
@@ -43,7 +51,4 @@ function App() {
       </S.ContainerStyle>
     </S.WrapperStyle>
 </>
-  );
-}
-
-export default App;
+  );*/
