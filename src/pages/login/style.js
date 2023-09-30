@@ -159,6 +159,12 @@ body {
  -webkit-box-pack: center;
  -ms-flex-pack: center;
  justify-content: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #ffffff;
  :hover {
   background-color: #3f007d;
   }

@@ -9,15 +9,14 @@ function App() {
   */
   const [user, setUser] = useState(false);
   const handleLogin = () =>   {
-    localStorage.setItem('user', true)
-    setUser(localStorage.getItem('user'));}
-
+    localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
+    setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
     
   console.log(localStorage);
    console.log (user);
 
 
-  const handleLogout = () => setUser(localStorage.clear());
+  const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
   return (
         <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } />
