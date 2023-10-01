@@ -6,7 +6,7 @@ export const Login = () => {
    </div>)*/
    const navigate = useNavigate()
    const handleButtonClick = () => {
-    localStorage.getItem('userr') //getItem(key) – получить данные по ключу key.
+    localStorage.getItem('user') //getItem(key) – получить данные по ключу key.
     navigate('/', {replace: true})
    }
    return ( <>
