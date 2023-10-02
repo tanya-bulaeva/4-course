@@ -7,7 +7,7 @@ import UserAccount from '../../components/userAccount/userAccount.js';
 import Collections from '../../components/collections/collections';
 import Playlist from '../../components/playlist/playlist.js';
 import MediaPlayer from '../../components/mediaplayer/mediaPlayer.js';
-export const Main = () => {
+export const Main = ({tracks}) => {
     const [loading, setLoading] = useState(false)
     useEffect(() => {
           // Заводим таймер
@@ -28,14 +28,14 @@ return (       <>
     <Search />
         <S.CenterclockH2>Треки</S.CenterclockH2>
       <Filter />
-      <Playlist loading = {loading} />      
+      <Playlist loading = {loading} tracks={tracks} />      
       </S.MainCenterblock>
       <S.MainSidebar>
     <UserAccount />
     <Collections loading = {loading}/>
       </S.MainSidebar>
     </S.MainStyle>
-    <MediaPlayer loading = {loading}/>
+    <MediaPlayer loading = {loading} tracks={tracks}/>
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

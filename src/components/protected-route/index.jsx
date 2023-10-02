@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-export const ProtectedRoute = ({ redirectPath = "/login" }) => {
+export const ProtectedRoute = ({ redirectPath = "/login" . is}) => {
   if (!localStorage.getItem('user')) { //getItem(key) – получить данные по ключу key.
     return <Navigate to={redirectPath} replace= {true}/>;
   }

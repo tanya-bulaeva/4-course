@@ -4,7 +4,7 @@ export function SkeletonPlayer(){
   return (
       <>
       {tracks.map((track) => (
-        <S.ContentPlaylist  key = {tracks.id}>
+        <S.ContentPlaylist  key = {track.id}>
           <S.PlaylistItem>
           <S.PlaylistTrack>
             <S.TrackTitle>

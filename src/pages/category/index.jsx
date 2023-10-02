@@ -4,8 +4,6 @@ import Search from '../../components/search/search.js';
 import Filter from '../../components/filter/filter.js';
 import UserAccount from '../../components/userAccount/userAccount.js';
 import Collections from '../../components/collections/collections';
-import Playlist from '../../components/playlist/playlist.js';
-import MediaPlayer from '../../components/mediaplayer/mediaPlayer.js';
 import { useParams } from "react-router-dom";
 import { categoryItems } from "../../components/collections/categoryItems";
 export const Category = ({loading}) => {
