@@ -27,7 +27,7 @@ return (       <>
       <S.MainCenterblock>
     <Search />
         <S.CenterclockH2>Треки</S.CenterclockH2>
-      <Filter />
+      <Filter tracks = {tracks} />
       <Playlist loading = {loading} tracks={tracks} />      
       </S.MainCenterblock>
       <S.MainSidebar>

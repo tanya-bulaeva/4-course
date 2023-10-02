@@ -1,6 +1,5 @@
 import * as S from "./style.js"
 export function Tracklists({loading, tracks, setCurrentTrack}){
-  console.log(tracks)
     return (<>
         {tracks.map((track) => (
         <> 
@@ -21,7 +20,7 @@ export function Tracklists({loading, tracks, setCurrentTrack}){
                   <S.TrackTitleLink href="http://"
                     > {track.name}
                     <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
-                </S.TrackTitleText>) : (              <S.TrackTitleTextSkeleton>
+                </S.TrackTitleText>) : (<S.TrackTitleTextSkeleton>
                 <S.TrackTitleLinkSkeleton  href="http://"
                   >{track.name}
                   <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLinkSkeleton>
