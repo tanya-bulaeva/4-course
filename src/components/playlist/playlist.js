@@ -2,7 +2,7 @@ import * as S from "./style.js"
 import {SkeletonPlayer} from "./skeletonTracklists.js"
 import { Tracklists } from "./tracklists.js"
 
-export default function Playlist ({loading}) {
+export default function Playlist ({loading, tracks}) {
     return (<>
         <S.CenterblockContent >
           <S.ContentTitle>
@@ -16,7 +16,7 @@ export default function Playlist ({loading}) {
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
           {loading ? 
-          (<Tracklists/>)
+          (<Tracklists tracks = {tracks}/>)
            : 
           (<SkeletonPlayer/>)}
       </S.CenterblockContent></>
