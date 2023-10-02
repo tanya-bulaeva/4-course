@@ -1,6 +1,8 @@
 import { SelectedTrack } from "./selectedTrack.js"
 import * as S from "./style.js"
-export default function MediaPlayer({  currentTrack}){
+export default function MediaPlayer({ currentTrack, setCurrentTrack}){
+
+  
     return(
         <S.BarStyle>
           <S.BarContent>

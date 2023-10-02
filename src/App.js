@@ -6,9 +6,11 @@ import { getTrack } from "./api";
 function App() {
 const [user, setUser] = useState(false);
 const [tracks, setTracks] = useState([]);
-
+const [currentTrack, setCurrentTrack] = useState (null);
 const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
+
+
 
 useEffect(() => {
  async function getAllTracks (){
@@ -40,7 +42,7 @@ try {
   const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
   return (
-        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin }  loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError}/>
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin }  loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack} currentTrack={currentTrack}/>
   );
 }
 

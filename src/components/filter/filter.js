@@ -45,16 +45,3 @@ export default function Filter({tracks}){
      )
     
 }
-/*
-    return (
-        <div className="centerblock__filter filter">
-        <div className="filter__title">Искать по:</div>
-        <div className = "filter__button button-year _btn-text" onClick = {toggleVisibilityArtist}>исполнителю</div>
-        {openArtist && (<FilterByArtist/>)}
-        <div className="filter__button button-year _btn-text" onClick = {toggleVisibilityYear}>году выпуска</div>
-        {openYear && (<FilterByYear/>)}
-        <div className="filter__button button-genre _btn-text" onClick = {toggleVisibilityGenre}>жанру</div>
-        {openGenre && (<FilterByGenre/>)}
-      </div>
-     
-    )*/

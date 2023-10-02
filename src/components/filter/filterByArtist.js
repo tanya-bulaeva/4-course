@@ -1,5 +1,4 @@
 import * as S from "./style.js"
-//import { tracks } from "../playlist/tracks.js"
 
 export default function FilterByArtist ({tracks}){
     return (<S.DropStyle>

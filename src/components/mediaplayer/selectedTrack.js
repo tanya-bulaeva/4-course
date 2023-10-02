@@ -1,6 +1,6 @@
 import * as S from "./style.js";
 
-export const SelectedTrack = ({currentTrack}) => {
+export const SelectedTrack = ({currentTrack, setCurrentTrack}) => {
 return (
   <S.PlayerTrackPlay>
     <S.TrackPlayContain>

@@ -33,15 +33,13 @@ export const Favorites = ({loading, currentTrack, tracksError}) => {
         <Search />
             <S.CenterclockH2>Мой плейлист</S.CenterclockH2>
           <Filter tracks = {tracks} />
-          {tracksError  ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading}  tracksError={tracksError}   currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack }/> ) }
- 
-          </S.MainCenterblock>
+                    </S.MainCenterblock>
           <S.MainSidebar>
         <UserAccount />
         <Collections loading = {loading}/>
           </S.MainSidebar>
         </S.MainStyle>
-        {currentTrack ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack}/> ) : (null)}
+      <MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack}/>
         <footer className="footer"></footer>
       </S.ContainerStyle>
     </S.WrapperStyle>

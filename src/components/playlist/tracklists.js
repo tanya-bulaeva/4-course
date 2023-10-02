@@ -1,11 +1,15 @@
 import * as S from "./style.js"
-export function Tracklists({loading, tracks, setCurrentTrack}){
+import { useState } from "react";
+export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
+  //загрузка данных их апи
     return (<>
+    {currentTrack ? (  <S.TrackTitle> Выбранный трек  {currentTrack.name} {currentTrack.author} </S.TrackTitle>) : null }
+  
         {tracks.map((track) => (
         <> 
-          <S.ContentPlaylist key = {track.id} >
-            <S.PlaylistItem onClick={() => setCurrentTrack(track)}>
-            <S.PlaylistTrack>
+          <S.ContentPlaylist key = {track.id}  >
+            <S.PlaylistItem >
+            <S.PlaylistTrack onClick={() => setCurrentTrack(track)}>
               <S.TrackTitle>
                 {loading ? (                  <S.TrackTitleImage>
                   <S.TrackTitleSvg alt="music">
