@@ -8,9 +8,10 @@ return (
                       <S.TrackPlaySvg alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
                       </S.TrackPlaySvg>
-                    </S.TrackPlayImage>
 
+                    </S.TrackPlayImage>
                     <S.TrackPlayAuthor>
+
                       <S.TrackPlayAuthorLink href="http://">{currentTrack ? (currentTrack.name) : (null)}</S.TrackPlayAuthorLink>
                     </S.TrackPlayAuthor>
                     <S.TrackPlayAlbum>

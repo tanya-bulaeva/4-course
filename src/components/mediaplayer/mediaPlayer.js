@@ -5,10 +5,12 @@ export default function MediaPlayer({ currentTrack, setCurrentTrack}){
   
     return(
         <S.BarStyle>
+         {currentTrack ? (<audio controls src={currentTrack.track_file}></audio>) : (null)}         
           <S.BarContent>
             <S.BarPlayerProgress></S.BarPlayerProgress>
             <S.BarPlayerBlock >
               <S.BarPlayer>
+
                 <S.PlayerControls>
                   <S.PlayerBtnPrev>
                     <S.PlayerBtnPrevSvg  alt="prev">
@@ -35,7 +37,9 @@ export default function MediaPlayer({ currentTrack, setCurrentTrack}){
                       <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
                     </S.PlayerBtnShuffleSvg>
                   </S.PlayerBtnShuffle>
+
                 </S.PlayerControls>
+
 <SelectedTrack  currentTrack={currentTrack} />
 
               </S.BarPlayer>

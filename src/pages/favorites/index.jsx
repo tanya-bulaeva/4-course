@@ -7,7 +7,7 @@ import UserAccount from '../../components/userAccount/userAccount.js';
 import Collections from '../../components/collections/collections';
 import Playlist from '../../components/playlist/playlist.js';
 import MediaPlayer from '../../components/mediaplayer/mediaPlayer.js';
-export const Favorites = ({loading, currentTrack, tracksError}) => {
+export const Favorites = ({loading, currentTrack, tracks, tracksError}) => {
  /* return (
     <div>
       <h1>Мой плейлист</h1>
@@ -36,7 +36,6 @@ export const Favorites = ({loading, currentTrack, tracksError}) => {
                     </S.MainCenterblock>
           <S.MainSidebar>
         <UserAccount />
-        <Collections loading = {loading}/>
           </S.MainSidebar>
         </S.MainStyle>
       <MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack}/>

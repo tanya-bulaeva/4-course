@@ -20,6 +20,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
                   <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
                 </S.TrackTitleSvg>
               </S.TrackTitleImageSkeleton>)}
+              
             {loading ? (                <S.TrackTitleText>
                   <S.TrackTitleLink href="http://"
                     > {track.name}
