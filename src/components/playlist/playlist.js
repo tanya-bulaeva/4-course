@@ -1,7 +1,7 @@
 import * as S from "./style.js"
 import { Tracklists } from "./tracklists.js"
 
-export default function Playlist ({loading, tracks, tracksError, setCurrentTrack}) {
+export default function Playlist ({loading, tracks, tracksError, setCurrentTrack, currentTrack }) {
     return (<>
         <S.CenterblockContent >
           <S.ContentTitle>
@@ -14,8 +14,7 @@ export default function Playlist ({loading, tracks, tracksError, setCurrentTrack
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          {tracksError ? (<p>Плейлист не загружен, попробуйте позже</p>): (<Tracklists loading ={loading} tracks = {tracks} setCurrentTrack={setCurrentTrack}/>)}
-          
+          <Tracklists loading ={loading} tracks = {tracks}   currentTrack = {currentTrack} />
       </S.CenterblockContent></>
     )
 }

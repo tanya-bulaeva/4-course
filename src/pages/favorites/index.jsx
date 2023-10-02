@@ -7,13 +7,13 @@ import UserAccount from '../../components/userAccount/userAccount.js';
 import Collections from '../../components/collections/collections';
 import Playlist from '../../components/playlist/playlist.js';
 import MediaPlayer from '../../components/mediaplayer/mediaPlayer.js';
-export const Favorites = () => {
+export const Favorites = ({loading, currentTrack, tracksError}) => {
  /* return (
     <div>
       <h1>Мой плейлист</h1>
     </div>
   )*/
-    const [loading, setLoading] = useState(false)
+   /* const [loading, setLoading] = useState(false)
     useEffect(() => {
           // Заводим таймер
           const timerId = setInterval(() => setLoading(!loading), 5000);		
@@ -22,7 +22,7 @@ export const Favorites = () => {
               // Наводим порядок после удаления компонента
               clearInterval(timerId);
           };
-      }, []);
+      }, []);*/
     return (        <>
         <S.GlobalStyle />
     <S.WrapperStyle>
@@ -33,14 +33,15 @@ export const Favorites = () => {
         <Search />
             <S.CenterclockH2>Мой плейлист</S.CenterclockH2>
           <Filter tracks = {tracks} />
-          <Playlist loading = {loading} />      
+          {tracksError  ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading}  tracksError={tracksError}   currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack }/> ) }
+ 
           </S.MainCenterblock>
           <S.MainSidebar>
         <UserAccount />
         <Collections loading = {loading}/>
           </S.MainSidebar>
         </S.MainStyle>
-        <MediaPlayer loading = {loading}/>
+        {currentTrack ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack}/> ) : (null)}
         <footer className="footer"></footer>
       </S.ContainerStyle>
     </S.WrapperStyle>

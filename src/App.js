@@ -6,24 +6,27 @@ import { getTrack } from "./api";
 function App() {
 const [user, setUser] = useState(false);
 const [tracks, setTracks] = useState([]);
-const [currentTrack, setCurrentTrack] = useState (null);
-const [isTrackLoading, setIsTrackLoading ] = useState (false);
+
+const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 
 useEffect(() => {
+ async function getAllTracks (){
 try {
-  setIsTrackLoading (true);//состояние загрузки началось
+  setloading (true);//состояние загрузки началось
   setTracksError(null);
-  getTrack().then((tracks) => {
+  await getTrack().then((tracks) => {
   console.log(tracks);//проверка что получаем из апи
   setTracks(tracks);
 })//получение из апи треков
 } catch(error) {
   setTracksError(error.message)//если ошибка
 } finally{
-  setIsTrackLoading (false)//состояние загрузки закончилось после получения данных из апи
+  setloading(false)//состояние загрузки закончилось после получения данных из апи
 }
 
+  }
+  getAllTracks ()
 }, [])
 
   const handleLogin = () =>   {
@@ -37,7 +40,7 @@ try {
   const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
   return (
-        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } tracks = {tracks}  tracksError={tracksError} />
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin }  loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError}/>
   );
 }
 

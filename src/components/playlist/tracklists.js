@@ -3,8 +3,8 @@ export function Tracklists({loading, tracks, setCurrentTrack}){
     return (<>
         {tracks.map((track) => (
         <> 
-          <S.ContentPlaylist key = {track.id} onClick={() => setCurrentTrack(track)}>
-            <S.PlaylistItem>
+          <S.ContentPlaylist key = {track.id} >
+            <S.PlaylistItem onClick={() => setCurrentTrack(track)}>
             <S.PlaylistTrack>
               <S.TrackTitle>
                 {loading ? (                  <S.TrackTitleImage>
