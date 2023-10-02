@@ -1,11 +1,21 @@
 import * as S from "./style.js"
-import { tracks} from "./tracks.js"
+import { getTrack } from "../../api.js";
+import { useState, useEffect } from "react";
+
 export function Tracklists(){
-    return (
-        <>
+const [tracks, setTracks] = useState([]);
+const [currentTrack, setCurrentTrack] = useState (null);
+  useEffect(() => {
+getTrack().then((tracks) => {
+  console.log(tracks);
+  setTracks(tracks)
+})
+
+}, [])
+    return (<>
         {tracks.map((track) => (
-          <S.ContentPlaylist key = {tracks.id}>
-            <S.PlaylistItem>
+          <S.ContentPlaylist key = {track.id}>
+            <S.PlaylistItem onClick={ ()  => setCurrentTodo(track)}>
             <S.PlaylistTrack>
               <S.TrackTitle>
                   <S.TrackTitleImage>
@@ -32,14 +42,14 @@ export function Tracklists(){
                 <S.TrackTimeSvg alt="time">
                   <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                 </S.TrackTimeSvg>
-                <S.TrackTimeText >{track.time}</S.TrackTimeText>
+                <S.TrackTimeText >{track.duration_in_seconds}</S.TrackTimeText>
               </S.TrackTime>
 
             </S.PlaylistTrack>
             </S.PlaylistItem>
             </S.ContentPlaylist>
-          )
+       )
         )}
-        </>
+      </>
     )
 }

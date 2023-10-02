@@ -1,28 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {AppRoutes} from "./routes"
+//import { getTrack } from "./api";
 
 
 function App() {
-/*  return (
-      <AppRoutes />
-  )
-  */
-  const [user, setUser] = useState(false);
+const [user, setUser] = useState(false);
+//const [tracks, setTracks] = useState([]);
+//const [currentTrack, setCurrentTrack] = useState (null);
+   
+
   const handleLogin = () =>   {
     localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
     setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
-    
-  console.log(localStorage);
-   console.log (user);
+ console.log(localStorage);
+ console.log (user);
 
 
+
+/*useEffect(() => {
+getTrack().then((tracks) => {
+  console.log(tracks);
+  setTracks(tracks.tracks)
+})
+
+}, [])*/
   const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
+  /*return (
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } tracks = {tracks} setTracks ={setTracks} currentTrack = {currentTrack} setCurrentTrack ={setCurrentTrack} />
+
+  );*/
+
   return (
-        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } />
+    <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin } />
 
-  );
-
+);
 }
 
 export default App;

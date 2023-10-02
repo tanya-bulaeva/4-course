@@ -6,13 +6,14 @@ import {NotFound} from "./pages/not-found"
 import { Category } from "./pages/category";
 import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
-export const AppRoutes = ({user}) => {
+//export const AppRoutes = ({user, tracks, setTracks}) => {
+export const AppRoutes = ({user, tracks, setTracks}) => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main tracks = {tracks}  setTracks ={setTracks}> </Main>} />
         <Route path="/favorites" element={<Favorites  />} />
         <Route path="/category/:id" element={<Category />} />
       </Route>
@@ -20,3 +21,5 @@ export const AppRoutes = ({user}) => {
     </Routes>
   );
 };
+
+//<Route path="/" element={<Main tracks = {tracks}  setTracks ={setTracks}> </Main>} />
