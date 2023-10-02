@@ -1,8 +1,7 @@
 import * as S from "./style.js"
-import {SkeletonPlayer} from "./skeletonTracklists.js"
 import { Tracklists } from "./tracklists.js"
 
-export default function Playlist ({loading, tracks}) {
+export default function Playlist ({loading, tracks, setCurrentTrack}) {
     return (<>
         <S.CenterblockContent >
           <S.ContentTitle>
@@ -15,10 +14,7 @@ export default function Playlist ({loading, tracks}) {
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          {loading ? 
-          (<Tracklists tracks = {tracks}/>)
-           : 
-          (<SkeletonPlayer/>)}
+          <Tracklists loading ={loading} tracks = {tracks} setCurrentTrack={setCurrentTrack}/>
       </S.CenterblockContent></>
     )
 }

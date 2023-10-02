@@ -32,7 +32,7 @@ export const Favorites = () => {
           <S.MainCenterblock>
         <Search />
             <S.CenterclockH2>Мой плейлист</S.CenterclockH2>
-          <Filter />
+          <Filter tracks = {tracks} />
           <Playlist loading = {loading} />      
           </S.MainCenterblock>
           <S.MainSidebar>

@@ -19,7 +19,7 @@ export const Category = ({loading}) => {
       <S.MainCenterblock>
     <Search />
         <S.CenterclockH2>{categoryName} </S.CenterclockH2>
-      <Filter />
+      <Filter tracks ={tracks} />
       </S.MainCenterblock>
       <S.MainSidebar>
     <UserAccount />
