@@ -1,11 +1,11 @@
 import { SelectedTrack } from "./selectedTrack.js"
 import * as S from "./style.js"
-export default function MediaPlayer({ currentTrack, setCurrentTrack}){
+export default function MediaPlayer({ currentTrack }){
 
-  
+
     return(
         <S.BarStyle>
-         {currentTrack ? (<audio controls src={currentTrack.track_file}></audio>) : (null)}         
+           {currentTrack ? (<audio controls src={currentTrack.track_file}></audio>) : (null)}        
           <S.BarContent>
             <S.BarPlayerProgress></S.BarPlayerProgress>
             <S.BarPlayerBlock >
