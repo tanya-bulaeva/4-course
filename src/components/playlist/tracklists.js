@@ -7,7 +7,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
         <> 
           <S.ContentPlaylist key = {track.id}  >
             <S.PlaylistItem >
-            <S.PlaylistTrack onClick={() => setCurrentTrack(track)}>
+            <S.PlaylistTrack>
               <S.TrackTitle>
                 {loading ? (                  <S.TrackTitleImage>
                   <S.TrackTitleSvg alt="music">
@@ -18,7 +18,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
               </S.TrackTitleImageSkeleton>)}
               
             {loading ? ( <S.TrackTitleText>
-                  <S.TrackTitleLink> {track.name}
+                  <S.TrackTitleLink  onClick={() => setCurrentTrack(track)}> {track.name}
                     <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
                 </S.TrackTitleText>) : 
                 (<S.TrackTitleTextSkeleton>
