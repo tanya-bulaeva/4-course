@@ -60,22 +60,30 @@ display: flex;
 flex-direction: column;
 align-items: center;
 position: absolute;
+color: white;
 left: calc(50% - (366px / 2));
 top: calc(50% - (439px / 2));
 `
 
-export const Title = styled.h1`
-font-size: 100px
+export const TitleError = styled.h1`
+font-size: 100px;
 `
-
+export const Title = styled.div`
+display: flex;
+gap: 10px
+`
 export const TitleContent = styled.p`
-font-size: 20px
+font-size: 30px;
 `
-
+export const TitleImg = styled.img`
+width: 30px;
+`
 export const TitleContentDescription = styled.p`
 font-size: 16px;
 margin-top: 20px;
-color: #4e4e4e
+color: #4e4e4e;
+width: 245px;
+text-align: center;
 `
 export const ButtonBackMain = styled(NavLink)`
 width: 278px;
@@ -83,7 +91,7 @@ font-size: 16px;
 height: 52px;
 background-color: #580ea2;
 border-radius: 6px;
-margin-top: 60px;
+margin-top: 30px;
 color: white;
 margin-bottom: 20px;
 border: none;
@@ -102,4 +110,36 @@ justify-content: center;
  :active {
    background-color: #271a58;
    }
+`
+export const MainStyle = styled.main`
+-webkit-box-flex: 1;
+-ms-flex: 1 1 auto;
+flex: 1 1 auto;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+-webkit-box-pack: justify;
+-ms-flex-pack: justify;
+justify-content: space-between;
+`
+
+export const ContainerStyle = styled.div`
+max-width: 1920px;
+height: 100vh;
+margin: 0 auto;
+position: relative;
+background-color: #181818;
+`
+export const MainCenterblock = styled.div`
+width: auto;
+-webkit-box-flex: 3;
+-ms-flex-positive: 3;
+flex-grow: 3;
+padding: 20px 40px 20px 111px;
+`
+export const MainSidebar = styled.div`
+max-width: 418px;
+padding: 20px 90px 20px 78px;
 `

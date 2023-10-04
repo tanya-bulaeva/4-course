@@ -112,7 +112,7 @@ display: block;
 export const TrackTitleTextSkeleton = styled(TrackTitleText)`
 background-color: #4e4e4e;
 color: #4e4e4e;
-width: 321px;
+width: 447px;
 `
 export const TrackTitleSvg = styled.svg`
 width: 18px;
@@ -134,11 +134,15 @@ color: #ffffff;
 
 export const TrackTitleLinkSkeleton = styled(TrackTitleLink)`
 background-color: #4e4e4e;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
 color: #4e4e4e;
 `
 
 export const TrackTitleSpan = styled.span` 
- font-style: normal;
+font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
@@ -157,7 +161,7 @@ justify-content: flex-start;
 export const TrackAuthorSkeleton = styled(TrackAuthor)`
 background-color: #4e4e4e;
 color: #4e4e4e;
-
+width: 321px;
 `
 
 export const TrackAuthorLink = styled.a`
@@ -172,6 +176,7 @@ text-align: left;
 export const TrackAuthorLinkSkeleton = styled(TrackAuthorLink)`
 background-color: #4e4e4e;
 color: #4e4e4e;
+width: 321px;
 `
 export const TrackAlbum  = styled.div`
 width: 245px;

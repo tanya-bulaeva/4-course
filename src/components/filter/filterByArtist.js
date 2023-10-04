@@ -1,7 +1,6 @@
 import * as S from "./style.js"
-import { tracks } from "../playlist/tracks.js"
 
-export default function FilterByArtist (){
+export default function FilterByArtist ({tracks}){
     return (<S.DropStyle>
 <S.DropdownContent>
 {tracks.map((track) => (<S.FilterLink key = {track.id}>

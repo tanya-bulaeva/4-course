@@ -1,11 +1,16 @@
+import { SelectedTrack } from "./selectedTrack.js"
 import * as S from "./style.js"
-export default function MediaPlayer({loading}){
+export default function MediaPlayer({ currentTrack }){
+
+
     return(
         <S.BarStyle>
+           {currentTrack ? (<audio controls src={currentTrack.track_file}></audio>) : (null)}        
           <S.BarContent>
             <S.BarPlayerProgress></S.BarPlayerProgress>
             <S.BarPlayerBlock >
               <S.BarPlayer>
+
                 <S.PlayerControls>
                   <S.PlayerBtnPrev>
                     <S.PlayerBtnPrevSvg  alt="prev">
@@ -32,53 +37,11 @@ export default function MediaPlayer({loading}){
                       <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
                     </S.PlayerBtnShuffleSvg>
                   </S.PlayerBtnShuffle>
+
                 </S.PlayerControls>
 
-                <S.PlayerTrackPlay>
-{loading ? ( <S.TrackPlayContain>
-                    <S.TrackPlayImage>
-                      <S.TrackPlaySvg alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                      </S.TrackPlaySvg>
-                    </S.TrackPlayImage>
+<SelectedTrack  currentTrack={currentTrack} />
 
-                    <S.TrackPlayAuthor>
-                      <S.TrackPlayAuthorLink href="http://">Ты та...</S.TrackPlayAuthorLink>
-                    </S.TrackPlayAuthor>
-                    <S.TrackPlayAlbum>
-                      <S.TrackPlayAlbumLink href="http://">Баста</S.TrackPlayAlbumLink>
-                    </S.TrackPlayAlbum>
-                  </S.TrackPlayContain>) 
-                  : 
-                  (                  <S.TrackPlayContain>
-                    <S.TrackPlayImageSkeleton>
-                      <S.TrackPlaySvg alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                      </S.TrackPlaySvg>
-                    </S.TrackPlayImageSkeleton>
-
-                    <S.TrackPlayAuthor>
-                      <S.TrackPlayAuthorLinkSkeleton href="http://">Ты та...</S.TrackPlayAuthorLinkSkeleton>
-                    </S.TrackPlayAuthor>
-                    <S.TrackPlayAlbum className="skeleton">
-                      <S.SkeletonStyle href="http://">Баста</S.SkeletonStyle>
-                    </S.TrackPlayAlbum>
-                  </S.TrackPlayContain>) }
-
-                  <S.TrackPlayLikeDis>
-                    <S.TrackPlayLike className="_btn-icon">
-                      <S.TrackPlayLikeSvg  alt="like">
-                        <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                      </S.TrackPlayLikeSvg>
-                    </S.TrackPlayLike>
-                    <S.TrackPlayDislike className="_btn-icon">
-                      <S.TrackPlayDislikeSvg alt="dislike">
-                        <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                      </S.TrackPlayDislikeSvg>
-                      
-                    </S.TrackPlayDislike>
-                  </S.TrackPlayLikeDis>
-                </S.PlayerTrackPlay>
               </S.BarPlayer>
               <S.BarVolumeBlock>
                 <S.VolumeContent>
