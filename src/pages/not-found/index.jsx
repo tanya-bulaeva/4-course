@@ -35,7 +35,7 @@ export const NotFound = () => {
                 <S.TitleError>404</S.TitleError>
                 <S.Title>
                 <S.TitleContent>Страница не найдена</S.TitleContent>
-                <S.TitleImg src="../img/crying.png" alt="emodji" />
+                <S.TitleImg src="../img/smile_crying.png" alt="emodji" />
                 </S.Title>
                 <S.TitleContentDescription>Возможно, она была удалена или перенесена на другой адрес</S.TitleContentDescription>
                 

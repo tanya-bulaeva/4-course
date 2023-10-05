@@ -56,6 +56,7 @@ color: white;
 `
 
 export const NotFoundConteiner  = styled.div`
+width: 431px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -66,32 +67,53 @@ top: calc(50% - (439px / 2));
 `
 
 export const TitleError = styled.h1`
-font-size: 100px;
+font-size: 160px;
+font-style: normal;
+font-weight: 400;
+line-height: 168px
 `
 export const Title = styled.div`
 display: flex;
 gap: 10px
 `
 export const TitleContent = styled.p`
-font-size: 30px;
+font-family: StratosSkyeng;
+font-size: 32px;
+font-style: normal;
+font-weight: 400;
+line-height: 40px;
 `
 export const TitleImg = styled.img`
-width: 30px;
+width: 52px;
+height: 52px;
 `
 export const TitleContentDescription = styled.p`
-font-size: 16px;
-margin-top: 20px;
-color: #4e4e4e;
 width: 245px;
+color: #4E4E4E;
 text-align: center;
+font-variant-numeric: lining-nums proportional-nums;
+/* Desk • 1366/Text M */
+font-family: StratosSkyeng;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 133.333% */
+letter-spacing: -0.054px;
+margin-top: 19px;
 `
 export const ButtonBackMain = styled(NavLink)`
 width: 278px;
-font-size: 16px;
+font-size: 18px;
 height: 52px;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 133.333% */
+letter-spacing: -0.054px;
+flex-shrink: 0;
 background-color: #580ea2;
 border-radius: 6px;
-margin-top: 30px;
+margin-top: 36px;
 color: white;
 margin-bottom: 20px;
 border: none;
