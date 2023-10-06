@@ -1,10 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { forwardRef } from "react";
 import * as S from "./style.js";
-export default function ProgressBar({currentTrack, ProgressBarRef, setDuration, AudioRef, currentTime, setCurrentTime }){
-
-
-
-  const duration =` ${currentTrack.duration_in_seconds}`;
+export default function ProgressBar({currentTrack, ProgressBarRef,  currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
+  const duration = currentTrack.duration_in_seconds;
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
       const minutes = Math.floor(time / 60);
@@ -24,19 +21,18 @@ export default function ProgressBar({currentTrack, ProgressBarRef, setDuration, 
       min={'0'}
       max={duration}
       value={currentTime}
-      step={0.01}
-      onChange={(event) => setCurrentTime(event.target.value)}
+      step={0.01}    
+      onChange={handleDurationChange}
       $color="#B672FF;"
       ref ={ ProgressBarRef }
+       
          />
 <S.DurationBlock>
-      < span className = "time current" >{formatTime(currentTime)}</ span >
-      <span>/</ span >
-      < span className = "time" >{formatTime(duration)}</span>
+  {formatTime(currentTime)} / {formatTime(duration)}
       </S.DurationBlock></>
   );
-}
 
+}
 
 
 /*{

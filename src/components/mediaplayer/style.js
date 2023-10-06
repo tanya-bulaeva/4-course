@@ -353,6 +353,5 @@ overflow: hidden;
 }
 `
 export const DurationBlock = styled.div`
-display:flex;
-
+text-align: right;
 `

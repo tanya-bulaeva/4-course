@@ -5,18 +5,49 @@ import * as S from "./style.js"
 export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
-  const [volume, setVolume] = useState(60);
+  const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const ProgressBarRef = useRef ();
   const AudioRef = useRef(null);
+  /*const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes =
+        minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds =
+        seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return '00:00';
+  };*/
+
+
   useEffect(() => {
     if (AudioRef) {
       AudioRef.current.volume = volume / 100;
     }
   }, [volume, AudioRef]);//настройка ползунка громкости
 
+useEffect(() => {
+AudioRef.current.addEventListener('timeupdate' , () => {
+setCurrentTime(AudioRef.current.currentTime);
+return () => {
+  audioRef.current.removeEventListener('timeupdate', () => {
+    setCurrentTime(audioRef.current.currentTime)
+  })
+}
+})
+})
+//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
 
+const handleDurationChange = (e) => {
+  setCurrentTime(e.target.value);
+  AudioRef.current.currentTime = e.target.value
+}//изменение полосы прокрутки
+
+/*
   useEffect(() => {
     if (currentTrack) {
       AudioRef.current.addEventListener('loadedmetadata', () => {
@@ -26,22 +57,24 @@ export default function MediaPlayer({ currentTrack }){
           setCurrentTime(Math.floor(AudioRef.current.currentTime));
           }, 1000);
   
-          console.log('audioRef.current.duration =', AudioRef.current.duration)
+          console.log('audioRef.current.duration =', formatTime(AudioRef.current.duration))
   
           setTimeout(() => {
               clearInterval(interval)
           }, AudioRef.current.duration * 1000);
           });
     }
-  }, [currentTrack]);
+  }, [currentTrack]);//пример с форума*/
+ 
   const handleStop = () => {
         AudioRef.current.pause();
        setPlaying(false); 
   };//остановка воспроизведения трека
 
   const handleStart = () => {
-         AudioRef.current.play();
-setPlaying(true);   
+
+        AudioRef.current.play();
+          setPlaying(true);   
   };//старт вопроизведения трека
 
   const handleLoop = () => {
@@ -62,12 +95,12 @@ setPlaying(true);
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
-  //убрать контролс для скрытия аудио
+//style={{ display: 'none' }}
     return(
         <S.BarStyle>
-           {currentTrack ? (<audio ref={AudioRef}  controls src={currentTrack.track_file}  ></audio>) : (null)}        
+           {currentTrack ? (<audio   ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar  ProgressBarRef = { ProgressBarRef } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} currentTime = {currentTime} setCurrentTime={setCurrentTime} ></ProgressBar>
+            <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 
@@ -77,7 +110,7 @@ setPlaying(true);
                       <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                     </S.PlayerBtnPrevSvg>
                   </S.PlayerBtnPrev>
- <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
+                  <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
                     <S.PlayerBtnPlaySvg alt="play"  >
                       {isPlaying ? (<use xlinkHref="img/icon/sprite.svg#icon-pause"></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}
                       
@@ -125,7 +158,7 @@ setPlaying(true);
                       min={0}
                       max={100}
                       value={volume}
-                       onChange={(e) => setVolume(e.target.value)}/>
+                      onChange={(e) => setVolume(e.target.value)}/>
                   </S.VolumeProgress>
                 </S.VolumeContent>
               </S.BarVolumeBlock>

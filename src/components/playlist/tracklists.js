@@ -1,5 +1,6 @@
 import * as S from "./style.js"
-export function Tracklists({loading, tracks, setCurrentTrack, currentTrack }){
+export function Tracklists({loading, tracks, setCurrentTrack }){
+
   //загрузка данных их апи
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
