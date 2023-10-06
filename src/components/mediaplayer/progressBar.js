@@ -1,5 +1,7 @@
 import * as S from "./style.js";
 export default function ProgressBar({currentTrack, ProgressBarRef,  currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
+  const durationTrack = AudioRef.current.duration;
+  console.log (durationTrack)
   const duration = currentTrack.duration_in_seconds;
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
