@@ -1,23 +1,11 @@
-import { useEffect } from "react";
+import { formatTime } from "../../helpers.js";
 import * as S from "./style.js";
 
-export default function ProgressBar({currentTrack, ProgressBarRef,  currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
+export default function ProgressBar({currentTrack, ProgressBarRef, duration, currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
  // const durationTrack = AudioRef.current.duration;
  // console.log (durationTrack)
 
-const duration = currentTrack.duration_in_seconds;
-  const formatTime = (time) => {
-    if (time && !isNaN(time)) {
-      const minutes = Math.floor(time / 60);
-      const formatMinutes =
-        minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.floor(time % 60);
-      const formatSeconds =
-        seconds < 10 ? `0${seconds}` : `${seconds}`;
-      return `${formatMinutes}:${formatSeconds}`;
-    }
-    return '00:00';
-  };
+//const duration = currentTrack.duration_in_seconds;
 
   return (<>
     <S.StyledProgressInput

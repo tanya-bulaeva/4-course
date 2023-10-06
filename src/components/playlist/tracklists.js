@@ -1,22 +1,10 @@
-import * as S from "./style.js"
-export function Tracklists({loading, tracks, setCurrentTrack, AudioRef}){
-
+import * as S from "./style.js";
+import { useEffect } from "react";
+import { formatTime } from "../../helpers.js";
+export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration}){
   //загрузка данных их апи
-  const formatTime = (time) => {
-    if (time && !isNaN(time)) {
-      const minutes = Math.floor(time / 60);
-      const formatMinutes =
-        minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.floor(time % 60);
-      const formatSeconds =
-        seconds < 10 ? `0${seconds}` : `${seconds}`;
-      return `${formatMinutes}:${formatSeconds}`;
-    }
-    return '00:00';
-  };
     return (<>
-
-        {tracks.map((track) => (
+            {tracks.map((track) => (
           <S.ContentPlaylist key = {track.id}  >
             <S.PlaylistItem >
             <S.PlaylistTrack>

@@ -42,6 +42,10 @@ const handleDurationChange = (e) => {
   AudioRef.current.currentTime = e.target.value
 }//изменение ползунка прокрутки
 
+useEffect(() => {
+  if (currentTrack.duration_in_seconds){
+    setDuration(AudioRef.current.duration)
+}})
 /*
   useEffect(() => {
     if (currentTrack) {
