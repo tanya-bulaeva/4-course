@@ -5,40 +5,45 @@ import * as S from "./style.js"
 export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
+  const [isVolume, setVolume] = useState(false);
   const AudioRef = useRef(null);
-
+  const ProgressBarRef = useRef ();
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
   const handleStop = () => {
         AudioRef.current.pause();
        setPlaying(false); 
-
-  };
+  };//остановкуа воспроизведения трека
 
   const handleStart = () => {
          AudioRef.current.play();
 setPlaying(true);   
-  };
+  };//старт вопроизведения трека
 
   const handleLoop = () => {
     AudioRef.current.loop = true;
     setIsLoop(true);
 
-  }
+  }//зацикливание трека начать
 
   const handleLoopStop = () => {
     AudioRef.current.loop = false;
     setIsLoop(false);
-  }
+  }//зацикливание трека закончить
   
   const notСonfigured = () => {
     alert ('Функция не настроена')
   }
+
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
+
+  //убрать контролс для скрытия аудио
     return(
         <S.BarStyle>
            {currentTrack ? (<audio ref={AudioRef}  controls src={currentTrack.track_file}></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar></ProgressBar>
+            <ProgressBar  ref = { ProgressBarRef } currentTrack ={currentTrack} timeProgress={timeProgress} duration={duration}></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 
@@ -48,15 +53,12 @@ setPlaying(true);
                       <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                     </S.PlayerBtnPrevSvg>
                   </S.PlayerBtnPrev>
-                  {isPlaying ? (                  <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
+ <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
                     <S.PlayerBtnPlaySvg alt="play"  >
-                    <img src = "./public/img/icon/pause.svg"></img>
+                      {isPlaying ? (<S.PlayerBtnPause src = 'img/icon/pause' />) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}
+                      
                     </S.PlayerBtnPlaySvg>
-                  </S.PlayerBtnPlay>) : ( <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
-                    <S.PlayerBtnPlaySvg alt="play"  >
-                      <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
-                    </S.PlayerBtnPlaySvg>
-                  </S.PlayerBtnPlay>)}
+                  </S.PlayerBtnPlay>
 
                   <S.PlayerBtnNext>
                     <S.PlayerBtnNextSvg alt="next" onClick={notСonfigured }> 

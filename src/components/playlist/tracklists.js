@@ -1,6 +1,18 @@
 import * as S from "./style.js"
 export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
   //загрузка данных их апи
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes =
+        minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds =
+        seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return '00:00';
+  };
     return (<>
 
         {tracks.map((track) => (
@@ -18,7 +30,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
               </S.TrackTitleImageSkeleton>)}
               
             {loading ? ( <S.TrackTitleText>
-                  <S.TrackTitleLink  onClick={() => setCurrentTrack(track)}> {track.name}
+                  <S.TrackTitleLink  onClick={() => setCurrentTrack(track) }> {track.name}
                     <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
                 </S.TrackTitleText>) : 
                 (<S.TrackTitleTextSkeleton>
@@ -47,7 +59,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
                 <S.TrackTimeSvg alt="time">
                   <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                 </S.TrackTimeSvg>
-                <S.TrackTimeText >{track.duration_in_seconds}</S.TrackTimeText>
+                <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
               </S.TrackTime>) : 
               ( <S.TrackTimeSkeleton>
               <S.TrackTimeSvgSkeleton alt="time">

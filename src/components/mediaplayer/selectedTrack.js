@@ -2,7 +2,7 @@ import * as S from "./style.js";
 
 export const SelectedTrack = ({currentTrack, setCurrentTrack}) => {
 return (
-  <S.PlayerTrackPlay>
+  <S.PlayerTrackPlay >
     <S.TrackPlayContain >
                     <S.TrackPlayImage>
                       <S.TrackPlaySvg alt="music">

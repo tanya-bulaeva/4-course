@@ -118,7 +118,10 @@ height: 12px;
 fill: transparent;
 stroke: #696969;
 `
-
+export const PlayerBtnPause = styled.svg`
+fill: transparent;
+stroke: #696969;
+`
 export const PlayerBtnRepeatSvgActive = styled(PlayerBtnRepeatSvg)`
 fill: #696969;
 stroke: #ffffff;
@@ -348,4 +351,8 @@ overflow: hidden;
   background-color: var(--progress-color);
   height: var(--progress-height);
 }
+`
+export const DurationBlock = styled.div`
+display:flex;
+
 `
