@@ -12,8 +12,10 @@ export default function MediaPlayer({ currentTrack }){
   const AudioRef = useRef(null);
   useEffect(() => {
     if (currentTrack) {
-      AudioRef.current.src = currentTrack.track_file;
+      AudioRef.current.addEventListener('loadeddata', () => {
       handleStart();
+      })
+      AudioRef.current.src = currentTrack.track_file;    
     }
   }, [currentTrack]);//проигрывание сразу после клика на выбранный трек
 
@@ -34,7 +36,6 @@ return () => {
 })
 })//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
 //движение ползунка вместе с длительностью
-
 
 const handleDurationChange = (e) => {
   setCurrentTime(e.target.value);
@@ -91,7 +92,7 @@ const handleDurationChange = (e) => {
 //
     return(
         <S.BarStyle>
-           {currentTrack ? (<audio  style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
+           {currentTrack ? (<audio   style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
             <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} duration = {duration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
             <S.BarPlayerBlock >
