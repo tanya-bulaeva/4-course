@@ -10,25 +10,18 @@ export default function MediaPlayer({ currentTrack }){
   const [currentTime, setCurrentTime] = useState(0);
   const ProgressBarRef = useRef ();
   const AudioRef = useRef(null);
-  /*const formatTime = (time) => {
-    if (time && !isNaN(time)) {
-      const minutes = Math.floor(time / 60);
-      const formatMinutes =
-        minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.floor(time % 60);
-      const formatSeconds =
-        seconds < 10 ? `0${seconds}` : `${seconds}`;
-      return `${formatMinutes}:${formatSeconds}`;
+  useEffect(() => {
+    if (currentTrack) {
+      AudioRef.current.src = currentTrack.track_file;
+      handleStart();
     }
-    return '00:00';
-  };*/
-
+  }, [currentTrack]);//проигрывание сразу после клика на выбранный трек
 
   useEffect(() => {
     if (AudioRef) {
       AudioRef.current.volume = volume / 100;
     }
-  }, [volume, AudioRef]);//настройка ползунка громкости
+  }, [volume, AudioRef]);//настройка ползунка громкости  
 
 useEffect(() => {
 AudioRef.current.addEventListener('timeupdate' , () => {
@@ -39,13 +32,14 @@ return () => {
   })
 }
 })
-})
-//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
+})//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
+//движение ползунка вместе с длительностью
+
 
 const handleDurationChange = (e) => {
   setCurrentTime(e.target.value);
   AudioRef.current.currentTime = e.target.value
-}//изменение полосы прокрутки
+}//изменение ползунка прокрутки
 
 /*
   useEffect(() => {
@@ -72,9 +66,8 @@ const handleDurationChange = (e) => {
   };//остановка воспроизведения трека
 
   const handleStart = () => {
-
+        setPlaying(true);     
         AudioRef.current.play();
-          setPlaying(true);   
   };//старт вопроизведения трека
 
   const handleLoop = () => {
@@ -100,7 +93,7 @@ const handleDurationChange = (e) => {
         <S.BarStyle>
            {currentTrack ? (<audio   ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
+            <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} duration = {duration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 

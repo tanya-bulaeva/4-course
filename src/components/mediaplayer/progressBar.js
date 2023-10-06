@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import * as S from "./style.js";
 export default function ProgressBar({currentTrack, ProgressBarRef,  currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
   const duration = currentTrack.duration_in_seconds;
