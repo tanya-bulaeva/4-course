@@ -88,10 +88,10 @@ const handleDurationChange = (e) => {
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
-//style={{ display: 'none' }}
+//
     return(
         <S.BarStyle>
-           {currentTrack ? (<audio   ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
+           {currentTrack ? (<audio  style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
             <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} duration = {duration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
             <S.BarPlayerBlock >

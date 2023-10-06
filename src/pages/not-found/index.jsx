@@ -46,7 +46,6 @@ export const NotFound = () => {
         <UserAccount />
           </S.MainSidebar>
         </S.MainStyle>
-        <MediaPlayer />
         <footer className="footer"></footer>
       </S.ContainerStyle>
     </S.Wrapper>

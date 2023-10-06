@@ -15,14 +15,14 @@ export const CategoryList = ({loading}) => {
     return (
 <>
 {categoryItems.map((categoryItem) => (
-<> {loading ? ( <> <S.SidebarItem key = {categoryItem.id}>
+<S.SidebarItem key = {categoryItem.id}> {loading ? ( <> 
           <S.SidebarLink to = {`/category/${categoryItem.id}`}>
           <S.SidebarImg
             src={categoryItem.image}
             alt={categoryItem.name}
           />
           </S.SidebarLink>
-          </S.SidebarItem></>) : (<> <S.Skeleton></S.Skeleton> </>)}  </>
+          </>) : (<> <S.Skeleton></S.Skeleton> </>)}  </S.SidebarItem>
 )
 )}
 </>

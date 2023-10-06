@@ -354,4 +354,9 @@ overflow: hidden;
 `
 export const DurationBlock = styled.div`
 text-align: right;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+color: rgb(105, 105, 105);
 `

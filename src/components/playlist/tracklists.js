@@ -1,5 +1,5 @@
 import * as S from "./style.js"
-export function Tracklists({loading, tracks, setCurrentTrack }){
+export function Tracklists({loading, tracks, setCurrentTrack, AudioRef}){
 
   //загрузка данных их апи
   const formatTime = (time) => {
@@ -17,7 +17,6 @@ export function Tracklists({loading, tracks, setCurrentTrack }){
     return (<>
 
         {tracks.map((track) => (
-        <> 
           <S.ContentPlaylist key = {track.id}  >
             <S.PlaylistItem >
             <S.PlaylistTrack>
@@ -71,7 +70,7 @@ export function Tracklists({loading, tracks, setCurrentTrack }){
 
             </S.PlaylistTrack>
             </S.PlaylistItem>
-            </S.ContentPlaylist></>
+            </S.ContentPlaylist>
        )
         )}
       </>
