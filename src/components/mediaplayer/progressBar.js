@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import * as S from "./style.js";
-export default function ProgressBar({currentTrack, ProgressBarRef  }){
+export default function ProgressBar({currentTrack, ProgressBarRef, setDuration, AudioRef, currentTime, setCurrentTime }){
 
-  const [currentTime, setCurrentTime] = useState(0);
+
 
   const duration =` ${currentTrack.duration_in_seconds}`;
   const formatTime = (time) => {

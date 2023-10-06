@@ -6,13 +6,34 @@ export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(60);
+  const [duration, setDuration] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const ProgressBarRef = useRef ();
   const AudioRef = useRef(null);
   useEffect(() => {
     if (AudioRef) {
       AudioRef.current.volume = volume / 100;
     }
-  }, [volume, AudioRef]);
+  }, [volume, AudioRef]);//настройка ползунка громкости
+
+
+  useEffect(() => {
+    if (currentTrack) {
+      AudioRef.current.addEventListener('loadedmetadata', () => {
+        setDuration(AudioRef.current.duration);
+          
+        const interval = setInterval(() => {
+          setCurrentTime(Math.floor(AudioRef.current.currentTime));
+          }, 1000);
+  
+          console.log('audioRef.current.duration =', AudioRef.current.duration)
+  
+          setTimeout(() => {
+              clearInterval(interval)
+          }, AudioRef.current.duration * 1000);
+          });
+    }
+  }, [currentTrack]);
   const handleStop = () => {
         AudioRef.current.pause();
        setPlaying(false); 
@@ -46,7 +67,7 @@ setPlaying(true);
         <S.BarStyle>
            {currentTrack ? (<audio ref={AudioRef}  controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar  ProgressBarRef = { ProgressBarRef } currentTrack ={currentTrack}   ></ProgressBar>
+            <ProgressBar  ProgressBarRef = { ProgressBarRef } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} currentTime = {currentTime} setCurrentTime={setCurrentTime} ></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 
