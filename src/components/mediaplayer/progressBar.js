@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import * as S from "./style.js";
-export default function ProgressBar({currentTrack, progressBarRef, timeProgress}){
+export default function ProgressBar({currentTrack, ProgressBarRef  }){
 
   const [currentTime, setCurrentTime] = useState(0);
-  const ProgressBarRef = useRef ();
+
   const duration =` ${currentTrack.duration_in_seconds}`;
   const formatTime = (time) => {
     if (time && !isNaN(time)) {
@@ -17,6 +17,7 @@ export default function ProgressBar({currentTrack, progressBarRef, timeProgress}
     }
     return '00:00';
   };
+
   return (<>
     <S.StyledProgressInput
       type="range"

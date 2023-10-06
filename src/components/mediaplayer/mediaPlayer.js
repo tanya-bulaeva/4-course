@@ -1,15 +1,18 @@
 import { SelectedTrack } from "./selectedTrack.js";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ProgressBar from "./progressBar.js";
 import * as S from "./style.js"
 export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
-  const [isVolume, setVolume] = useState(false);
-  const AudioRef = useRef(null);
+  const [volume, setVolume] = useState(60);
   const ProgressBarRef = useRef ();
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const AudioRef = useRef(null);
+  useEffect(() => {
+    if (AudioRef) {
+      AudioRef.current.volume = volume / 100;
+    }
+  }, [volume, AudioRef]);
   const handleStop = () => {
         AudioRef.current.pause();
        setPlaying(false); 
@@ -41,9 +44,9 @@ setPlaying(true);
   //убрать контролс для скрытия аудио
     return(
         <S.BarStyle>
-           {currentTrack ? (<audio ref={AudioRef}  controls src={currentTrack.track_file}></audio>) : (null)}        
+           {currentTrack ? (<audio ref={AudioRef}  controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar  ref = { ProgressBarRef } currentTrack ={currentTrack} timeProgress={timeProgress} duration={duration}></ProgressBar>
+            <ProgressBar  ProgressBarRef = { ProgressBarRef } currentTrack ={currentTrack}   ></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 
@@ -83,7 +86,7 @@ setPlaying(true);
 
                 </S.PlayerControls>
 
-<SelectedTrack  currentTrack={currentTrack} />
+<SelectedTrack  currentTrack={currentTrack}  />
 
               </S.BarPlayer>
               <S.BarVolumeBlock>
@@ -97,7 +100,11 @@ setPlaying(true);
                     <S.VolumeProgressLine
                       className=" _btn"
                       type="range"
-                      name="range"/>
+                      name="range"
+                      min={0}
+                      max={100}
+                      value={volume}
+                       onChange={(e) => setVolume(e.target.value)}/>
                   </S.VolumeProgress>
                 </S.VolumeContent>
               </S.BarVolumeBlock>
