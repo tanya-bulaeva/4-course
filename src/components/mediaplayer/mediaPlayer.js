@@ -37,7 +37,7 @@ export default function MediaPlayer({ currentTrack }){
   const handleStop = () => {
         AudioRef.current.pause();
        setPlaying(false); 
-  };//остановкуа воспроизведения трека
+  };//остановка воспроизведения трека
 
   const handleStart = () => {
          AudioRef.current.play();
@@ -79,7 +79,7 @@ setPlaying(true);
                   </S.PlayerBtnPrev>
  <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
                     <S.PlayerBtnPlaySvg alt="play"  >
-                      {isPlaying ? (<S.PlayerBtnPause src = 'img/icon/pause' />) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}
+                      {isPlaying ? (<use xlinkHref="img/icon/sprite.svg#icon-pause"></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}
                       
                     </S.PlayerBtnPlaySvg>
                   </S.PlayerBtnPlay>
