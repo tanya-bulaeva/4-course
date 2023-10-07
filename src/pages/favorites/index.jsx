@@ -37,7 +37,6 @@ export const Favorites = ({loading, currentTrack, tracks, tracksError}) => {
         <UserAccount />
           </S.MainSidebar>
         </S.MainStyle>
-      <MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack}   />
         <footer className="footer"></footer>
       </S.ContainerStyle>
     </S.WrapperStyle>
