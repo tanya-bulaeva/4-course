@@ -1,7 +1,6 @@
 import { formatTime } from "../../helpers.js";
 import * as S from "./style.js";
-
-export default function ProgressBar({currentTrack, ProgressBarRef, duration, currentTime, setCurrentTime, setDuration, AudioRef, handleDurationChange   }){
+export default function ProgressBar({  duration, currentTime,  handleDurationChange   }){
  // const durationTrack = AudioRef.current.duration;
  // console.log (durationTrack)
 
@@ -15,9 +14,7 @@ export default function ProgressBar({currentTrack, ProgressBarRef, duration, cur
       value={currentTime}
       step={0.01}    
       onChange={handleDurationChange}
-      $color="#B672FF;"
-      ref ={ ProgressBarRef }
-       
+      $color="#B672FF;" 
          />
 <S.DurationBlock>
   {formatTime(currentTime)} / {formatTime(duration)}
@@ -25,7 +22,6 @@ export default function ProgressBar({currentTrack, ProgressBarRef, duration, cur
   );
 
 }
-
 
 /*{
     const ProgressBarRef = useRef ();

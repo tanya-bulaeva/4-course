@@ -8,7 +8,6 @@ export default function MediaPlayer({ currentTrack }){
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const ProgressBarRef = useRef ();
   const AudioRef = useRef(null);
   useEffect(() => {
     if (currentTrack) {
@@ -98,7 +97,7 @@ useEffect(() => {
         <S.BarStyle>
            {currentTrack ? (<audio   style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
           <S.BarContent>
-            <ProgressBar  ProgressBarRef = { ProgressBarRef } handleDurationChange ={handleDurationChange } currentTrack ={currentTrack} ref={AudioRef} setDuration={setDuration} duration = {duration} currentTime = {currentTime} setCurrentTime={setCurrentTime}   ></ProgressBar>
+            <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime}  ></ProgressBar>
             <S.BarPlayerBlock >
               <S.BarPlayer>
 
