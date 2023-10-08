@@ -7,7 +7,7 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
-export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack }) => {
+export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref }) => {
     const [loading, setLoading] = useState(false);
    // const [currentTrack, setCurrentTrack] = useState (null);
     useEffect(() => {
@@ -30,7 +30,7 @@ return (       <>
     <Search />
         <S.CenterclockH2>Треки</S.CenterclockH2>
       <Filter tracks = {tracks} />
-      {tracksError ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } />      )}
+      {tracksError ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } ref = {Audioref} />      )}
       </S.MainCenterblock>
       <S.MainSidebar>
     <UserAccount />

@@ -26,7 +26,7 @@ export default function ProgressBar({  duration, currentTime,  handleDurationCha
 /*{
     const ProgressBarRef = useRef ();
     const handleProgressChange = () => {
-      audioRef.current.currentTime = progressBarRef.current.value;
+      AudioRef.current.currentTime = progressBarRef.current.value;
     };
     const time = `${currentTrack.duration_in_seconds}`;
     return (<>

@@ -30,7 +30,7 @@ useEffect(() => {
 AudioRef.current.addEventListener('timeupdate' , () => {
 setCurrentTime(AudioRef.current.currentTime);
 return () => {
-  audioRef.current.removeEventListener('timeupdate', () => {
+  AudioRef.current.removeEventListener('timeupdate', () => {
     setCurrentTime(AudioRef.current.currentTime)
   })
 }
@@ -57,7 +57,7 @@ useEffect(() => {
           setCurrentTime(Math.floor(AudioRef.current.currentTime));
           }, 1000);
   
-          console.log('audioRef.current.duration =', formatTime(AudioRef.current.duration))
+          console.log('AudioRef.current.duration =', formatTime(AudioRef.current.duration))
   
           setTimeout(() => {
               clearInterval(interval)
