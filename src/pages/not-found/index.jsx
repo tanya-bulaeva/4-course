@@ -1,9 +1,9 @@
-import Logo from "../../components/logo/logo.js";
-import NavMenu from "../../components/navMenu/navMenu.js";
+import Logo from "../../components/logo/Logo.jsx";
+import NavMenu from "../../components/navMenu/NavMenu.jsx";
 import * as S from "./style.js"
-import Search from '../../components/search/search.js';
-import UserAccount from '../../components/userAccount/userAccount.js';
-import MediaPlayer from '../../components/mediaplayer/mediaPlayer.js';
+import Search from '../../components/search/Search.jsx';
+import UserAccount from '../../components/userAccount/UserAccount.jsx';
+import MediaPlayer from '../../components/mediaplayer/MediaPlayer.jsx';
 export const NotFound = () => {
  /*   return (<div>
         <h1>Страница не найдена</h1>

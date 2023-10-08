@@ -14,7 +14,7 @@ export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTr
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
       <Route path="/" element={<Main tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}> </Main>} />
-        <Route path="/favorites" element={<Favorites  />} />
+        <Route path="/favorites" element={<Favorites tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}  />} />
         <Route path="/category/:id" element={<Category  tracks = {tracks}/>} />
       </Route>
         <Route path="*" element={<NotFound />} />

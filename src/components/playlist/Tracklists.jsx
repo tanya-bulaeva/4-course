@@ -4,6 +4,7 @@ import { formatTime } from "../../helpers.js";
 export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration}){
   //загрузка данных их апи
     return (<>
+    
             {tracks.map((track) => (
           <S.ContentPlaylist key = {track.id}  >
             <S.PlaylistItem >

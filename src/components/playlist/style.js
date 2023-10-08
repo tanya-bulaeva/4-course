@@ -51,6 +51,7 @@ display: flex;
 -ms-flex-direction: column;
 flex-direction: column;
 overflow-y: auto;
+font-family: inherit;
 `
 
 export const PlaylistItem = styled.div`

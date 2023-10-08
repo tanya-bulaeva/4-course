@@ -1,6 +1,7 @@
-import { SelectedTrack } from "./selectedTrack.js";
+import { SelectedTrack } from "./SelectedTrack.jsx";
 import { useState, useRef, useEffect } from "react";
-import ProgressBar from "./progressBar.js";
+import { formatTime } from "../../helpers.js";
+import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
 export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
@@ -25,11 +26,12 @@ export default function MediaPlayer({ currentTrack }){
   }, [volume, AudioRef]);//настройка ползунка громкости  
 
 useEffect(() => {
+  if (currentTrack)
 AudioRef.current.addEventListener('timeupdate' , () => {
 setCurrentTime(AudioRef.current.currentTime);
 return () => {
   audioRef.current.removeEventListener('timeupdate', () => {
-    setCurrentTime(audioRef.current.currentTime)
+    setCurrentTime(AudioRef.current.currentTime)
   })
 }
 })
@@ -62,7 +64,8 @@ useEffect(() => {
           }, AudioRef.current.duration * 1000);
           });
     }
-  }, [currentTrack]);//пример с форума*/
+  }, [currentTrack]);
+  //пример с форума*/
  
   const handleStop = () => {
         AudioRef.current.pause();

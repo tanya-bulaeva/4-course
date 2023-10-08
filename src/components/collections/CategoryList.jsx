@@ -1,6 +1,6 @@
 import * as S from "./style.js";
 import { useState, useEffect } from "react";
-import { categoryItems } from "./categoryItems.js";
+import { CategoryItems } from "./CategoryItems.jsx";
 export const CategoryList = ({loading}) => {
   //const [loading, setLoading] = useState(false)
  /* useEffect(() => {
@@ -14,7 +14,7 @@ export const CategoryList = ({loading}) => {
     }, []);*/
     return (
 <>
-{categoryItems.map((categoryItem) => (
+{CategoryItems.map((categoryItem) => (
 <S.SidebarItem key = {categoryItem.id}> {loading ? ( <> 
           <S.SidebarLink to = {`/category/${categoryItem.id}`}>
           <S.SidebarImg

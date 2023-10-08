@@ -43,18 +43,8 @@ color: white;
     margin-right: 10px;
   }
 `
-export const ButtonActive = styled.button`
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 24px;
-border: 2px solid  #d9b6ff;
-border-radius: 60px;
-padding: 6px 20px;
-background-color: transparent;
+export const ButtonActive = styled(FilterButton)`
 color: #d9b6ff;
-:not(:last-child) {
-    margin-right: 10px;
   }`
 
 export const DropdownContent= styled.ul`    

@@ -1,8 +1,8 @@
 import * as S from "./style.js"
 import { useState } from 'react';
-import FilterByArtist from './filterByArtist.js';
-import FilterByGenre from './filterByGenre.js';
-import FilterByYear from './filterByYear.js';
+import FilterByArtist from './FilterByArtist.jsx';
+import FilterByGenre from './FilterByGenre.jsx';
+import FilterByYear from './FilterByYear.jsx';
 
 
 export default function Filter({tracks}){

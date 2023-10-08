@@ -1,5 +1,5 @@
 import * as S from "./style.js"
-import { Tracklists } from "./tracklists.js"
+import { Tracklists } from "./Tracklists.jsx"
 
 export default function Playlist ({loading, tracks, setCurrentTrack, currentTrack  }) {
     return (<>

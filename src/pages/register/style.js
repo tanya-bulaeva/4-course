@@ -30,8 +30,11 @@ ul li {
 }
 
 @font-face {
-  font-family: 'StratosSkyeng';
-  src: local("StratosSkyeng"), local("StratosSkyeng"), url("../../../public/fonts/StratosSkyeng.woff2") format("woff2"), url("../../../public/fonts/StratosSkyeng.woff") format("woff");
+  font-family: "StratosSkyeng";
+  src: local("StratosSkyeng"), local("StratosSkyeng"),
+    url("../../public/fonts/StratosSkyeng.woff") format("woff2"),
+    url("../../public/fonts/StratosSkyeng.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -39,13 +42,15 @@ html,
 body {
   width: 100%;
   height: 100%;
-  font-family: 'StratosSkyeng', sans-serif;
+  font-family: "StratosSkyeng", sans-serif;
 }
+input, select, textarea, button{font-family:"StratosSkyeng"}
 `
 export const Wrapper = styled.div`
     width: 100%;
     min-height: 100%;
-    overflow: hidden;`
+    overflow: hidden;
+    `
 
  export const ContainerSignup  = styled.div`
  max-width: 100%;
