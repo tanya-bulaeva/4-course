@@ -25,8 +25,6 @@ export const Category = ({loading, currentTrack, tracks, tracksError, setCurrent
     <UserAccount />
       </S.MainSidebar>
          </S.MainStyle>
-         
-         <MediaPlayer  tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack}></MediaPlayer>
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

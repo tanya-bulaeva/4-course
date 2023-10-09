@@ -24,20 +24,44 @@ export default function MediaPlayer({ currentTrack }){
       AudioRef.current.volume = volume / 100;
     }
   }, [volume, AudioRef]);//настройка ползунка громкости  
+  
+  const onLoadedMetadata = () => {
+    setDuration(AudioRef.current.duration);
+  };
+  const onTimeUpdate = () => {
+    setCurrentTime(AudioRef.current.currentTime);
+  };
 
-
+/*
 useEffect(() => {
-  if (currentTrack)
-AudioRef.current.addEventListener('timeupdate' , () => {
+  if (currentTrack){
+  AudioRef.current.addEventListener('timeupdate' , () => {
 setCurrentTime(AudioRef.current.currentTime);
 return () => {
   AudioRef.current.removeEventListener('timeupdate', () => {
     setCurrentTime(AudioRef.current.currentTime)
   })
 }
-})
-})//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
+}) }
+}, [])//Событие timeupdateвозникает, когда время, указанное атрибутом, currentTimeобновляется
 //движение ползунка вместе с длительностью
+/*
+const handleTimeUpdate = () => {
+  setCurrentTime(AudioRef.current.currentTime);
+  setDuration(AudioRef.current.duration);
+};
+
+useEffect(() => {
+  if (currentTrack){
+      AudioRef.current.addEventListener("timeupdate", handleTimeUpdate);
+  return () => {
+    AudioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+  };
+  }
+
+}, []);
+
+*/
 
 const handleDurationChange = (e) => {
   setCurrentTime(e.target.value);
@@ -99,7 +123,7 @@ useEffect(() => {
 //
     return(
         <S.BarStyle>
-           {currentTrack ? (<audio   style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  ></audio>) : (null)}        
+           {currentTrack ? (<audio   style={{ display: 'none' }} ref={AudioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
           <S.BarContent>
             <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime}  ></ProgressBar>
             <S.BarPlayerBlock >
