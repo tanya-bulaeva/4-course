@@ -10,7 +10,7 @@ export default function ProgressBar({  duration, currentTime,  handleDurationCha
     <S.StyledProgressInput
       type="range"
       min={'0'}
-      max={duration}
+      max={duration.toString()}
       value={currentTime}
       step={0.01}    
       onChange={handleDurationChange}

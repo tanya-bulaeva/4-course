@@ -7,7 +7,7 @@ export default function MediaPlayer({ currentTrack }){
   const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(100);
-  const [duration, setDuration] = useState(0);//duration`представляет собой общую продолжительность аудиофайла.
+  const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
   const AudioRef = useRef(null);
  useEffect(() => {
