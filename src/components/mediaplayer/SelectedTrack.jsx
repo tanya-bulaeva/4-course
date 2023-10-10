@@ -1,9 +1,9 @@
 import * as S from "./style.js";
 
-export const SelectedTrack = ({currentTrack, setCurrentTrack}) => {
+export const SelectedTrack = ({currentTrack }) => {
 return (
-  <S.PlayerTrackPlay>
-    <S.TrackPlayContain>
+  <S.PlayerTrackPlay >
+    <S.TrackPlayContain >
                     <S.TrackPlayImage>
                       <S.TrackPlaySvg alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note"></use>

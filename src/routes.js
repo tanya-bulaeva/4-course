@@ -6,7 +6,7 @@ import {NotFound} from "./pages/not-found"
 import { Category } from "./pages/category";
 import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
-export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTrack}) => {
+export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTrack }) => {
 
   return (
     <Routes>
@@ -14,8 +14,8 @@ export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTr
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
       <Route path="/" element={<Main tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}> </Main>} />
-        <Route path="/favorites" element={<Favorites  />} />
-        <Route path="/category/:id" element={<Category  tracks = {tracks}/>} />
+        <Route path="/favorites" element={<Favorites tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}  />} />
+        <Route path="/category/:id" element={<Category tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}  />} />
       </Route>
         <Route path="*" element={<NotFound />} />
     </Routes>

@@ -1,4 +1,4 @@
-export const categoryItems =  [
+export const CategoryItems =  [
     {id: 1,
     name: "Плейлист дня",
     image: "/img/playlist01.png",

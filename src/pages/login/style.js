@@ -33,8 +33,8 @@ ul li {
 @font-face {
   font-family: "StratosSkyeng";
   src: local("StratosSkyeng"), local("StratosSkyeng"),
-    url("../../../public/fonts/StratosSkyeng.woff2") format("woff2"),
-    url("../../../public/fonts/StratosSkyeng.woff") format("woff");
+    url("../fonts/StratosSkyeng.woff") format("woff2"),
+    url("../fonts/StratosSkyeng.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -45,12 +45,12 @@ body {
   height: 100%;
   font-family: "StratosSkyeng", sans-serif;
 }
+input, select, textarea, button{font-family:"StratosSkyeng"}
 `
  
   export const Wrapper = styled.div`
     width: 100%;
     min-height: 100%;
-    overflow: hidden;
   `
   export const ContainerEnter  = styled.div`
   max-width: 100%;
@@ -67,7 +67,7 @@ body {
   top: calc(50% - (439px / 2));
   opacity: 1;
   `
-
+  
   export const ModalFormLogin = styled.form`
   width: 366px;
   height: 439px;
@@ -88,16 +88,16 @@ body {
     margin-bottom: 30px;
   `
   
- export const ModalLogo = styled.div`
- width: 140px;
- height: 21px;
- margin-bottom: 34px;
- background-color: transparent;
- img {
+  export const ModalLogo = styled.div`
+  width: 140px;
+  height: 21px;
+  margin-bottom: 34px;
+  background-color: transparent;
+  img {
     width: 140px;
     height: auto;
   }
- `
+  `
   export const Modalinput = styled.input`
   width: 100%;
   border-top: none;
@@ -128,44 +128,44 @@ body {
   line-height: 24px;
     letter-spacing: -0.05px;
     color: #d0cece;
- }
- ::placeholder {
+  }
+  ::placeholder {
   font-style: normal;
- font-weight: 400;
+  font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.05px;
   color: #d0cece;
-}
+  }
   `
-
+  
   export const ModalinputLogin = styled(Modalinput)`
   margin-bottom: 30px;
   `
- export const ModalBtnEnter = styled.button`
- width: 278px;
- height: 52px;
- background-color: #580ea2;
- border-radius: 6px;
- margin-top: 60px;
- margin-bottom: 20px;
- border: none;
- display: -webkit-box;
- display: -ms-flexbox;
- display: flex;
- -webkit-box-align: center;
- -ms-flex-align: center;
- align-items: center;
- -webkit-box-pack: center;
- -ms-flex-pack: center;
- justify-content: center;
+  export const ModalBtnEnter = styled.button`
+  width: 278px;
+  height: 52px;
+  background-color: #580ea2;
+  border-radius: 6px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.05px;
   color: #ffffff;
- :hover {
+  :hover {
   background-color: #3f007d;
   }
   :active {
@@ -190,8 +190,8 @@ body {
     -ms-flex-pack: center;
     justify-content: center;
   }
- ` 
-
+  ` 
+  
   export const ModalBtnSignup = styled.button`
   width: 278px;
   height: 52px;
@@ -236,3 +236,5 @@ body {
       -ms-flex-pack: center;
       justify-content: center;
     }`
+
+  

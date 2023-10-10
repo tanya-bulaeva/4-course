@@ -1,10 +1,11 @@
-import * as S from "./style.js"
-export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
+import * as S from "./style.js";
+import { useEffect } from "react";
+import { formatTime } from "../../helpers.js";
+export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration}){
   //загрузка данных их апи
     return (<>
-
-        {tracks.map((track) => (
-        <> 
+    
+            {tracks.map((track) => (
           <S.ContentPlaylist key = {track.id}  >
             <S.PlaylistItem >
             <S.PlaylistTrack>
@@ -18,7 +19,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
               </S.TrackTitleImageSkeleton>)}
               
             {loading ? ( <S.TrackTitleText>
-                  <S.TrackTitleLink  onClick={() => setCurrentTrack(track)}> {track.name}
+                  <S.TrackTitleLink  onClick={() => setCurrentTrack(track) }> {track.name}
                     <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
                 </S.TrackTitleText>) : 
                 (<S.TrackTitleTextSkeleton>
@@ -47,7 +48,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
                 <S.TrackTimeSvg alt="time">
                   <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                 </S.TrackTimeSvg>
-                <S.TrackTimeText >{track.duration_in_seconds}</S.TrackTimeText>
+                <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
               </S.TrackTime>) : 
               ( <S.TrackTimeSkeleton>
               <S.TrackTimeSvgSkeleton alt="time">
@@ -58,7 +59,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, currentTrack}){
 
             </S.PlaylistTrack>
             </S.PlaylistItem>
-            </S.ContentPlaylist></>
+            </S.ContentPlaylist>
        )
         )}
       </>

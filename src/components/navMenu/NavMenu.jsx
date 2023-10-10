@@ -1,6 +1,6 @@
 import * as S from "./style.js"
 import { useState } from 'react';
-import Logo from "../logo/logo.js";
+import Logo from "../logo/Logo.jsx";
 import { NavLink } from "react-router-dom";
 export default function NavMenu (){
   const [openMenu, setOpenMenu] = useState(false);

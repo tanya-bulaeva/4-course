@@ -1,4 +1,4 @@
-import * as S from "./style.js"
+import * as S from "./style.js";
 import { Link, useNavigate } from "react-router-dom";
 export const Login = () => {
    /*return (<div>
@@ -10,7 +10,7 @@ export const Login = () => {
     navigate('/', {replace: true})
    }
    return ( <>
-    <S.GlobalStyle />
+    <S.GlobalStyle/>
     <S.Wrapper>
     <S.ContainerEnter>
       <S.ModalBlock>
