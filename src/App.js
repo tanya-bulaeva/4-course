@@ -10,7 +10,7 @@ const [currentTrack, setCurrentTrack] = useState (null);
 const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 
-
+console.log (user)
  const handleLogin = () =>   {
  localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
  setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
@@ -19,7 +19,7 @@ console.log (user);
 
   const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
-  
+
 useEffect(() => {
  async function getAllTracks (){
 try {

@@ -1,17 +1,17 @@
 import * as S from "./style.js"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { loginUser, registerUser } from "../../api.js";
 export const Register = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState ('');
   const [error, setError] = useState(null)
-  
+const [disableBtn, setDisableBtn] = useState(false)
   const handleRegister = async  (e) => {
-   e.preventDefault();
-   
+   e.preventDefault()
 try{
-  
 if (!email){
   setError("Введите почту")
   return
@@ -28,13 +28,16 @@ if (password !== confirmPassword){
   setError('Пароли не совпадают')
   return
 }
+await registerUser({email, password}).then ((user) => {
+  console.log (user)
+  navigate('/login', {replace: true})
+
+})
 
 }catch(error){
   setError(error.message)
 }
-
 }
-
     return (<>
     <S.GlobalStyle />
        <S.Wrapper>
@@ -78,8 +81,9 @@ if (password !== confirmPassword){
 
           />
           {error ? (<S.Error>{error}</S.Error>) : ('')}
-          <S.ModalBtnSignupEnt onClick={handleRegister}>
-           Зарегистрироваться
+          <S.ModalBtnSignupEnt onClick={handleRegister} disableBtn = {disableBtn}> 
+          {disableBtn ? ('Отправка данных') : ('Зарегистрироваться')}
+           
           </S.ModalBtnSignupEnt>
         </S.ModalFormLogin>
       </S.ModalBlock>

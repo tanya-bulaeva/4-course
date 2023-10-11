@@ -1,6 +1,7 @@
 import * as S from "./style.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { loginUser } from "../../api.js";
 export const Login = () => {
 
   const [email, setEmail] = useState('');
@@ -20,15 +21,12 @@ if (!password){
   setError("Введите пароль")
   return
 }
-if (!confirmPassword){
-  setError("Подтвердите пароль")
-  return
-}
-if (password !== confirmPassword){
-  setError('Пароли не совпадают')
-  return
-}
 
+
+await loginUser({email, password}).then ((user) => {
+   window.location.href ='/'
+   console.log (user)
+})
 }catch(error){
   setError(error.message)
 }
@@ -46,7 +44,7 @@ if (password !== confirmPassword){
     <S.ContainerEnter>
       <S.ModalBlock>
         <S.ModalFormLogin action="#">
-          <Link to="/">
+          <Link to="/login">
             <S.ModalLogo>
               <img src="../img/logo_modal.png" alt="logo" />
             </S.ModalLogo>
