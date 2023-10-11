@@ -11,7 +11,15 @@ const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 
 
+ const handleLogin = () =>   {
+ localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
+ setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
+ console.log(localStorage);
+console.log (user);
 
+  const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
+
+  
 useEffect(() => {
  async function getAllTracks (){
 try {
@@ -31,18 +39,9 @@ try {
   getAllTracks ()
 }, [])
 
-  const handleLogin = () =>   {
- localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
- setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
- console.log(localStorage);
- console.log (user);
-
-
-
-  const handleLogout = () => setUser(localStorage.clear());//clear() – удалить всё.
 
   return (
-        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogout : handleLogin }  loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack} currentTrack={currentTrack}/>
+        <AppRoutes user={user} onAuthButtonClick={ user ? handleLogin : handleLogout }  loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack} currentTrack={currentTrack}/>
   );
 }
 
