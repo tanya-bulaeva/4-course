@@ -1,13 +1,14 @@
 import * as S from "./style.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { loginUser } from "../../api.js";
+import { loginUser, getToken } from "../../api.js";
+import { useUserContext } from "../../context/user.jsx";
 export const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null)
-  
+  const {login} = useUserContext()
   const handleLogin= async  (e) => {
    e.preventDefault();
    
@@ -23,8 +24,12 @@ if (!password){
 }
 
 
-await loginUser({email, password}).then ((user) => {
-   window.location.href ='/'
+await loginUser({email, password}).then ((loginData) => {
+getToken({email, password}).then ((tokenData) => {
+  login(loginData, tokenData.access)
+})
+
+//   window.location.href ='/'
    console.log (user)
 })
 }catch(error){

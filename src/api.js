@@ -8,7 +8,7 @@ const data = await response.json();
 return data;
 }
 
-export async function registerUser({ email, password, username }) {
+export async function registerUser({ email, password  }) {
     const response = await fetch(`https://skypro-music-api.skyeng.tech/user/signup/`, {
       method: 'POST',
       body: JSON.stringify({

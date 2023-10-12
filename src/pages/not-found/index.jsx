@@ -4,7 +4,7 @@ import * as S from "./style.js"
 import Search from '../../components/search/Search.jsx';
 import UserAccount from '../../components/userAccount/UserAccount.jsx';
 import MediaPlayer from '../../components/mediaplayer/MediaPlayer.jsx';
-export const NotFound = () => {
+export const NotFound = ({user}) => {
  /*   return (<div>
         <h1>Страница не найдена</h1>
        </div>)*/

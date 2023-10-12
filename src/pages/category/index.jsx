@@ -7,7 +7,7 @@ import Collections from "../../components/collections/Collections";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
 import { useParams } from "react-router-dom";
 import { CategoryItems } from "../../components/collections/CategoryItems.jsx";
-export const Category = ({loading, currentTrack, tracks, tracksError, setCurrentTrack}) => {
+export const Category = ({loading, currentTrack, tracks, tracksError, setCurrentTrack }) => {
   const params = useParams();
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
@@ -22,7 +22,7 @@ export const Category = ({loading, currentTrack, tracks, tracksError, setCurrent
         <S.CenterclockH2>{categoryName} </S.CenterclockH2>
       </S.MainCenterblock>
       <S.MainSidebar>
-    <UserAccount />
+    <UserAccount   />
       </S.MainSidebar>
          </S.MainStyle>
     <footer className="footer"></footer>

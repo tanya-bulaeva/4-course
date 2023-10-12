@@ -1,12 +1,26 @@
 import * as S from "./style.js"
+import { useUserContext } from "../../context/user.jsx"
 
 export default function UserAccount (){
-  return (  <S.SidebarPersonal>
-    <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-    <S.SidebarIcon>
+  const { user, logout } = useUserContext();
+  const handleLogout = () => {
+    logout()
+  }
+console.log (user.username)
+  return ( 
+
+    <S.SidebarPersonal> <S.SidebarPersonalName >{user.username}</S.SidebarPersonalName>   
+    <S.SidebarIcon onclick = {handleLogout}>
       <svg alt="logout">
-        <use xlinkHref="img/icon/sprite.svg#logout"></use>
+        <use xlinkHref="/img/icon/sprite.svg#logout"></use>
       </svg>
     </S.SidebarIcon>
-  </S.SidebarPersonal>)
-}
+  </S.SidebarPersonal>
+
+  )
+  } 
+
+
+
+
+

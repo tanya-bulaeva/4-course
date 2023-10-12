@@ -7,7 +7,7 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
-export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref }) => {
+export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user }) => {
     const [loading, setLoading] = useState(false);
    // const [currentTrack, setCurrentTrack] = useState (null);
     useEffect(() => {

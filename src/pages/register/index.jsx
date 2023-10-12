@@ -1,7 +1,8 @@
 import * as S from "./style.js"
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { loginUser, registerUser } from "../../api.js";
+import { useUserContext } from "../../context/user.jsx";
+import { getToken, loginUser, registerUser } from "../../api.js";
 export const Register = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState ('');
   const [error, setError] = useState(null)
 const [disableBtn, setDisableBtn] = useState(false)
+const { login } = useUserContext()
   const handleRegister = async  (e) => {
    e.preventDefault()
 try{
@@ -28,9 +30,12 @@ if (password !== confirmPassword){
   setError('Пароли не совпадают')
   return
 }
-await registerUser({email, password}).then ((user) => {
-  console.log (user)
-  navigate('/login', {replace: true})
+await registerUser({email, password}).then ((loginData) => {
+  getToken({email, password}).then((tokenData) => {
+    login(loginData, tokenData.access)
+  })
+  console.log (loginData)
+ // navigate('/login', {replace: true})
 
 })
 
