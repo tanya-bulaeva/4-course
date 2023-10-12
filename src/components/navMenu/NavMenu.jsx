@@ -2,9 +2,14 @@ import * as S from "./style.js"
 import { useState } from 'react';
 import Logo from "../logo/Logo.jsx";
 import { NavLink } from "react-router-dom";
+import { useUserContext } from "../../context/user.jsx"
 export default function NavMenu (){
   const [openMenu, setOpenMenu] = useState(false);
   const toggleVisibility  = () => setOpenMenu(!openMenu);
+  const { logout } = useUserContext();
+  const handleLogout = () => {
+    logout()
+  }
     return (
         <S.MainNav>
         <Logo />
@@ -22,8 +27,8 @@ export default function NavMenu (){
             <S.MenuItem>
               <S.Menulink to="/favorites">Мой плейлист</S.Menulink>
             </S.MenuItem>
-            <S.MenuItem>
-              <S.Menulink to="/login">Войти</S.Menulink>
+            <S.MenuItem onClick = {handleLogout}>
+              <S.Menulink to="/login">Выйти</S.Menulink>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>) 

@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { useUserContext } from "../../context/user.jsx";
 import { getToken, loginUser, registerUser } from "../../api.js";
 export const Register = () => {
-  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState ('');
   const [error, setError] = useState(null)
-const [disableBtn, setDisableBtn] = useState(false)
-const { login } = useUserContext()
+  const [disableBtn, setDisableBtn] = useState(false);
+  const { login } = useUserContext();
   const handleRegister = async  (e) => {
    e.preventDefault()
 try{
@@ -30,17 +29,19 @@ if (password !== confirmPassword){
   setError('Пароли не совпадают')
   return
 }
+  setDisableBtn(true)
 await registerUser({email, password}).then ((loginData) => {
   getToken({email, password}).then((tokenData) => {
     login(loginData, tokenData.access)
   })
-  console.log (loginData)
- // navigate('/login', {replace: true})
 
+  console.log (loginData)
 })
 
 }catch(error){
   setError(error.message)
+} finally{
+  setDisableBtn(false)
 }
 }
     return (<>

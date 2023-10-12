@@ -8,6 +8,7 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null)
+  const [disableBtn, setDisableBtn] = useState(false);
   const {login} = useUserContext()
   const handleLogin= async  (e) => {
    e.preventDefault();
@@ -23,26 +24,26 @@ if (!password){
   return
 }
 
-
+  setDisableBtn(true)
 await loginUser({email, password}).then ((loginData) => {
+
 getToken({email, password}).then ((tokenData) => {
   login(loginData, tokenData.access)
 })
 
-//   window.location.href ='/'
-   console.log (user)
 })
 }catch(error){
   setError(error.message)
+}finally{
+  setDisableBtn(false)
 }
 
 }
-
-   const navigate = useNavigate()
-   const handleButtonClick = () => {
-    localStorage.getItem('user') //getItem(key) – получить данные по ключу key.
-    navigate('/', {replace: true})
-   }
+   
+ //  const handleButtonClick = () => {
+  //  localStorage.getItem('user') //getItem(key) – получить данные по ключу key.
+ //   navigate('/', {replace: true})
+  // }
    return ( <>
     <S.GlobalStyle/>
     <S.Wrapper>
@@ -73,8 +74,8 @@ getToken({email, password}).then ((tokenData) => {
             }}
           />
            {error ? (<S.Error>{error}</S.Error>) : ('')}
-          <S.ModalBtnEnter type="button" onClick={handleLogin}>
-            Войти
+          <S.ModalBtnEnter type="button" onClick={handleLogin}  disableBtn = {disableBtn}>
+          {disableBtn ? ('Отправка данных') : ('Войти')}
           </S.ModalBtnEnter >
           <S.ModalBtnSignup >
             <Link to ="/register">Зарегистрироваться</Link>

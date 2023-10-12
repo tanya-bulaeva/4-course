@@ -7,7 +7,7 @@ import { Category } from "./pages/category";
 import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
 export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTrack}) => {
-/*
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -20,7 +20,8 @@ export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTr
         <Route path="*" element={<NotFound />} />
     </Routes>
   );
-};*/
+};
+/*
 return (
   <Routes>
     <Route path="/login" element={<Login />} />
@@ -55,4 +56,4 @@ return (
       />
   </Routes>
 );
-}
+}*/

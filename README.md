@@ -1,3 +1,7 @@
+домашка по context
+планируемое время - 16 часов.
+фактическое время - 25 часов.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

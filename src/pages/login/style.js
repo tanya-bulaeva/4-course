@@ -238,5 +238,5 @@ input, select, textarea, button{font-family:"StratosSkyeng"}
     }`
 
     export const Error = styled.div`
-    color: red
+    color: red;
     `
