@@ -7,7 +7,7 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
 
-export const Favorites = ({loading, currentTrack, tracks, tracksError, setCurrentTrack}) => {
+export const Favorites = ({loading, currentTrack, tracks, tracksError, setCurrentTrack, user}) => {
  /* return (
     <div>
       <h1>Мой плейлист</h1>

@@ -147,6 +147,12 @@ export const Wrapper = styled.div`
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: -0.05px;
+            color: #FFFFFF;
   a {
     width: 100%;
     height: 100%;
@@ -173,3 +179,6 @@ export const Wrapper = styled.div`
   }
   }
   `
+export const Error = styled.div`
+color: red
+`
