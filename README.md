@@ -2,6 +2,10 @@
 планируемое время - 16 часов.
 фактическое время - 25 часов.
 
+
+домашка по redux
+планируемое время - 20 часов.
+фактическое время -  часов.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

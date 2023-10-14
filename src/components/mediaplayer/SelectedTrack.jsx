@@ -1,6 +1,10 @@
 import * as S from "./style.js";
-
-export const SelectedTrack = ({currentTrack }) => {
+import { playTrack,  pauseTrack } from "../../store/actions/creators/index.js";
+import { trackCurrent } from "../../store/actions/creators/index.js";
+import { useSelector } from "react-redux";
+import { trackSelector, isTrackPlayingSelector } from "../../store/selectors/index.js";
+export const SelectedTrack = () => {
+  const selectedTrack = useSelector(trackSelector)
 return (
   <S.PlayerTrackPlay >
     <S.TrackPlayContain >
@@ -12,10 +16,10 @@ return (
                     </S.TrackPlayImage>
                     <S.TrackPlayAuthor>
 
-                      <S.TrackPlayAuthorLink href="http://">{currentTrack ? (currentTrack.name) : (null)}</S.TrackPlayAuthorLink>
+                      <S.TrackPlayAuthorLink href="http://">{selectedTrack? (selectedTrack.name) : (null)}</S.TrackPlayAuthorLink>
                     </S.TrackPlayAuthor>
                     <S.TrackPlayAlbum>
-                      <S.TrackPlayAlbumLink href="http://">{currentTrack ? (currentTrack.author) : (null)}</S.TrackPlayAlbumLink>
+                      <S.TrackPlayAlbumLink href="http://">{selectedTrack ? (selectedTrack.author) : (null)}</S.TrackPlayAlbumLink>
                     </S.TrackPlayAlbum>
                   </S.TrackPlayContain>
                   

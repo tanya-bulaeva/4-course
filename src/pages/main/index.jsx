@@ -7,7 +7,7 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
-export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user }) => {
+export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user,  }) => {
     const [loading, setLoading] = useState(false);
    // const [currentTrack, setCurrentTrack] = useState (null);
     useEffect(() => {
@@ -37,7 +37,7 @@ return (       <>
     <Collections loading = {loading}/>
       </S.MainSidebar>
     </S.MainStyle>
-    {currentTrack ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : (null)}
+     {currentTrack ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : null} 
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

@@ -5,13 +5,13 @@ import { UserContext, UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
 
 
+
 function App() {
 const [user, setUser] = useState(null);
 const [tracks, setTracks] = useState([]);
 const [currentTrack, setCurrentTrack] = useState (null);
 const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
-
 const navigate = useNavigate()
 
  const handleLogin = () =>   {
@@ -35,6 +35,7 @@ try {
   setTracksError(null);
   await getTrack().then((tracks) => {
   console.log(tracks);//проверка что получаем из апи
+
   setTracks(tracks);
 })//получение из апи треков
 } catch(error) {
@@ -50,7 +51,7 @@ try {
 //onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (
     <UserProvaider>
-        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack} currentTrack={currentTrack}/>
+        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack} currentTrack={currentTrack} />
         </UserProvaider>
   );
 }
