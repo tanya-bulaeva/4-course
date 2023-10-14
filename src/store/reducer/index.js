@@ -1,10 +1,10 @@
-import { CURRENT_TRACK, PAUSE_TRACK, PLAY_TRACK } from "../actions/types/index";
+import { CURRENT_TRACK, NEXT_TRACK, PAUSE_TRACK, PLAY_TRACK, PREVIOUS_TRACK } from "../actions/types/index";
 //import { CURRENT_TRACK, PAUSE_TRACK, PLAY_TRACK } from "../actions/types ";
 // 1.В переменной initialState хранится логика.
 const initialState = {
 playing: false,  
 track: null,
-
+currentTrack: null
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
@@ -15,12 +15,13 @@ export default function trackReducer(state = initialState, action) {
     // 3.Внутри редьюсера мы делаем switch-case, чтобы отловить пришедший нам action, понять, 
     //что он известен системе, и написать обработку для этого action, то есть что нам сделать со store.
         case CURRENT_TRACK: {
+          const {track} = action.payload
 //4. Redux должен понять, что store изменился, и тогда Redux оповещает подписчиков о том, что состояние изменилось.
  //А далее идет механизм предоставления подписчикам нового состояния.
       return {
         ...state,
         playing: true,
-        track: action.payload
+        currentTrack: track
       };
     }
 
@@ -39,7 +40,22 @@ export default function trackReducer(state = initialState, action) {
 
       };
     }
-
+    case NEXT_TRACK: {
+      const {track} = action.payload
+      return {
+        ...state,
+        playing: true,
+        currentTrack: track
+      };
+    }
+    case PREVIOUS_TRACK: {
+      const {track} = action.payload
+      return {
+        ...state,
+        playing: true,
+        currentTrack: track
+      };
+    }
 
     default:
       return state;

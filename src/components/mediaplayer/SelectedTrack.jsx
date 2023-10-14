@@ -4,7 +4,7 @@ import { trackCurrent } from "../../store/actions/creators/index.js";
 import { useSelector } from "react-redux";
 import { trackSelector, isTrackPlayingSelector } from "../../store/selectors/index.js";
 export const SelectedTrack = () => {
-  const selectedTrack = useSelector(trackSelector)
+
 return (
   <S.PlayerTrackPlay >
     <S.TrackPlayContain >
