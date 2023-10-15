@@ -5,7 +5,7 @@ import { UserContext, UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addPlaylist } from "./store/actions/creators/index";
-
+import { useSelector } from "react-redux";
 
 function App() {
 const [user, setUser] = useState(null);
@@ -37,9 +37,9 @@ try {
   setTracksError(null);
   await getTrack().then((tracks) => {
   console.log(tracks);//проверка что получаем из апи
- // dispatch(addPlaylist(tracks))
+//dispatch(addPlaylist(tracks))
 
-  setTracks(tracks);
+ setTracks(tracks);
 })//получение из апи треков
 } catch(error) {
   setTracksError(error.message)//если ошибка

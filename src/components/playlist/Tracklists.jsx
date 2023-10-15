@@ -1,12 +1,14 @@
 import * as S from "./style.js";
 import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { useEffect } from "react";
+import { playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { useDispatch, useSelector } from "react-redux";
 export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration}){
+  const dispatch = useDispatch()
 
-
+return (
   //загрузка данных их апи
-    return (<> 
+<> 
  {tracks.map((track) => (
     <S.ContentPlaylist key = {track.id}  >
       <S.PlaylistItem >
@@ -21,7 +23,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration
         </S.TrackTitleImageSkeleton>)}
         
       {loading ? ( <S.TrackTitleText>
-            <S.TrackTitleLink  onClick={() => setCurrentTrack(track) }> {track.name}
+            <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
               <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
           </S.TrackTitleText>) : 
           (<S.TrackTitleTextSkeleton>
@@ -64,6 +66,7 @@ export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration
       </S.ContentPlaylist>
  )
   )}
-  </>)}
+  </>)
 
+}
 

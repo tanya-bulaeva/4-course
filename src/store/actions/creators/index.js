@@ -1,4 +1,5 @@
-import {ADD_PLAYLIST, NEXT_TRACK, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, TOGGLE_SHUFFLE} from '../types/index'
+import {ADD_PLAYLIST, NEXT_TRACK, PAGE_PLAYLIST, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, TOGGLE_SHUFFLE} from '../types/index'
+import { PLAY_TRACK, PAUSE_TRACK } from '../types/index';
 
 export const addPlaylist = (playlist) => ({
   type: ADD_PLAYLIST,
@@ -29,4 +30,19 @@ export const toggleShuffle = (track) => ({
 export const shufflePlaylist = () => ({
   type: SHUFFLE_PLAYLIST,
   payload: track,
+})
+
+export const pagePlaylist = (playlist) => ({
+  type: PAGE_PLAYLIST,
+  payload: playlist,
+})
+
+export const playTrack = () => ({
+  type: PLAY_TRACK,
+//  payload: track,
+})
+
+export const pauseTrack = () => ({
+  type: PAUSE_TRACK,
+//  payload: track,
 })
