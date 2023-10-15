@@ -7,7 +7,7 @@ export default function UserAccount (){
   const handleLogout = () => {
     logout()
   }
-console.log (user.username)
+//console.log (user.username)
   return ( 
 
     <S.SidebarPersonal> <S.SidebarPersonalName >{user.username}</S.SidebarPersonalName>   

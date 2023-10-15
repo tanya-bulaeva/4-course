@@ -2,23 +2,27 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { trackSelector, isTrackPlayingSelector, currentTrackSelector } from "../../store/selectors/index.js";
-import { playTrack,  pauseTrack } from "../../store/actions/creators/index.js";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
+import { PlaylistSelector, currentTrackSelector, isTrackPlayingSelector } from "../../store/selectors/index.js";
+import { nextTrack } from "../../store/actions/creators/index.js";
 
-export default function MediaPlayer(){
+export default function MediaPlayer({currentTrack, tracks, setCurrentTrack}){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
-  const isPlaying = useSelector(isTrackPlayingSelector)
+ const isPlaying = useSelector(isTrackPlayingSelector)
   const selectedTrack = useSelector(currentTrackSelector)
-  //const [isPlaying, setPlaying] = useState(false);
+  const playlist = useSelector(PlaylistSelector)
+ // const [isPlaying, setPlaying] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
   const AudioRef = useRef(null);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [shuffled, setShuffled] = useState(false);
 
-  useEffect(() => {
+  //const [currentTrack, setCurrentTrack] = useState(tracks[0]);
+  /*useEffect(() => {
     if (selectedTrack) {
       AudioRef.current.addEventListener('loadeddata', () => {
       handleStart();
@@ -26,26 +30,12 @@ export default function MediaPlayer(){
       AudioRef.current.src = selectedTrack.track_file;    
     }
   }, [selectedTrack]);//проигрывание сразу после клика на выбранный трек
-
-const handleStop = () => {
-  AudioRef.current.pause();
-  dispatch(pauseTrack())
-//   setPlaying(false); 
-};//остановка воспроизведения трека
-
-const handleStart = () => {
-//      setPlaying(true);     
-  AudioRef.current.play();
-  dispatch(playTrack())
-};//старт вопроизведения трека
-
-const togglePlay = isPlaying ? handleStop : handleStart;
-
-useEffect(() => {
-    if (AudioRef) {
-      AudioRef.current.volume = volume / 100;
-    }
-  }, [volume, AudioRef]);//настройка ползунка громкости  
+*/
+//  useEffect(() => {
+//    if (AudioRef) {
+//      AudioRef.current.volume = volume / 100;
+//    }
+//  }, [volume, AudioRef]);//настройка ползунка громкости  
   
   const onLoadedMetadata = () => {
     setDuration(AudioRef.current.duration);
@@ -53,22 +43,81 @@ useEffect(() => {
   const onTimeUpdate = () => {
     setCurrentTime(AudioRef.current.currentTime);
   };
+  const shuffle = () => {
+    setShuffled(!shuffled);
+  };
+ // const shufflePlaylist = (tracks) => {
+  //  if (tracks.length === 1) return tracks;
+ //   const rand = Math.floor(Math.random() * tracks.length);
+  //  return [tracks[rand], ...shufflePlaylist(tracks.filter((_, i) => i !== rand))];
+  //};
 
 
+const handleNext = () => {
+  setTrackIndex((prev) => prev - 1);
+  setCurrentTrack(tracks[trackIndex - 1]);
+
+}
+
+//переключение плейлиста на трек вперед
+const handlePrevious = () => {
+
+        setTrackIndex((prev) => prev - 1);
+    setCurrentTrack(tracks[trackIndex - 1]);
+  
+
+  
+};//переключение плейлиста на трек назад
+/*
+const handleShuffle = () => {
+  setTrackIndex((prev) => prev - 1);
+  setCurrentTrack(tracks[trackIndex - 1]);
+
+}
+*/
 const handleDurationChange = (e) => {
   setCurrentTime(e.target.value);
   AudioRef.current.currentTime = e.target.value
 }//изменение ползунка прокрутки
 
 useEffect(() => {
-  if (selectedTrack.duration_in_seconds){
+  if (currentTrack.duration_in_seconds){
     setDuration(AudioRef.current.duration)
 }})
-
+/*
+  useEffect(() => {
+    if (currentTrack) {
+      AudioRef.current.addEventListener('loadedmetadata', () => {
+        setDuration(AudioRef.current.duration);
+          
+        const interval = setInterval(() => {
+          setCurrentTime(Math.floor(AudioRef.current.currentTime));
+          }, 1000);
+  
+          console.log('AudioRef.current.duration =', formatTime(AudioRef.current.duration))
+  
+          setTimeout(() => {
+              clearInterval(interval)
+          }, AudioRef.current.duration * 1000);
+          });
+    }
+  }, [currentTrack]);
+  //пример с форума*/
  
+  const handleStop = () => {
+        AudioRef.current.pause();
+       setPlaying(false); 
+  };//остановка воспроизведения трека
+
+  const handleStart = () => {
+        setPlaying(true);     
+        AudioRef.current.play();
+  };//старт вопроизведения трека
+
   const handleLoop = () => {
     AudioRef.current.loop = true;
     setIsLoop(true);
+
   }//зацикливание трека начать
 
   const handleLoopStop = () => {
@@ -80,9 +129,8 @@ useEffect(() => {
     alert ('Функция не настроена')
   }
 
-
+ const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
-
 //
     return(<> 
  <S.BarStyle>
@@ -94,7 +142,7 @@ useEffect(() => {
 
              <S.PlayerControls>
                <S.PlayerBtnPrev>
-                 <S.PlayerBtnPrevSvg  alt="prev" onClick={notСonfigured }>
+                 <S.PlayerBtnPrevSvg  alt="prev" onClick={handlePrevious }>
                    <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                  </S.PlayerBtnPrevSvg>
                </S.PlayerBtnPrev>
@@ -106,7 +154,7 @@ useEffect(() => {
                </S.PlayerBtnPlay>
 
                <S.PlayerBtnNext>
-                 <S.PlayerBtnNextSvg alt="next" onClick={notСonfigured }> 
+                 <S.PlayerBtnNextSvg alt="next" onClick={handleNext}> 
                    <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                  </S.PlayerBtnNextSvg>
                </S.PlayerBtnNext>
@@ -120,10 +168,13 @@ useEffect(() => {
                  </S.PlayerBtnRepeatSvg>
                </S.PlayerBtnRepeat>)}
 
-               <S.PlayerBtnShuffle className="_btn-icon" onClick={notСonfigured }>
-                 <S.PlayerBtnShuffleSvg alt="shuffle">
-                   <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
-                 </S.PlayerBtnShuffleSvg>
+               <S.PlayerBtnShuffle className="_btn-icon" onClick={shuffle}>
+                {shuffled ? (<S.PlayerBtnShuffleSvgActive alt="shuffle">
+                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+                 </S.PlayerBtnShuffleSvgActive>) : (<S.PlayerBtnShuffleSvg alt="shuffle">
+                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+                 </S.PlayerBtnShuffleSvg>)}
+
                </S.PlayerBtnShuffle>
 
              </S.PlayerControls>

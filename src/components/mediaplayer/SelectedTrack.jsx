@@ -1,4 +1,4 @@
-import * as S from "./style.js";
+/*import * as S from "./style.js";
 import { playTrack,  pauseTrack } from "../../store/actions/creators/index.js";
 import { trackCurrent } from "../../store/actions/creators/index.js";
 import { useSelector } from "react-redux";
@@ -40,4 +40,4 @@ return (
                          </S.PlayerTrackPlay>
 )
 
-}
+}*/

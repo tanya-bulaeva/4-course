@@ -3,7 +3,7 @@ import trackReducer from "./reducer";
 
 export const store = configureStore({
   reducer: {
-       player: trackReducer,
+       audioplayer: trackReducer,
   }
 });
 //configureStore которая позволит нам объединить все редьюсеры в проекте, чтобы собрать из них глобальный store. 

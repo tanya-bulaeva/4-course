@@ -3,13 +3,15 @@ import {AppRoutes} from "./routes"
 import { getTrack } from "./api";
 import { UserContext, UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { addPlaylist } from "./store/actions/creators/index";
 
 
 function App() {
 const [user, setUser] = useState(null);
 const [tracks, setTracks] = useState([]);
-const [currentTrack, setCurrentTrack] = useState (null);
+const dispatch = useDispatch()
+const [currentTrack, setCurrentTrack] = useState(tracks[0]);
 const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 const navigate = useNavigate()
@@ -17,7 +19,7 @@ const navigate = useNavigate()
  const handleLogin = () =>   {
  localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
  setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
- console.log(localStorage);
+ //console.log(localStorage);
 
 
   const handleLogout = () => {
@@ -35,6 +37,7 @@ try {
   setTracksError(null);
   await getTrack().then((tracks) => {
   console.log(tracks);//проверка что получаем из апи
+ // dispatch(addPlaylist(tracks))
 
   setTracks(tracks);
 })//получение из апи треков
@@ -47,6 +50,7 @@ try {
   }
   getAllTracks ()
 }, [])
+
 
 //onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (

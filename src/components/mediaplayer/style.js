@@ -137,6 +137,11 @@ height: 12px;
 fill: transparent;
 stroke: #696969;
 `
+export const PlayerBtnShuffleSvgActive = styled(PlayerBtnShuffleSvg)`
+fill: #696969;
+stroke: #ffffff;
+cursor: pointer;
+`
 export const PlayerTrackPlay = styled.div`
 display: -webkit-box;
 display: -ms-flexbox;
