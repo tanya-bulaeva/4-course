@@ -5,3 +5,11 @@ export const PlaylistSelector = (store) => store.audioplayer.playlist;
 export const isTrackPlayingSelector = (store) => store.audioplayer.playing;
 //export const currentTrackPlaying = (store) => store.audioplayer.currentTrackPlaying;
 export const shuffledPlaylistSelector = (store) => store.audioplayer.shuffledPlaylist
+export const currentTrackPlaying = (store) => store.audioplayer.currentTrack 
+export const trackIdSelector = (store, id) => {
+const trackStore = trackIdSelector(store);
+const trackItem = trackStore[id];
+return {
+    ...trackItem
+}
+}

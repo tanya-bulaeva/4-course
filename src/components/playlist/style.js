@@ -262,7 +262,7 @@ const blinkAnimation = keyframes`
 export const BlinkingDot = styled.div`
   width: 150px;
   height: 15px; 
-  background-color: purple;
+  background-color: #b672ff;
   border-radius: 50%;
   animation: ${blinkAnimation} 1s infinite;
 `;

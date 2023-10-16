@@ -3,10 +3,10 @@ import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, ADD_PLAYLIST, PLAY_TRAC
 // 1.В переменной initialState хранится логика.
 const initialState = {
 playing: false,
-playlist: [],  
+playlist: [],
+currentTrack: null,  
 track: null,
 shuffledPlaylist: false,
-
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
@@ -19,7 +19,7 @@ export default function trackReducer(state = initialState, action) {
         case SET_CURRENT_TRACK: {
 //4. Redux должен понять, что store изменился, и тогда Redux оповещает подписчиков о том, что состояние изменилось.
  //А далее идет механизм предоставления подписчикам нового состояния.
-      return {
+ return {
         ...state,
         playing: true,
         track: action.payload,
@@ -50,16 +50,16 @@ export default function trackReducer(state = initialState, action) {
  
      }
     case NEXT_TRACK: {
+
       return {
         ...state,
-        playing: true,
-        track: action.payload,
+        track: action.payload
       };
     }
     case PREVIOUS_TRACK: {
       return {
         ...state,
-        playing: true,
+
         track: action.payload
       };
     }
