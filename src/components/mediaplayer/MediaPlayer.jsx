@@ -1,4 +1,3 @@
-//import { SelectedTrack } from "./SelectedTrack.jsx";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -76,12 +75,7 @@ const handlePrevious = () => {
  
 };
 //переключение плейлиста на трек назад
-/*
-const handleShuffle = () => {
-  setTrackIndex((prev) => prev - 1);
-  setCurrentTrack(tracks[trackIndex - 1]);
 
-}*/
 const handleShuffle =() => {
   dispatch(shufflePlaylist())
 }
@@ -94,26 +88,7 @@ useEffect(() => {
   if (selectedTrack.duration_in_seconds){
     setDuration(AudioRef.current.duration)
 }})
-/*
-  useEffect(() => {
-    if (currentTrack) {
-      AudioRef.current.addEventListener('loadedmetadata', () => {
-        setDuration(AudioRef.current.duration);
-          
-        const interval = setInterval(() => {
-          setCurrentTime(Math.floor(AudioRef.current.currentTime));
-          }, 1000);
-  
-          console.log('AudioRef.current.duration =', formatTime(AudioRef.current.duration))
-  
-          setTimeout(() => {
-              clearInterval(interval)
-          }, AudioRef.current.duration * 1000);
-          });
-    }
-  }, [currentTrack]);
-  //пример с форума*/
- 
+
   const handleStop = () => {
         AudioRef.current.pause();
         dispatch(pauseTrack())

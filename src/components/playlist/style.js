@@ -259,10 +259,16 @@ const blinkAnimation = keyframes`
     opacity: 0;
   }
 `;
-export const BlinkingDot = styled.div`
+export const BlinkingDotActive = styled.div`
   width: 150px;
   height: 15px; 
   background-color: #b672ff;
   border-radius: 50%;
   animation: ${blinkAnimation} 1s infinite;
+`;
+export const BlinkingDot = styled.div`
+  width: 150px;
+  height: 15px; 
+  background-color: #b672ff;
+  border-radius: 50%;
 `;
