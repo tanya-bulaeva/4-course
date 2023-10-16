@@ -247,6 +247,7 @@ background-color: #4e4e4e;
 color: #4e4e4e;
 
 `
+
 const blinkAnimation = keyframes`
   0% {
     opacity: 0;

@@ -1,12 +1,12 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, ADD_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST} from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, ADD_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST, SHUFFLE_PLAYLIST} from "../actions/types/index";
 
 // 1.В переменной initialState хранится логика.
 const initialState = {
 playing: false,
 playlist: [],  
 track: null,
-shuffledPlaylist: [],
-pagePlaylist: [],
+shuffledPlaylist: false,
+
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
@@ -63,12 +63,13 @@ export default function trackReducer(state = initialState, action) {
         track: action.payload
       };
     }
-  case PAGE_PLAYLIST: {
-    return {
-      ...state,
-      pagePlaylist: action.payload
-    };
-  }
+    case SHUFFLE_PLAYLIST: {
+      return {
+        ...state,
+        shuffledPlaylist: !state.shuffledPlaylist,
+      };
+    }
+
       default:
         return state;
   }
