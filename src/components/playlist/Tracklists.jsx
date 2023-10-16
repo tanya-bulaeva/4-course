@@ -1,27 +1,30 @@
 import * as S from "./style.js";
 import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { pagePlaylist, playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
+import { PlaylistSelector, isTrackPlayingSelector, tracksSelectors } from "../../store/selectors/index.js";
 export function Tracklists({loading, tracks, setCurrentTrack, AudioRef, duration}){
-  const dispatch = useDispatch()
+const dispatch = useDispatch()
+const  selectedTrack = useSelector(tracksSelectors)
+const playlist = useSelector(PlaylistSelector)
+//console.log(playlist)
 
 return (
   //загрузка данных их апи
 <> 
- {tracks.map((track) => (
+ {playlist.map((track) => (
     <S.ContentPlaylist key = {track.id}  >
       <S.PlaylistItem >
       <S.PlaylistTrack>
         <S.TrackTitle>
           {loading ? (                  <S.TrackTitleImage>
-            <S.TrackTitleSvg alt="music">
+            <S.TrackTitleSvg alt="music"> 
               <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
             </S.TrackTitleSvg>
           </S.TrackTitleImage>) : 
           ( <S.TrackTitleImageSkeleton>
         </S.TrackTitleImageSkeleton>)}
-        
       {loading ? ( <S.TrackTitleText>
             <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
               <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>

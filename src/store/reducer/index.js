@@ -22,6 +22,7 @@ export default function trackReducer(state = initialState, action) {
       return {
         ...state,
         playing: true,
+        track: action.payload,
       };
     }
 
@@ -36,7 +37,7 @@ export default function trackReducer(state = initialState, action) {
      
      return {
       ...state,
-      playing:true
+      playing: true
      }
 
     }

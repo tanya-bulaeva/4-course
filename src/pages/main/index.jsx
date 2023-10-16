@@ -7,9 +7,13 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
+import { tracksSelectors } from "../../store/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { PlaylistSelector } from "../../store/selectors";
 export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user,  }) => {
+ const  selectedTrack = useSelector(tracksSelectors);
     const [loading, setLoading] = useState(false);
-   // const [currentTrack, setCurrentTrack] = useState (null);
+       // const [currentTrack, setCurrentTrack] = useState (null);
     useEffect(() => {
           // Заводим таймер
           const timerId = setInterval(() => setLoading(!loading), 5000);		
@@ -37,7 +41,7 @@ return (       <>
     <Collections loading = {loading}/>
       </S.MainSidebar>
     </S.MainStyle>
-     {currentTrack ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : null} 
+     {selectedTrack  ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : null} 
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

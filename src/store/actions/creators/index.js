@@ -29,20 +29,12 @@ export const toggleShuffle = (track) => ({
 
 export const shufflePlaylist = () => ({
   type: SHUFFLE_PLAYLIST,
-  payload: track,
-})
-
-export const pagePlaylist = (playlist) => ({
-  type: PAGE_PLAYLIST,
-  payload: playlist,
 })
 
 export const playTrack = () => ({
   type: PLAY_TRACK,
-//  payload: track,
 })
 
 export const pauseTrack = () => ({
   type: PAUSE_TRACK,
-//  payload: track,
 })

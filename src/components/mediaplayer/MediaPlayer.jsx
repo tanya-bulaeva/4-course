@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import {  isTrackPlayingSelector, tracksSelectors } from "../../store/selectors/index.js";
+import {  PlaylistSelector, isTrackPlayingSelector, tracksSelectors } from "../../store/selectors/index.js";
 import { nextTrack, pauseTrack, playTrack, prevTrack } from "../../store/actions/creators/index.js";
 
 export default function MediaPlayer({  tracks, setCurrentTrack}){
@@ -18,12 +18,13 @@ export default function MediaPlayer({  tracks, setCurrentTrack}){
   const AudioRef = useRef(null);
   const [trackIndex, setTrackIndex] = useState(0);
   const [shuffled, setShuffled] = useState(false);
+  const playlist = useSelector(PlaylistSelector)
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
       handleStart();
       })
-      AudioRef.current.src = selectedTrack.track_file;    
+      AudioRef.current.src = selectedTrack .track_file;    
     }
   }, [selectedTrack]);//проигрывание сразу после клика на выбранный трек
 
@@ -51,13 +52,15 @@ export default function MediaPlayer({  tracks, setCurrentTrack}){
 
 const handleNext = () => {
   setTrackIndex((prev) => prev + 1);
-  dispatch( nextTrack(tracks[trackIndex + 1]))
- ;
+  dispatch(nextTrack(playlist[trackIndex + 1]))
+
+
+
 };//переключение плейлиста на трек вперед
 
 const handlePrevious = () => {
   setTrackIndex((prev) => prev - 1);
-  dispatch(prevTrack(tracks[trackIndex - 1]))
+  dispatch(prevTrack(playlist[trackIndex - 1]))
    
 };
 //переключение плейлиста на трек назад
@@ -126,7 +129,7 @@ useEffect(() => {
 //
     return(<> 
  <S.BarStyle>
-        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}   controls src={selectedTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
+        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}  onEnded={handleNext} controls src={selectedTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
        <S.BarContent>
          <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime}  ></ProgressBar>
          <S.BarPlayerBlock >

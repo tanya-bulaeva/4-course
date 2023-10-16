@@ -11,7 +11,7 @@ function App() {
 const [user, setUser] = useState(null);
 const [tracks, setTracks] = useState([]);
 const dispatch = useDispatch()
-const [currentTrack, setCurrentTrack] = useState(tracks[0]);
+const [currentTrack, setCurrentTrack] = useState();
 const [loading, setloading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 const navigate = useNavigate()
@@ -29,7 +29,6 @@ const navigate = useNavigate()
   
   };
 
-
 useEffect(() => {
  async function getAllTracks (){
 try {
@@ -37,9 +36,9 @@ try {
   setTracksError(null);
   await getTrack().then((tracks) => {
   console.log(tracks);//проверка что получаем из апи
-//dispatch(addPlaylist(tracks))
+  dispatch(addPlaylist(tracks))
 
- setTracks(tracks);
+// setTracks(tracks);
 })//получение из апи треков
 } catch(error) {
   setTracksError(error.message)//если ошибка
