@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { keyframes } from "styled-components";
 
 export const CenterblockContent = styled.div`  
 display: -webkit-box;
@@ -247,3 +247,28 @@ background-color: #4e4e4e;
 color: #4e4e4e;
 
 `
+
+const blinkAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+export const BlinkingDotActive = styled.div`
+  width: 150px;
+  height: 15px; 
+  background-color: #b672ff;
+  border-radius: 50%;
+  animation: ${blinkAnimation} 1s infinite;
+`;
+export const BlinkingDot = styled.div`
+  width: 150px;
+  height: 15px; 
+  background-color: #b672ff;
+  border-radius: 50%;
+`;

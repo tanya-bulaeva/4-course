@@ -1,0 +1,8 @@
+export const PLAY_TRACK = "PLAY_TRACK"
+export const PAUSE_TRACK = "PAUSE_TRACK"
+export const PREVIOUS_TRACK = "PREVIOUS_TRACK";
+export const NEXT_TRACK = "NEXT_TRACK";
+export const SHUFFLE_PLAYLIST = "SHUFFLE_PLAYLIST"
+export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK"
+export const ADD_PLAYLIST = "ADD_PLAYLIST"
+
