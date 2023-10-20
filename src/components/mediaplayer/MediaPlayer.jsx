@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import {  PlaylistSelector, isTrackPlayingSelector,  shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
-import { nextTrack, pauseTrack, playTrack, prevTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
+import {  PlaylistSelector, isTrackPlayingSelector,  repeatTrackSelector,  shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
+import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
 
 export default function MediaPlayer({  setCurrentTrack}){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
@@ -13,7 +13,8 @@ export default function MediaPlayer({  setCurrentTrack}){
   const isPlaying = useSelector(isTrackPlayingSelector)
   const AudioRef = useRef(null);
   const shuffled = useSelector(shuffledPlaylistSelector)
-  const [isLoop, setIsLoop] = useState(false);
+  const isLoop = useSelector(repeatTrackSelector)
+  //const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
@@ -40,6 +41,9 @@ export default function MediaPlayer({  setCurrentTrack}){
     setCurrentTime(AudioRef.current.currentTime);
   };
 
+  const handleRepeat = () => {
+dispatch(repeatTrack())
+  }
  // const shufflePlaylist = (tracks) => {
   //  if (tracks.length === 1) return tracks;
  //   const rand = Math.floor(Math.random() * tracks.length);
@@ -101,24 +105,24 @@ useEffect(() => {
         AudioRef.current.play();
   };//старт вопроизведения трека
 
-  const handleLoop = () => {
-    AudioRef.current.loop = true;
-    setIsLoop(true);
+ // const handleLoop = () => {
+ //   AudioRef.current.loop = true;
+  //  setIsLoop(true);
 
-  }//зацикливание трека начать
+ // }//зацикливание трека начать
 
-  const handleLoopStop = () => {
-    AudioRef.current.loop = false;
-    setIsLoop(false);
-  }//зацикливание трека закончить
+ // const handleLoopStop = () => {
+//    AudioRef.current.loop = false;
+ //   setIsLoop(false);
+ // }//зацикливание трека закончить
 
 
  const togglePlay = isPlaying ? handleStop : handleStart;
-  const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
-//
+ // const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
+
     return(<> 
  <S.BarStyle>
-        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}  onEnded={handleNext} controls src={selectedTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
+        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}  loop = {isLoop} onEnded={handleNext} controls src={selectedTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
        <S.BarContent>
          <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime}  ></ProgressBar>
          <S.BarPlayerBlock >
@@ -142,11 +146,11 @@ useEffect(() => {
                    <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                  </S.PlayerBtnNextSvg>
                </S.PlayerBtnNext>
-               {isLoop ? ( <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
+               {isLoop ? ( <S.PlayerBtnRepeat className="_btn-icon" onClick={handleRepeat}>
                  <S.PlayerBtnRepeatSvgActive alt="repeat">
                    <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
                  </S.PlayerBtnRepeatSvgActive>
-               </S.PlayerBtnRepeat>) : (  <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
+               </S.PlayerBtnRepeat>) : (  <S.PlayerBtnRepeat className="_btn-icon" onClick={handleRepeat}>
                  <S.PlayerBtnRepeatSvg alt="repeat">
                    <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
                  </S.PlayerBtnRepeatSvg>

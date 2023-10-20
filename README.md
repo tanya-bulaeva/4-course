@@ -8,6 +8,10 @@
 фактическое время -  26 часов.
 # Getting Started with Create React App
 
+
+домашка по RTK Query
+планируемое время - 25 часов.
+фактическое время -   часов.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
