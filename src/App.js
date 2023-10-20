@@ -4,15 +4,15 @@ import { getTrack } from "./api";
 import { UserContext, UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addPlaylist } from "./store/actions/creators/index";
 import { useSelector } from "react-redux";
+import { addPlaylist } from "./store/actions/creators";
 
 function App() {
 const [user, setUser] = useState(null);
 const [tracks, setTracks] = useState([]);
 const dispatch = useDispatch()
 const [currentTrack, setCurrentTrack] = useState();
-const [loading, setloading] = useState (false);
+const [loading, setLoading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 const navigate = useNavigate()
 
@@ -28,14 +28,14 @@ const navigate = useNavigate()
   
   
   };
-
+/*
 useEffect(() => {
  async function getAllTracks (){
 try {
-  setloading (true);//состояние загрузки началось
+  setLoading (true);//состояние загрузки началось
   setTracksError(null);
   await getTrack().then((tracks) => {
-  console.log(tracks);//проверка что получаем из апи
+ // console.log(tracks);//проверка что получаем из апи
   dispatch(addPlaylist(tracks))
 
 // setTracks(tracks);
@@ -43,11 +43,24 @@ try {
 } catch(error) {
   setTracksError(error.message)//если ошибка
 } finally{
-  setloading(false)//состояние загрузки закончилось после получения данных из апи
+  setLoading(false)//состояние загрузки закончилось после получения данных из апи
 }
 
   }
   getAllTracks ()
+}, [])
+*/
+useEffect(() => {
+  setLoading(true)
+  getTrack()
+    .then((tracks) => {
+      dispatch(addPlaylist(tracks))
+      //console.log(tracks)
+    })
+    .catch(() => {
+      setPlaylistError("Не удалось загрузить плейлист, попробуйте позже")
+    })
+    .finally(() => setLoading(false))
 }, [])
 
 

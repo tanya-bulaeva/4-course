@@ -43,13 +43,7 @@ export default function MediaPlayer({  setCurrentTrack}){
 
   const handleRepeat = () => {
 dispatch(repeatTrack())
-  }
- // const shufflePlaylist = (tracks) => {
-  //  if (tracks.length === 1) return tracks;
- //   const rand = Math.floor(Math.random() * tracks.length);
-  //  return [tracks[rand], ...shufflePlaylist(tracks.filter((_, i) => i !== rand))];
-  //};
-
+  }//повторк трека
 
 const handleNext = () => {
 // setTrackIndex((prev) => prev + 1);
@@ -64,10 +58,8 @@ if (index !== tracks.length - 1) {
 } else return
 
 };//переключение плейлиста на трек вперед
-
 const handlePrevious = () => {
-//  setTrackIndex((prev) => prev - 1);
- // dispatch(prevTrack(tracks [trackIndex - 1]))
+
   const index = shuffled
   ? Math.floor(Math.random() * tracks.length) + 1
   : tracks.findIndex((x) => x.id === selectedTrack.id)
@@ -105,20 +97,8 @@ useEffect(() => {
         AudioRef.current.play();
   };//старт вопроизведения трека
 
- // const handleLoop = () => {
- //   AudioRef.current.loop = true;
-  //  setIsLoop(true);
-
- // }//зацикливание трека начать
-
- // const handleLoopStop = () => {
-//    AudioRef.current.loop = false;
- //   setIsLoop(false);
- // }//зацикливание трека закончить
-
 
  const togglePlay = isPlaying ? handleStop : handleStart;
- // const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
     return(<> 
  <S.BarStyle>
@@ -131,36 +111,36 @@ useEffect(() => {
              <S.PlayerControls>
                <S.PlayerBtnPrev>
                  <S.PlayerBtnPrevSvg  alt="prev" onClick={handlePrevious }>
-                   <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
+                   <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
                  </S.PlayerBtnPrevSvg>
                </S.PlayerBtnPrev>
                <S.PlayerBtnPlay className="_btn" onClick={togglePlay}>
                  <S.PlayerBtnPlaySvg alt="play"  >
-                   {isPlaying ? (<use xlinkHref="img/icon/sprite.svg#icon-pause"></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}
+                   {isPlaying ? (<use xlinkHref="/img/icon/sprite.svg#icon-pause"></use>) : (<use xlinkHref="/img/icon/sprite.svg#icon-play"></use>)}
                    
                  </S.PlayerBtnPlaySvg>
                </S.PlayerBtnPlay>
 
                <S.PlayerBtnNext>
                  <S.PlayerBtnNextSvg alt="next" onClick={handleNext}> 
-                   <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+                   <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
                  </S.PlayerBtnNextSvg>
                </S.PlayerBtnNext>
                {isLoop ? ( <S.PlayerBtnRepeat className="_btn-icon" onClick={handleRepeat}>
                  <S.PlayerBtnRepeatSvgActive alt="repeat">
-                   <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+                   <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                  </S.PlayerBtnRepeatSvgActive>
                </S.PlayerBtnRepeat>) : (  <S.PlayerBtnRepeat className="_btn-icon" onClick={handleRepeat}>
                  <S.PlayerBtnRepeatSvg alt="repeat">
-                   <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+                   <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                  </S.PlayerBtnRepeatSvg>
                </S.PlayerBtnRepeat>)}
 
                <S.PlayerBtnShuffle className="_btn-icon" onClick={handleShuffle }>
                 {shuffled ? (<S.PlayerBtnShuffleSvgActive alt="shuffle">
-                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                  </S.PlayerBtnShuffleSvgActive>) : (<S.PlayerBtnShuffleSvg alt="shuffle">
-                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                  </S.PlayerBtnShuffleSvg>)}
 
                </S.PlayerBtnShuffle>
@@ -170,7 +150,7 @@ useEffect(() => {
     <S.TrackPlayContain >
                     <S.TrackPlayImage>
                       <S.TrackPlaySvg alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                        <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                       </S.TrackPlaySvg>
 
                     </S.TrackPlayImage>
@@ -186,12 +166,12 @@ useEffect(() => {
                   <S.TrackPlayLikeDis>
                     <S.TrackPlayLike className="_btn-icon">
                       <S.TrackPlayLikeSvg  alt="like">
-                        <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                        <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                       </S.TrackPlayLikeSvg>
                     </S.TrackPlayLike>
                     <S.TrackPlayDislike className="_btn-icon">
                       <S.TrackPlayDislikeSvg alt="dislike">
-                        <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+                        <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
                       </S.TrackPlayDislikeSvg>
                       
                     </S.TrackPlayDislike>
@@ -203,7 +183,7 @@ useEffect(() => {
              <S.VolumeContent>
                <S.VolumeImage>
                  <S.VolumeSvg alt="volume">
-                   <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+                   <use xlinkHref="/img/icon/sprite.svg#icon-volume"></use>
                  </S.VolumeSvg>
                </S.VolumeImage>
                <S.VolumeProgress className="_btn">

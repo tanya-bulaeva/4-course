@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, ADD_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, CURRENT_PLAYLIST} from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, ADD_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST} from "../actions/types/index";
 
 // 1.В переменной initialState хранится логика.
 const initialState = {
@@ -77,12 +77,7 @@ export default function trackReducer(state = initialState, action) {
         repeat: !state.repeat,
       };
     }
-    case CURRENT_PLAYLIST: {
-      return {
-        ...state,
-        playlist: action.payload,
-      };
-    }
+
     case PAGE_PLAYLIST: {
       return {
         ...state,

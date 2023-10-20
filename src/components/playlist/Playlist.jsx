@@ -1,7 +1,10 @@
 import * as S from "./style.js"
+import { useState, useEffect } from "react"
 import { Tracklists } from "./Tracklists.jsx"
 
 export default function Playlist ({loading, tracks, setCurrentTrack, currentTrack  }) {
+
+
     return (<>
         <S.CenterblockContent >
           <S.ContentTitle>
@@ -10,11 +13,12 @@ export default function Playlist ({loading, tracks, setCurrentTrack, currentTrac
             <S.PlaylistTitleCol03 className="col03">АЛЬБОМ</S.PlaylistTitleCol03>
             <S.PlaylistTitleCol04 className="col04">
               <S.PlaylistTitleSvg alt="time">
-                <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+                <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          <Tracklists loading ={loading} tracks = {tracks}  currentTrack  = {currentTrack } setCurrentTrack = {setCurrentTrack}   />
+          <Tracklists loading ={loading} tracks = {tracks}  currentTrack  = {currentTrack } setCurrentTrack = {setCurrentTrack}   /> 
+          
       </S.CenterblockContent></>
     )
 }

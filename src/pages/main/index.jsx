@@ -9,10 +9,13 @@ import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
 import { tracksSelectors } from "../../store/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector } from "../../store/selectors";
-export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user,  }) => {
+import { pagePlaylist } from "../../store/actions/creators";
+import { getTrack } from "../../api";
+export const Main = ({tracks, tracksError, setTracksError, currentTrack, setCurrentTrack, Audioref, user,  }) => {
  const  selectedTrack = useSelector(tracksSelectors);
-    const [loading, setLoading] = useState(false);
+ const [playlistError, setPlaylistError ] = useState()
+ const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
        // const [currentTrack, setCurrentTrack] = useState (null);
     useEffect(() => {
           // Заводим таймер
@@ -24,6 +27,25 @@ export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audior
           };
       }, []);
 
+
+
+      useEffect(() => {
+        setLoading(true)
+        getTrack()
+          .then((tracks) => {
+            dispatch(pagePlaylist(tracks))
+        //    console.log(tracks)
+          })
+          .catch(() => {
+            setPlaylistError("Не удалось загрузить плейлист, попробуйте позже")
+          })
+          .finally(() => setLoading(false))
+      }, [])
+  
+
+
+
+
 return (       <>
     <S.GlobalStyle />
 <S.WrapperStyle>
@@ -34,7 +56,7 @@ return (       <>
     <Search />
         <S.CenterclockH2>Треки</S.CenterclockH2>
       <Filter tracks = {tracks} />
-      {tracksError ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } ref = {Audioref} />      )}
+      {playlistError? (<p>Не удалось загрузить плейлист, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } ref = {Audioref} />      )}
       </S.MainCenterblock>
       <S.MainSidebar>
     <UserAccount />
