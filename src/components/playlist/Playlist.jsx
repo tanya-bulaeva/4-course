@@ -2,7 +2,8 @@ import * as S from "./style.js"
 import { useState, useEffect } from "react"
 import { Tracklists } from "./Tracklists.jsx"
 
-export default function Playlist ({loading, tracks, setCurrentTrack, currentTrack  }) {
+
+export default function Playlist ({loading, tracksError  }) {
 
 
     return (<>
@@ -17,7 +18,7 @@ export default function Playlist ({loading, tracks, setCurrentTrack, currentTrac
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          <Tracklists loading ={loading} tracks = {tracks}  currentTrack  = {currentTrack } setCurrentTrack = {setCurrentTrack}   /> 
+         {tracksError ? ("Не удалось загрузить плейлист, попробуйте позже") : (<Tracklists loading ={loading}   /> )} 
           
       </S.CenterblockContent></>
     )

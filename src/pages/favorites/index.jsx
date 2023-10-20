@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 import { pagePlaylist } from "../../store/actions/creators";
 import { getTrack } from "../../api"; 
-export const Favorites = ({  currentTrack,   tracksError,  setCurrentTrack, user, Audioref}) => {
+export const Favorites = ({   tracksError,   Audioref}) => {
 //const { data, error, isLoading } =  useGetFavTracksQuery()
 const dispatch = useDispatch();
 const [playlistError, setPlaylistError ] = useState();
@@ -21,6 +21,7 @@ const [loading, setLoading] = useState(false);
 const tracks = useSelector(PlaylistSelector)
 const playlist = useSelector(pagePlaylistSelector)
 
+//без этого не убираются скелетоны
 useEffect(() => {
   // Заводим таймер
   const timerId = setInterval(() => setLoading(!loading), 5000);		
@@ -33,16 +34,11 @@ useEffect(() => {
 
 
 useEffect(() => {
-  setLoading(true)
-  getTrack()
+   getTrack()
     .then((tracks) => {
       dispatch(pagePlaylist(tracks))
-   //   console.log(tracks)
+      console.log(tracks)
     })
-    .catch(() => {
-      setPlaylistError("Не удалось загрузить плейлист, попробуйте позже")
-    })
-    .finally(() => setLoading(false))
 }, [])
 
 
@@ -55,12 +51,12 @@ useEffect(() => {
           <S.MainCenterblock>
         <Search />
             <S.CenterclockH2>Мой плейлист</S.CenterclockH2>
-            {playlistError? (<p>Не удалось загрузить плейлист, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } ref = {Audioref} />      )}
+        <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}   ref = {Audioref} />
                     </S.MainCenterblock>
           <S.MainSidebar>
         <UserAccount />
           </S.MainSidebar>
-              {selectedTrack  ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : null} 
+              {selectedTrack  ? (<MediaPlayer loading = {loading} tracks={tracks}   />) : null} 
                   </S.MainStyle>
 
         <footer className="footer"></footer>

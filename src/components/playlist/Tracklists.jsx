@@ -7,7 +7,7 @@ import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlayli
 import { useGetFavTracksQuery } from "../../services/favoriteTrack.js";
 export function Tracklists({loading}){
 const dispatch = useDispatch()
-const tracks = useSelector(PlaylistSelector)
+//const tracks = useSelector(PlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const playlist = useSelector(pagePlaylistSelector)
@@ -17,25 +17,19 @@ const setUpTrack = (track) => {
   dispatch(addPlaylist(playlist))
 }
 
-  const AllTrackPlaylist = tracks.map((track, id) =>{
+  const AllTrackPlaylist = playlist.map((track, id) =>{
     const { name, author, album, duration_in_seconds } = track;
     const isCurrentPlaying = selectedTrack  && track.id === selectedTrack.id;
 return (
   <S.PlaylistItem key ={id}>
   <S.PlaylistTrack>
     <S.TrackTitle>
-      {loading ? (
-         <S.TrackTitleImage>
-{isCurrentPlaying ?  
+      {loading ? ( <S.TrackTitleImage>
+{isCurrentPlaying ? 
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
 
-
-
-
 : (<S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>)
-
-
 
 }
 

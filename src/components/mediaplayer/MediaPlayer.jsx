@@ -6,7 +6,7 @@ import * as S from "./style.js"
 import {  PlaylistSelector, isTrackPlayingSelector,  repeatTrackSelector,  shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
 import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
 
-export default function MediaPlayer({  setCurrentTrack}){
+export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
