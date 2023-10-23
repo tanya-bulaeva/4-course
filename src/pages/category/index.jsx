@@ -14,20 +14,9 @@ import { CategoryItems } from "../../components/collections/CategoryItems.jsx";
 import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 export const Category = ({ currentTrack, tracks, tracksError, setCurrentTrack, Audioref }) => {
   const params = useParams();
-  const  selectedTrack = useSelector(tracksSelectors);
-  const [playlistError, setPlaylistError ] = useState();
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    // Заводим таймер
-    const timerId = setInterval(() => setLoading(!loading), 5000);		
-    // Данная функция вызывается при удалении компонента из DOM
-    return () => {
-        // Наводим порядок после удаления компонента
-        clearInterval(timerId);
-    };
-  }, []);
+
   return (       <>
     <S.GlobalStyle />
 <S.WrapperStyle>

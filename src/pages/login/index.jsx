@@ -28,8 +28,12 @@ if (!password){
 await loginUser({email, password}).then ((loginData) => {
 
 getToken({email, password}).then ((tokenData) => {
-  login(loginData, tokenData.access)
+  login(loginData)
 })
+
+//getToken({email, password}).then ((tokenData) => {
+//  login(loginData, tokenData.access)
+//})
 
 })
 }catch(error){

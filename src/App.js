@@ -6,12 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { pagePlaylist, setCurrentPlaylist } from "./store/actions/creators";
 
+
 function App() {
 const [user, setUser] = useState(null);
 const dispatch = useDispatch()
 const [loading, setLoading] = useState (false);
 const [tracksError, setTracksError] = useState(null)
 const navigate = useNavigate()
+const [selectedTrack, setSelectedTrack] = useState()
+
 
  const handleLogin = () =>   {
  localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
@@ -32,7 +35,7 @@ try {
   setTracksError(null);
   await getTrack().then((data) => {
  //console.log(data);//проверка что получаем из апи
-  dispatch(setCurrentPlaylist(data))
+  dispatch(addTracks(data))
 })//получение из апи треков
 } catch(error) {
   setTracksError("error.message")//если ошибка
@@ -47,9 +50,8 @@ try {
 useEffect(() => {
   setLoading(true)
   getTrack()
-    .then((tracks) => {
-      dispatch(setCurrentPlaylist(tracks))
-      //console.log(tracks)
+    .then((playlist) => {
+      dispatch(setCurrentPlaylist(playlist))//получить плейлист
     })
     .catch(() => {
       setTracksError("Не удалось загрузить плейлист, попробуйте позже")
@@ -61,7 +63,7 @@ useEffect(() => {
 //onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (
     <UserProvaider>
-        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}   tracksError={tracksError} />
+        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading} setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />
         </UserProvaider>
   );
 }

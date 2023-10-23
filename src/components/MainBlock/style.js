@@ -126,6 +126,7 @@ line-height: 72px;
 letter-spacing: -0.8px;
 margin-bottom: 45px;
 `
+
 export const MainSidebar = styled.div`
 max-width: 418px;
 padding: 20px 90px 20px 78px;

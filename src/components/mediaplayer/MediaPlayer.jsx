@@ -17,7 +17,7 @@ export default function MediaPlayer( ){
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
-  const playlist = useSelector(pagePlaylistSelector)
+
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
@@ -45,8 +45,6 @@ dispatch(repeatTrack())
   }//повторк трека
 
 const handleNext = () => {
-// setTrackIndex((prev) => prev + 1);
- // dispatch(nextTrack(tracks [trackIndex + 1]))
  const index = shuffled
  ? Math.floor(Math.random() * (tracks.length - 1))
  : tracks.findIndex((x) => x.id === selectedTrack.id)
