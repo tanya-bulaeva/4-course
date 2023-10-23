@@ -1,15 +1,15 @@
-/*import { configureStore } from "@reduxjs/toolkit";
-import { favoriteTrackApi} from "../services/favoriteTrack";
+import { configureStore } from "@reduxjs/toolkit";
+import { favoriteTracksApi} from "../services/favoriteTrack";
 import trackReducer from "./reducer";
 
 export const store = configureStore({
   reducer: {
        audioplayer: trackReducer,
-       [favoriteTrackApi.reducerPath]: favoriteTrackApi.reducer,
+       [favoriteTracksApi.reducerPath]: favoriteTracksApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware().concat(favoriteTrackApi.middleware),
-});*/
+  getDefaultMiddleware().concat(favoriteTracksApi.middleware),
+});
 //configureStore которая позволит нам объединить все редьюсеры в проекте, чтобы собрать из них глобальный store. 
 //Редьюсеров может быть сколько угодно, так что вы не ограничены в их количестве
 
@@ -23,7 +23,7 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(todoApi.middleware),
-});*/
+});*//*
 import { configureStore } from "@reduxjs/toolkit";
 import trackReducer from "./reducer";
 
@@ -31,4 +31,4 @@ export const store = configureStore({
   reducer: {
        audioplayer: trackReducer,
   }
-});
+});*/

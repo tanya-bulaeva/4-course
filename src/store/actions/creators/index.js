@@ -1,7 +1,7 @@
-import {ADD_PLAYLIST, NEXT_TRACK, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST} from '../types/index'
+import {CURRENT_PLAYLIST, NEXT_TRACK, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST} from '../types/index'
 
-export const addPlaylist = (playlist) => ({
-  type: ADD_PLAYLIST,
+export const setCurrentPlaylist = (playlist) => ({
+  type: CURRENT_PLAYLIST,
   payload: playlist,
 })
 

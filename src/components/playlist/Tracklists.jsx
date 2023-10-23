@@ -1,23 +1,17 @@
 import * as S from "./style.js";
 import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { addPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { pagePlaylist, playTrack, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector } from "../../store/selectors/index.js";
-import { useGetFavTracksQuery } from "../../services/favoriteTrack.js";
+import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 export function Tracklists({loading}){
 const dispatch = useDispatch()
-//const tracks = useSelector(PlaylistSelector)
+const tracks = useSelector(PlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
-const playlist = useSelector(pagePlaylistSelector)
 
-const setUpTrack = (track) => {
-  dispatch(setTrackCurrent (track))
-  dispatch(addPlaylist(playlist))
-}
 
-  const AllTrackPlaylist = playlist.map((track, id) =>{
+  const AllTrackPlaylist = tracks.map((track, id) =>{
     const { name, author, album, duration_in_seconds } = track;
     const isCurrentPlaying = selectedTrack  && track.id === selectedTrack.id;
 return (
@@ -25,10 +19,9 @@ return (
   <S.PlaylistTrack>
     <S.TrackTitle>
       {loading ? ( <S.TrackTitleImage>
-{isCurrentPlaying ? 
+{isCurrentPlaying ?  
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
-
 : (<S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>)
 
 }
@@ -38,7 +31,7 @@ return (
     </S.TrackTitleImageSkeleton>)}
 
   {loading ? ( <S.TrackTitleText>
-        <S.TrackTitleLink  onClick={() =>  setUpTrack(track)}> {name}
+        <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {name}
           <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
       </S.TrackTitleText>) : 
       (<S.TrackTitleTextSkeleton>

@@ -1,10 +1,9 @@
+import { useDispatch, useSelector } from "react-redux"
 import * as S from "./style.js"
-import { useState, useEffect } from "react"
 import { Tracklists } from "./Tracklists.jsx"
+import { pagePlaylistSelector } from "../../store/selectors/index.js"
 
-
-export default function Playlist ({loading, tracksError  }) {
-
+export default function Playlist ({loading }) {
 
     return (<>
         <S.CenterblockContent >
@@ -18,9 +17,7 @@ export default function Playlist ({loading, tracksError  }) {
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-         {tracksError ? ("Не удалось загрузить плейлист, попробуйте позже") : (<Tracklists loading ={loading}   /> )} 
-          
+          <Tracklists loading ={loading}  />
       </S.CenterblockContent></>
     )
 }
-

@@ -50,8 +50,9 @@ export async function getTrack() {
   
       return data;
     }
-    
-    export async function getToken({ email, password }) {
+ 
+
+  export async function getToken({ email, password }) {
       const response = await fetch(`https://skypro-music-api.skyeng.tech/user/token/`, {
         method: 'POST',
         body: JSON.stringify({
@@ -68,7 +69,21 @@ export async function getTrack() {
         throw new Error(error)
     
       }
-  
       return data;
     } 
+
+    
+    export async function refreshToken(refresh) {
+      const res = await fetch('https://skypro-music-api.skyeng.tech/user/token/refresh/', {
+        method: 'POST',
+        body: JSON.stringify({
+          refresh: refresh,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      const token = await res.json()
+      return token
+    }
     

@@ -7,14 +7,15 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
-import { tracksSelectors } from "../../store/selectors";
+import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { pagePlaylist } from "../../store/actions/creators";
+
+import { pagePlaylist, setCurrentPlaylist } from "../../store/actions/creators";
 import { getTrack } from "../../api";
-import { Outlet } from "react-router-dom";
 export const Main = ({tracks, tracksError, setTracksError,  Audioref }) => {
  const  selectedTrack = useSelector(tracksSelectors);
  const dispatch = useDispatch();
+ const playlist = useSelector(pagePlaylistSelector)
   const [loading, setLoading] = useState(false);
     useEffect(() => {
           // Заводим таймер
@@ -26,23 +27,17 @@ export const Main = ({tracks, tracksError, setTracksError,  Audioref }) => {
           };
       }, []);
 
-
       useEffect(() => {
         setLoading(true)
         getTrack()
-          .then((tracks) => {
-            dispatch(pagePlaylist(tracks))
-        //    console.log(tracks)
+          .then((playlist) => {
+            dispatch(pagePlaylist(playlist))
           })
           .catch(() => {
             setTracksError("Не удалось загрузить плейлист, попробуйте позже")
           })
           .finally(() => setLoading(false))
       }, [])
-
-
-
-
 
 return (       <>
     <S.GlobalStyle />

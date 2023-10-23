@@ -3,9 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import {  PlaylistSelector, isTrackPlayingSelector,  repeatTrackSelector,  shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
 import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
-
+import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector,  } from "../../store/selectors/index.js";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -18,7 +17,7 @@ export default function MediaPlayer( ){
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
- 
+  const playlist = useSelector(pagePlaylistSelector)
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
