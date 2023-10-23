@@ -4,12 +4,10 @@ import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_
 const initialState = {
 playing: false,
 playlist: [],
-currentTrack: null,  
 track: null,
 shuffledPlaylist: false,
 repeat: false,
 pagePlaylist : [],
-
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 

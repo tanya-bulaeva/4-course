@@ -1,15 +1,21 @@
 import { useDispatch, useSelector } from "react-redux"
 import * as S from "./style.js"
 import { Tracklists } from "./Tracklists.jsx"
-import { PlaylistSelector, pagePlaylistSelector } from "../../store/selectors/index.js"
+import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors } from "../../store/selectors/index.js"
 import Search from "../search/Search.jsx"
-import { pagePlaylist, setCurrentPlaylist } from "../../store/actions/creators/index.js"
+import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators/index.js"
+import { useEffect } from "react"
 
-export default function Playlist ({loading, title }) {
-  const setUpTrack = (track) => {
-    dispatch(setCurrentTrack(track))
-    dispatch(setCurrentPlaylist(list))
-  }
+export default function Playlist ({loading, title}) {
+  const playlist = useSelector(pagePlaylistSelector)
+  const tracks = useSelector(PlaylistSelector)
+  const selectedTrack = useSelector(tracksSelectors)
+  const isPlaying = useSelector(isTrackPlayingSelector)
+  const dispatch = useDispatch()
+  useEffect(() => {
+  dispatch(pagePlaylists(playlist))//получить плейлист
+  console.log(playlist)
+  })
    return (<>
         <S.CenterclockH2>{title}</S.CenterclockH2>
         <S.CenterblockContent >
@@ -24,9 +30,10 @@ export default function Playlist ({loading, title }) {
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          <Tracklists loading ={loading} onclick={() => setUpTrack(track)} />
+          <Tracklists loading = {loading}></Tracklists>
       </S.CenterblockContent></>
     )
 }
 
 
+//{playlist.map((track) =>  track.name)}

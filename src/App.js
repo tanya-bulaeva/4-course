@@ -4,7 +4,7 @@ import { getTrack } from "./api";
 import { UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { pagePlaylist, setCurrentPlaylist } from "./store/actions/creators";
+import { setCurrentPlaylist } from "./store/actions/creators";
 
 
 function App() {

@@ -39,7 +39,7 @@ export const repeatTrack = () => ({
   type: REPEAT_TRACK,
 })
 
-export const pagePlaylist = (playlist) => ({
+export const pagePlaylists = (playlist) => ({
   type: PAGE_PLAYLIST,
   payload: playlist,
 })

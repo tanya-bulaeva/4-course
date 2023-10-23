@@ -10,7 +10,7 @@ import Playlist from "../../components/playlist/Playlist";
 
 import { useDispatch, useSelector } from "react-redux";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
-import { pagePlaylist } from "../../store/actions/creators";
+import { pagePlaylists } from "../../store/actions/creators";
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
@@ -20,12 +20,12 @@ const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
 const tracks = useSelector(PlaylistSelector)
 const playlist = useSelector(pagePlaylistSelector)
-const { data, error, isLoading } = useGetMyTracksQuery()
+const { data} = useGetMyTracksQuery()
 const dispatch = useDispatch()
 
 useEffect(() => {
-  dispatch(pagePlaylist(data))
-}, [data])
+  dispatch(pagePlaylists(data))
+}, [data])//получение
 
 //без этого не убираются скелетоны
 useEffect(() => {
@@ -40,8 +40,7 @@ useEffect(() => {
 
 
     return (        <>
- <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"}   /> 
+ <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"}    /> 
     </>
     );
-
-        };
+ };

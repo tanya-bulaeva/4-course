@@ -10,12 +10,14 @@ import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
 import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { pagePlaylist } from "../../store/actions/creators";
+import { pagePlaylists } from "../../store/actions/creators";
 import { getTrack } from "../../api";
 export const Main = ({tracks, tracksError, setTracksError}) => {
  const  selectedTrack = useSelector(tracksSelectors);
  const dispatch = useDispatch();
  const [loading, setLoading] = useState(false);
+ const playlist = useSelector(pagePlaylistSelector)
+
  // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
     // Заводим таймер
@@ -30,7 +32,8 @@ useEffect(() => {
  useEffect(() => {
   getTrack()
     .then((playlist) => {
-      dispatch(pagePlaylist(playlist))//получить плейлист
+      dispatch(pagePlaylists(playlist))//получить плейлист
+      console.log (playlist)
     })
     .catch(() => {
       setTracksError("Не удалось загрузить плейлист, попробуйте позже")
@@ -38,9 +41,8 @@ useEffect(() => {
     .finally(() => setLoading(false))
 }, [])
 
-
 return (       <>
- <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  title={"Треки"}  /> 
+ <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  title={"Треки"}   /> 
 
 </>
 );

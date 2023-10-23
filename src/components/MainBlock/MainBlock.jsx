@@ -9,14 +9,23 @@ import UserAccount from "../userAccount/UserAccount";
 import Collections from "../collections/Collections";
 import Playlist from "../playlist/Playlist";
 import MediaPlayer from "../mediaplayer/MediaPlayer";
+import { useState, useEffect } from "react";
 
 
-
-export default function MainBlock({loading, tracksError, children})
+export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
-
-
+const [loading, setLoading] = useState(false);
+// const [currentTrack, setCurrentTrack] = useState (null);
+useEffect(() => {
+   // Заводим таймер
+   const timerId = setInterval(() => setLoading(!loading), 5000);		
+   // Данная функция вызывается при удалении компонента из DOM
+   return () => {
+       // Наводим порядок после удаления компонента
+       clearInterval(timerId);
+   };
+}, []);
 return (<>
     <S.GlobalStyle />
 <S.WrapperStyle>
@@ -25,8 +34,8 @@ return (<>
     <NavMenu />
       <S.MainCenterblock>
     <Search />
+    <Filter />
 
-      <Filter  />
       <p>{tracksError}</p>
       {children}
       </S.MainCenterblock>

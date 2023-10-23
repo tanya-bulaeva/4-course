@@ -1,12 +1,12 @@
 import * as S from "./style.js";
 import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { pagePlaylist, playTrack, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { pagePlaylists, playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors } from "../../store/selectors/index.js";
+import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 export function Tracklists({loading}){
 const dispatch = useDispatch()
-const tracks = useSelector(PlaylistSelector)
+const tracks = useSelector(pagePlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 
