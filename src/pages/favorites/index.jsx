@@ -10,7 +10,7 @@ import Playlist from "../../components/playlist/Playlist";
 
 import { useDispatch, useSelector } from "react-redux";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
-import { pagePlaylists } from "../../store/actions/creators";
+import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
@@ -18,13 +18,13 @@ export const Favorites = ({   tracksError, setTracksError}) => {
 const [playlistError, setPlaylistError ] = useState();
 const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
-const tracks = useSelector(pagePlaylistSelector)
+const tracks = useSelector(tracksSelectors)
 const playlist = useSelector(pagePlaylistSelector)
 const { data} = useGetMyTracksQuery()
 const dispatch = useDispatch()
 
 useEffect(() => {
-  dispatch(pagePlaylists(data))
+  dispatch(setCurrentPlaylist(data))
 }, [data])//получение
 
 //без этого не убираются скелетоны

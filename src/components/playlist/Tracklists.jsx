@@ -1,27 +1,24 @@
 import * as S from "./style.js";
-import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { pagePlaylists, playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
+import {  setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 import { useUserContext } from "../../context/user.jsx";
-import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useNavigate } from "react-router-dom";
+import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+
 export function Tracklists({loading}){
 const dispatch = useDispatch()
-const tracks = useSelector(PlaylistSelector)//все работает, но получаем все треки,нет избр//
+//const tracks = useSelector(PlaylistSelector)//все работает, но получаем все треки,нет избр//
+const tracks = useSelector(pagePlaylistSelector)
 //но если сделать  useSelector(pagePlaylistSelector) чтобы получить данные конкретного плейлиста, 
-//то сначала оказывает правильно количество треков (это видно в консоли), но потом возникает ошибка Cannot read properties of undefined (reading 'map') Tracklists
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
-    const user = useUserContext()
-    const navigate = useNavigate()
-
   const AllTrackPlaylist = tracks.map((track, id) =>{
     const { name, author, album, duration_in_seconds } = track;
     const isCurrentPlaying = selectedTrack  && track.id === selectedTrack.id;
-    
-return (
+  return (
   <S.PlaylistItem key ={id}>
   <S.PlaylistTrack>
     <S.TrackTitle>
@@ -65,7 +62,7 @@ return (
 
 {loading ? (  <S.TrackTime>
       <S.TrackTimeSvg alt="time" >
-      <use xlinkHref="/img/icon/sprite.svg#icon-like" ></use> 
+         
        
         
       </S.TrackTimeSvg>
