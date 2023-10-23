@@ -65,7 +65,7 @@ return (
 
 {loading ? (  <S.TrackTime>
       <S.TrackTimeSvg alt="time" >
-      <use xlinkHref="/img/icon/sprite.svg#icon-like" ></use> )
+      <use xlinkHref="/img/icon/sprite.svg#icon-like" ></use> 
        
         
       </S.TrackTimeSvg>
