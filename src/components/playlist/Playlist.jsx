@@ -5,17 +5,20 @@ import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksS
 import Search from "../search/Search.jsx"
 import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators/index.js"
 import { useEffect } from "react"
+import { useUserContext } from "../../context/user.jsx"
+import { useNavigate } from "react-router-dom"
+
 
 export default function Playlist ({loading, title}) {
-  const playlist = useSelector(pagePlaylistSelector)
-  const tracks = useSelector(PlaylistSelector)
-  const selectedTrack = useSelector(tracksSelectors)
-  const isPlaying = useSelector(isTrackPlayingSelector)
+  const playlist = useSelector(pagePlaylistSelector) //useSelector(pagePlaylistSelector)
+
+  //то сначала оказывает правильно количество треков (это видно в консоли), но потом возникает ошибка Cannot read properties of undefined (reading 'map') Tracklists
   const dispatch = useDispatch()
   useEffect(() => {
-  dispatch(pagePlaylists(playlist))//получить плейлист
-  console.log(playlist)
+  dispatch(setCurrentPlaylist(playlist))//(setCurrentPlaylist(playlist))/получить плейлист
+  console.log(playlist)//(pagePlaylists(playlist))/в консоли отобрадается корректно - если зайти в учетку test - в консоли отображается колво треков в плейлисте
   })
+
    return (<>
         <S.CenterclockH2>{title}</S.CenterclockH2>
         <S.CenterblockContent >
@@ -30,7 +33,7 @@ export default function Playlist ({loading, title}) {
               </S.PlaylistTitleSvg>
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
-          <Tracklists loading = {loading}></Tracklists>
+           <Tracklists   loading = {loading} ></Tracklists>
       </S.CenterblockContent></>
     )
 }

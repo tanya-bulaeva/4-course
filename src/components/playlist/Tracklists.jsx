@@ -4,11 +4,18 @@ import { formatTime } from "../../helpers.js";
 import { pagePlaylists, playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
+import { useUserContext } from "../../context/user.jsx";
+import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { useNavigate } from "react-router-dom";
 export function Tracklists({loading}){
 const dispatch = useDispatch()
-const tracks = useSelector(pagePlaylistSelector)
+const tracks = useSelector(PlaylistSelector)//все работает, но получаем все треки,нет избр//
+//но если сделать  useSelector(pagePlaylistSelector) чтобы получить данные конкретного плейлиста, 
+//то сначала оказывает правильно количество треков (это видно в консоли), но потом возникает ошибка Cannot read properties of undefined (reading 'map') Tracklists
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
+    const user = useUserContext()
+    const navigate = useNavigate()
 
   const AllTrackPlaylist = tracks.map((track, id) =>{
     const { name, author, album, duration_in_seconds } = track;
@@ -57,8 +64,10 @@ return (
   </S.TrackAlbumSkeleton>)}
 
 {loading ? (  <S.TrackTime>
-      <S.TrackTimeSvg alt="time">
-        <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
+      <S.TrackTimeSvg alt="time" >
+      <use xlinkHref="/img/icon/sprite.svg#icon-like" ></use> )
+       
+        
       </S.TrackTimeSvg>
       <S.TrackTimeText >{formatTime(duration_in_seconds)}</S.TrackTimeText>
     </S.TrackTime>) : 
