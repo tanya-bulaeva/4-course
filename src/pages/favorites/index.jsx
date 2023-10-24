@@ -24,8 +24,11 @@ const { data} = useGetMyTracksQuery()
 const dispatch = useDispatch()
 
 useEffect(() => {
-  dispatch(setCurrentPlaylist(data))
+  dispatch(pagePlaylists(data))
+  console.log (data)
 }, [data])//получение
+
+
 
 //без этого не убираются скелетоны
 useEffect(() => {

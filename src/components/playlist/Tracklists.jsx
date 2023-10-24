@@ -7,77 +7,105 @@ import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  trac
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
-
-export function Tracklists({loading}){
+export function Tracklists({loading, track}){
+const {user} = useUserContext()
+console.log(user)
 const dispatch = useDispatch()
-//const tracks = useSelector(PlaylistSelector)//все работает, но получаем все треки,нет избр//
 const tracks = useSelector(pagePlaylistSelector)
-//но если сделать  useSelector(pagePlaylistSelector) чтобы получить данные конкретного плейлиста, 
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
-  const AllTrackPlaylist = tracks.map((track, id) =>{
-    const { name, author, album, duration_in_seconds } = track;
-    const isCurrentPlaying = selectedTrack  && track.id === selectedTrack.id;
+const isCurrentPlaying = selectedTrack?.id !== track.id
+const navigate = useNavigate()
+  const isUserLike = track.stared_user
+    ? Boolean(track.stared_user?.find((track) => track.id === user.id))
+    : true
+  const [isLiked, setIsLiked] = useState(isUserLike)
+  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const handleLike = async (id) => {
+    setIsLiked(true)
+    try {
+      await checkToken()
+      await likeTrack({ id }).unwrap()
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
+      }
+    }
+  }
+
+  const handleDislike = async (id) => {
+    setIsLiked(false)
+    try {
+      await checkToken()
+      await dislikeTrack({ id }).unwrap()
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
+      }
+    }
+  }
+
+  const toggleLikeDislike = (id) =>
+    isLiked ? handleDislike(id) : handleLike(id)
+
   return (
-  <S.PlaylistItem key ={id}>
+  <S.PlaylistItem >
   <S.PlaylistTrack>
     <S.TrackTitle>
-      {loading ? ( <S.TrackTitleImage>
-{isCurrentPlaying ?  
+    {loading ? (
+         <S.TrackTitleImage>
+{isCurrentPlaying ?  (<S.TrackTitleSvg alt="music">  <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>):
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
-: (<S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>)
-
 }
 
       </S.TrackTitleImage>) : 
-      ( <S.TrackTitleImageSkeleton/>)
-    }
+      ( <S.TrackTitleImageSkeleton>
+    </S.TrackTitleImageSkeleton>)}
+
 
   {loading ? ( <S.TrackTitleText>
-        <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {name}
+        <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
           <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
       </S.TrackTitleText>) : 
       (<S.TrackTitleTextSkeleton >
-      <S.TrackTitleLinkSkeleton>{name}
+      <S.TrackTitleLinkSkeleton>{track.name}
        </S.TrackTitleLinkSkeleton>
     </S.TrackTitleTextSkeleton>)}
 
     </S.TrackTitle>
 
     {loading ? ( <S.TrackAuthor>
-      <S.TrackAuthorLink >{author}</S.TrackAuthorLink>
+      <S.TrackAuthorLink >{track.author}</S.TrackAuthorLink>
     </S.TrackAuthor>) : 
     ( <S.TrackAuthorSkeleton>
-    <S.TrackAuthorLinkSkeleton >{author}</S.TrackAuthorLinkSkeleton>
+    <S.TrackAuthorLinkSkeleton >{track.author}</S.TrackAuthorLinkSkeleton>
   </S.TrackAuthorSkeleton>)}
 
 {loading ? ( <S.TrackAlbum  >
       <S.TrackAlbumLink href="http://"
-        > {album}</S.TrackAlbumLink>
+        > {track.album}</S.TrackAlbumLink>
     </S.TrackAlbum >) : (            <S.TrackAlbumSkeleton >
     <S.TrackAlbumLinkSkeleton 
-      >{album}</S.TrackAlbumLinkSkeleton>
+      >{track.album}</S.TrackAlbumLinkSkeleton>
   </S.TrackAlbumSkeleton>)}
 
 {loading ? (  <S.TrackTime>
-      <S.TrackTimeSvg alt="time" >
-         
-       
+  <S.TrackTimeSvg alt="time" onClick={() => toggleLikeDislike(track.id)}>
+    {isLiked ? (<use xlinkHref="img/icon/sprite.svg#icon-like" fill="#ad61ff" ></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-like"></use>)}
         
       </S.TrackTimeSvg>
-      <S.TrackTimeText >{formatTime(duration_in_seconds)}</S.TrackTimeText>
+      <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
     </S.TrackTime>) : 
     ( <S.TrackTimeSkeleton>
     <S.TrackTimeSvgSkeleton alt="time">
     </S.TrackTimeSvgSkeleton>
     <S.TrackTimeTextSkeleton > </S.TrackTimeTextSkeleton>
   </S.TrackTimeSkeleton>)}
-
-
   </S.PlaylistTrack>
   </S.PlaylistItem>
 )
-  })
-  return (<S.ContentPlaylist>{AllTrackPlaylist}</S.ContentPlaylist>  )
+
+
 }
