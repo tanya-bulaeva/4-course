@@ -15,12 +15,12 @@ import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
 export const Favorites = ({   tracksError, setTracksError}) => {
-const [playlistError, setPlaylistError ] = useState();
-const  selectedTrack = useSelector(tracksSelectors);
+//const [playlistError, setPlaylistError ] = useState();
+//const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
-const tracks = useSelector(tracksSelectors)
+//const tracks = useSelector(tracksSelectors)
 const playlist = useSelector(pagePlaylistSelector)
-const { data} = useGetMyTracksQuery()
+const { data } = useGetMyTracksQuery()
 const dispatch = useDispatch()
 
 useEffect(() => {
@@ -44,7 +44,7 @@ useEffect(() => {
 
     return (        <>
 
- <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"}    /> 
+ <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
     </>
     );
  };

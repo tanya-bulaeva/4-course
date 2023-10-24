@@ -11,7 +11,7 @@
 
 домашка по RTK Query
 планируемое время - 25 часов.
-фактическое время -   часов.
+фактическое время -  36 часов.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

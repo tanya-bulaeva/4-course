@@ -31,8 +31,8 @@ if (password !== confirmPassword){
 }
   setDisableBtn(true)
 await registerUser({email, password}).then ((loginData) => {
-  getToken({email, password}).then((tokenData) => {
-    login(loginData, tokenData.access)
+  getToken({email, password}).then(() => {
+    login(loginData)
   })
 })
 

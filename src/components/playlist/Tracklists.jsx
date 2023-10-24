@@ -4,32 +4,31 @@ import {  setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
-import { useUserContext } from "../../context/user.jsx";
+
 import { useNavigate } from "react-router-dom";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { useUserContext } from "../../context/user.jsx";
 export function Tracklists({loading, track}){
 const {user} = useUserContext()
-console.log(user)
+//console.log(user)
 const dispatch = useDispatch()
 const tracks = useSelector(pagePlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
 const navigate = useNavigate()
-  const isUserLike = track.stared_user
-    ? Boolean(track.stared_user?.find((track) => track.id === user.id))
-    : true
+  const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track.id === user.id)) : true
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
-      await checkToken()
       await likeTrack({ id }).unwrap()
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
+
       }
     }
   }
@@ -37,7 +36,6 @@ const navigate = useNavigate()
   const handleDislike = async (id) => {
     setIsLiked(false)
     try {
-      await checkToken()
       await dislikeTrack({ id }).unwrap()
     } catch (error) {
       if (error.status == 401) {
@@ -46,8 +44,7 @@ const navigate = useNavigate()
     }
   }
 
-  const toggleLikeDislike = (id) =>
-    isLiked ? handleDislike(id) : handleLike(id)
+  const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
   return (
   <S.PlaylistItem >

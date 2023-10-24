@@ -34,7 +34,7 @@ return (<>
     <NavMenu />
       <S.MainCenterblock>
     <Search />
-    <Filter />
+
 
       <p>{tracksError}</p>
       {children}

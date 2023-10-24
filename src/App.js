@@ -27,26 +27,6 @@ const [selectedTrack, setSelectedTrack] = useState()
     navigate('/login', {replace : true})
  };
 
- /*
-useEffect(() => {
- async function getAllTracks (){
-try {
-  setLoading (true);//состояние загрузки началось
-  setTracksError(null);
-  await getTrack().then((data) => {
- //console.log(data);//проверка что получаем из апи
-  dispatch(addTracks(data))
-})//получение из апи треков
-} catch(error) {
-  setTracksError("error.message")//если ошибка
-} finally{
-  setLoading(false)//состояние загрузки закончилось после получения данных из апи
-}
-}
-  getAllTracks ()
-}, [])
-*/
-
 useEffect(() => {
   setLoading(true)
   getTrack()

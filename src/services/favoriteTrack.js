@@ -63,15 +63,13 @@ const baseQueryWithTokensCheck = async (args, api, extraOptions) => {
 }
 
 export const favoriteTracksApi = createApi({
-  reducerPath: 'tracksAPI',
+  reducerPath: `tracksAPI`,
   baseQuery: baseQueryWithTokensCheck,
   endpoints: (builder) => ({
     getMyTracks: builder.query({
       query:  () => {
-        // await checkToken()
-
-        return {
-          url: 'favorite/all/',
+       return {
+          url: `favorite/all/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }
       },
@@ -110,47 +108,3 @@ export const {
   useLikeTrackMutation,
   useDislikeTrackMutation,
 } = favoriteTracksApi
-
-/**
- * const DATA_TAG = { type: "Todos", id: "LIST" };
-
-export const todoApi = createApi({
-  reducerPath: "todoApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://629470d963b5d108c18b87da.mockapi.io",
-  }),
-  endpoints: (builder) => ({
-    getAllTodos: builder.query({
-      query: () => "todos",
-      providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
-        DATA_TAG,
-      ],
-    }),
-
-    addTodo: builder.mutation({
-      query: (body) => ({
-        url: "todos",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: [DATA_TAG],
-    }),
-
-    updateTodo: builder.mutation({
-      query(data) {
-        const { id, ...body } = data;
-        return {
-          url: `todos/${id}`,
-          method: "PUT",
-          body,
-        };
-      },
-      invalidatesTags: (post) => [{ type: DATA_TAG.type, id: post?.id }],
-    }),
-  }),
-});
-
-
-export const { useAddTodoMutation, useGetAllTodosQuery, useUpdateTodoMutation } = todoApi;
- */
