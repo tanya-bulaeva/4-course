@@ -2,16 +2,6 @@ import * as S from "./style.js";
 import { useState, useEffect } from "react";
 import { CategoryItems } from "./CategoryItems.jsx";
 export const CategoryList = ({loading}) => {
-  //const [loading, setLoading] = useState(false)
- /* useEffect(() => {
-        // Заводим таймер
-        const timerId = setInterval(() => setLoading(!loading), 5000);		
-        // Данная функция вызывается при удалении компонента из DOM
-        return () => {
-            // Наводим порядок после удаления компонента
-            clearInterval(timerId);
-        };
-    }, []);*/
     return (
 <>
 {CategoryItems.map((categoryItem) => (

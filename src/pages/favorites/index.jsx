@@ -6,42 +6,45 @@ import Filter from "../../components/filter/Filter";
 import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
+import Playlist from "../../components/playlist/Playlist";
 
-export const Favorites = ({loading, currentTrack, tracks, tracksError, setCurrentTrack, user}) => {
- /* return (
-    <div>
-      <h1>Мой плейлист</h1>
-    </div>
-  )*/
-   /* const [loading, setLoading] = useState(false)
-    useEffect(() => {
-          // Заводим таймер
-          const timerId = setInterval(() => setLoading(!loading), 5000);		
-          // Данная функция вызывается при удалении компонента из DOM
-          return () => {
-              // Наводим порядок после удаления компонента
-              clearInterval(timerId);
-          };
-      }, []);*/
+import { useDispatch, useSelector } from "react-redux";
+import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
+import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
+import { useGetMyTracksQuery } from "../../services/favoriteTrack";
+
+
+export const Favorites = ({   tracksError, setTracksError}) => {
+//const [playlistError, setPlaylistError ] = useState();
+//const  selectedTrack = useSelector(tracksSelectors);
+const [loading, setLoading] = useState(false);
+//const tracks = useSelector(tracksSelectors)
+const playlist = useSelector(pagePlaylistSelector)
+const { data } = useGetMyTracksQuery()
+const dispatch = useDispatch()
+
+useEffect(() => {
+  dispatch(pagePlaylists(data))
+  console.log (data)
+}, [data])//получение
+
+
+
+//без этого не убираются скелетоны
+useEffect(() => {
+  // Заводим таймер
+  const timerId = setInterval(() => setLoading(!loading), 5000);		
+  // Данная функция вызывается при удалении компонента из DOM
+  return () => {
+      // Наводим порядок после удаления компонента
+      clearInterval(timerId);
+  };
+}, []);
+
+
     return (        <>
-        <S.GlobalStyle />
-    <S.WrapperStyle>
-      <S.ContainerStyle>
-        <S.MainStyle>
-        <NavMenu />
-          <S.MainCenterblock>
-        <Search />
-            <S.CenterclockH2>Мой плейлист</S.CenterclockH2>
-                    </S.MainCenterblock>
-          <S.MainSidebar>
-        <UserAccount />
-          </S.MainSidebar>
-                  </S.MainStyle>
 
-        <footer className="footer"></footer>
-      </S.ContainerStyle>
-    </S.WrapperStyle>
+ <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
     </>
     );
-
-        };
+ };

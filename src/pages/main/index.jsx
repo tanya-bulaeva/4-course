@@ -7,44 +7,43 @@ import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import Playlist from "../../components/playlist/Playlist";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
-import { tracksSelectors } from "../../store/selectors";
+import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector } from "../../store/selectors";
-export const Main = ({tracks, tracksError, currentTrack, setCurrentTrack, Audioref, user,  }) => {
+import Sidebar from "../../components/sidebar/Sidebar";
+import { pagePlaylists } from "../../store/actions/creators";
+import { getTrack } from "../../api";
+export const Main = ({tracks, tracksError, setTracksError}) => {
  const  selectedTrack = useSelector(tracksSelectors);
-    const [loading, setLoading] = useState(false);
-       // const [currentTrack, setCurrentTrack] = useState (null);
-    useEffect(() => {
-          // Заводим таймер
-          const timerId = setInterval(() => setLoading(!loading), 5000);		
-          // Данная функция вызывается при удалении компонента из DOM
-          return () => {
-              // Наводим порядок после удаления компонента
-              clearInterval(timerId);
-          };
-      }, []);
+ const dispatch = useDispatch();
+ const [loading, setLoading] = useState(false);
+ const playlist = useSelector(pagePlaylistSelector)
+
+ // const [currentTrack, setCurrentTrack] = useState (null);
+useEffect(() => {
+    // Заводим таймер
+    const timerId = setInterval(() => setLoading(!loading), 5000);		
+    // Данная функция вызывается при удалении компонента из DOM
+    return () => {
+        // Наводим порядок после удаления компонента
+        clearInterval(timerId);
+    };
+}, []);
+
+ useEffect(() => {
+  getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+      console.log (playlist)
+    })
+    .catch(() => {
+      setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+    })
+    .finally(() => setLoading(false))
+}, [])
 
 return (       <>
-    <S.GlobalStyle />
-<S.WrapperStyle>
-  <S.ContainerStyle>
-    <S.MainStyle>
-    <NavMenu />
-      <S.MainCenterblock>
-    <Search />
-        <S.CenterclockH2>Треки</S.CenterclockH2>
-      <Filter tracks = {tracks} />
-      {tracksError ? (<p>Возникла ошибка, попробуйте позже</p>) : (<Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  currentTrack = {currentTrack }  setCurrentTrack = {setCurrentTrack } ref = {Audioref} />      )}
-      </S.MainCenterblock>
-      <S.MainSidebar>
-    <UserAccount />
-    <Collections loading = {loading}/>
-      </S.MainSidebar>
-    </S.MainStyle>
-     {selectedTrack  ? (<MediaPlayer loading = {loading} tracks={tracks} currentTrack = {currentTrack} setCurrentTrack = {setCurrentTrack} />) : null} 
-    <footer className="footer"></footer>
-  </S.ContainerStyle>
-</S.WrapperStyle>
+ <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  title={"Треки"}   /> 
+
 </>
 );
 };

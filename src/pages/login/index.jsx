@@ -27,9 +27,13 @@ if (!password){
   setDisableBtn(true)
 await loginUser({email, password}).then ((loginData) => {
 
-getToken({email, password}).then ((tokenData) => {
-  login(loginData, tokenData.access)
+  getToken({email, password}).then (() => {
+    login(loginData)
 })
+
+//getToken({email, password}).then ((tokenData) => {
+//  login(loginData, tokenData.access)
+//})
 
 })
 }catch(error){

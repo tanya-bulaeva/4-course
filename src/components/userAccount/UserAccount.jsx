@@ -10,7 +10,8 @@ export default function UserAccount (){
 //console.log (user.username)
   return ( 
 
-    <S.SidebarPersonal> <S.SidebarPersonalName >{user.username}</S.SidebarPersonalName>   
+    <S.SidebarPersonal> 
+      <S.SidebarPersonalName >{user.username}</S.SidebarPersonalName>   
     <S.SidebarIcon to="/login" onClick = {handleLogout}>
       <svg alt="logout">
         <use xlinkHref="/img/icon/sprite.svg#logout"></use>

@@ -1,148 +1,108 @@
 import * as S from "./style.js";
-import { useState } from "react";
 import { formatTime } from "../../helpers.js";
-import { pagePlaylist, playTrack, setTrackCurrent } from "../../store/actions/creators/index.js";
+import {  setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors } from "../../store/selectors/index.js";
-export function Tracklists({loading}){
+import { useState } from "react";
+import { PlaylistSelector,  isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
+
+import { useNavigate } from "react-router-dom";
+import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { useUserContext } from "../../context/user.jsx";
+export function Tracklists({loading, track}){
+const {user} = useUserContext()
+//console.log(user)
 const dispatch = useDispatch()
-const tracks = useSelector(PlaylistSelector)
+const tracks = useSelector(pagePlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
-//{isCurrentPlaying ?  (<S.BlinkingDot/>) : (<S.TrackTitleSvg alt="music">  <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>)}
-  const AllTrackPlaylist = tracks.map((track, id) =>{
-    const { name, author, album, duration_in_seconds } = track;
-    const isCurrentPlaying = selectedTrack  && track.id === selectedTrack.id;
-return (
-  <S.PlaylistItem key ={id}>
+const isCurrentPlaying = selectedTrack?.id !== track.id
+const navigate = useNavigate()
+  const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track.id === user.id)) : true
+  const [isLiked, setIsLiked] = useState(isUserLike)
+  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const handleLike = async (id) => {
+    setIsLiked(true)
+    try {
+      await likeTrack({ id }).unwrap()
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
+
+      }
+    }
+  }
+
+  const handleDislike = async (id) => {
+    setIsLiked(false)
+    try {
+      await dislikeTrack({ id }).unwrap()
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
+      }
+    }
+  }
+
+  const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
+
+  return (
+  <S.PlaylistItem >
   <S.PlaylistTrack>
     <S.TrackTitle>
-      {loading ? (
+    {loading ? (
          <S.TrackTitleImage>
-{isCurrentPlaying ?  
+{isCurrentPlaying ?  (<S.TrackTitleSvg alt="music">  <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>):
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
-
-
-
-
-: (<S.TrackTitleSvg alt="music">  <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>)
-
-
-
 }
 
       </S.TrackTitleImage>) : 
       ( <S.TrackTitleImageSkeleton>
     </S.TrackTitleImageSkeleton>)}
 
+
   {loading ? ( <S.TrackTitleText>
-        <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {name}
+        <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
           <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
       </S.TrackTitleText>) : 
-      (<S.TrackTitleTextSkeleton>
-      <S.TrackTitleLinkSkeleton>{name}
+      (<S.TrackTitleTextSkeleton >
+      <S.TrackTitleLinkSkeleton>{track.name}
        </S.TrackTitleLinkSkeleton>
     </S.TrackTitleTextSkeleton>)}
 
     </S.TrackTitle>
 
     {loading ? ( <S.TrackAuthor>
-      <S.TrackAuthorLink >{author}</S.TrackAuthorLink>
+      <S.TrackAuthorLink >{track.author}</S.TrackAuthorLink>
     </S.TrackAuthor>) : 
     ( <S.TrackAuthorSkeleton>
-    <S.TrackAuthorLinkSkeleton >{author}</S.TrackAuthorLinkSkeleton>
+    <S.TrackAuthorLinkSkeleton >{track.author}</S.TrackAuthorLinkSkeleton>
   </S.TrackAuthorSkeleton>)}
 
 {loading ? ( <S.TrackAlbum  >
       <S.TrackAlbumLink href="http://"
-        > {album}</S.TrackAlbumLink>
+        > {track.album}</S.TrackAlbumLink>
     </S.TrackAlbum >) : (            <S.TrackAlbumSkeleton >
     <S.TrackAlbumLinkSkeleton 
-      >{album}</S.TrackAlbumLinkSkeleton>
+      >{track.album}</S.TrackAlbumLinkSkeleton>
   </S.TrackAlbumSkeleton>)}
 
 {loading ? (  <S.TrackTime>
-      <S.TrackTimeSvg alt="time">
-        <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+  <S.TrackTimeSvg alt="time" onClick={() => toggleLikeDislike(track.id)}>
+    {isLiked ? (<use xlinkHref="img/icon/sprite.svg#icon-like" fill="#ad61ff" ></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-like"></use>)}
+        
       </S.TrackTimeSvg>
-      <S.TrackTimeText >{formatTime(duration_in_seconds)}</S.TrackTimeText>
+      <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
     </S.TrackTime>) : 
     ( <S.TrackTimeSkeleton>
     <S.TrackTimeSvgSkeleton alt="time">
     </S.TrackTimeSvgSkeleton>
     <S.TrackTimeTextSkeleton > </S.TrackTimeTextSkeleton>
   </S.TrackTimeSkeleton>)}
-
-
   </S.PlaylistTrack>
   </S.PlaylistItem>
 )
-  })
-  return (<S.ContentPlaylist>{AllTrackPlaylist}</S.ContentPlaylist>  )
+
+
 }
-/*return (
-  //загрузка данных их апи
-<> 
- {tracks.map((track) => (
-    <S.ContentPlaylist key = {track.id}  >
-      <S.PlaylistItem >
-      <S.PlaylistTrack>
-        <S.TrackTitle>
-          {loading ? (
-            
-            <S.TrackTitleImage>
-            <S.TrackTitleSvg alt="music"> 
-             <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-              
-            </S.TrackTitleSvg>
-          </S.TrackTitleImage>) : 
-          ( <S.TrackTitleImageSkeleton>
-        </S.TrackTitleImageSkeleton>)}
-
-      {loading ? ( <S.TrackTitleText>
-            <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
-              <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
-          </S.TrackTitleText>) : 
-          (<S.TrackTitleTextSkeleton>
-          <S.TrackTitleLinkSkeleton>{track.name}
-           </S.TrackTitleLinkSkeleton>
-        </S.TrackTitleTextSkeleton>)}
-
-        </S.TrackTitle>
-
-        {loading ? ( <S.TrackAuthor>
-          <S.TrackAuthorLink >{track.author}</S.TrackAuthorLink>
-        </S.TrackAuthor>) : 
-        ( <S.TrackAuthorSkeleton>
-        <S.TrackAuthorLinkSkeleton >{track.author}</S.TrackAuthorLinkSkeleton>
-      </S.TrackAuthorSkeleton>)}
-
-{loading ? ( <S.TrackAlbum  >
-          <S.TrackAlbumLink href="http://"
-            > {track.album}</S.TrackAlbumLink>
-        </S.TrackAlbum >) : (            <S.TrackAlbumSkeleton >
-        <S.TrackAlbumLinkSkeleton 
-          >{track.album}</S.TrackAlbumLinkSkeleton>
-      </S.TrackAlbumSkeleton>)}
-
-{loading ? (  <S.TrackTime>
-          <S.TrackTimeSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </S.TrackTimeSvg>
-          <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
-        </S.TrackTime>) : 
-        ( <S.TrackTimeSkeleton>
-        <S.TrackTimeSvgSkeleton alt="time">
-        </S.TrackTimeSvgSkeleton>
-        <S.TrackTimeTextSkeleton >{track.time}</S.TrackTimeTextSkeleton>
-      </S.TrackTimeSkeleton>)}
-
-
-      </S.PlaylistTrack>
-      </S.PlaylistItem>
-      </S.ContentPlaylist>
- )
-  )}
-  </>)*/
-

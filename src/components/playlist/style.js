@@ -272,3 +272,11 @@ export const BlinkingDot = styled.div`
   background-color: #b672ff;
   border-radius: 50%;
 `;
+export const CenterclockH2 = styled.h2`
+font-style: normal;
+font-weight: 400;
+font-size: 64px;
+line-height: 72px;
+letter-spacing: -0.8px;
+margin-bottom: 45px;
+`

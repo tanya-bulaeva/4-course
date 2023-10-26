@@ -6,54 +6,18 @@ import {NotFound} from "./pages/not-found"
 import { Category } from "./pages/category";
 import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
-export const AppRoutes = ({user, tracks, tracksError, currentTrack, setCurrentTrack}) => {
-
+export const AppRoutes = ({user, token,  tracksError, loading, selectedTrack, setSelectedTrack, setLoading}) => {
+  
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} /> 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} user = {user}> </Main>} />
-        <Route path="/favorites" element={<Favorites tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} />} />
-        <Route path="/category/:id" element={<Category tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}  />} />
+        <Route path="/" element={<Main tracksError={tracksError} user = {user} loading = {loading} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack} setLoading={setLoading}> </Main>} />
+        <Route path="/favorites" element={<Favorites  tracksError={tracksError} loading = {loading} />} />
+        <Route path="/category/:id" element={<Category   tracksError={tracksError}  loading = {loading}  />} />
       </Route>
         <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
-/*
-return (
-  <Routes>
-    <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<Register />} /> 
-    <Route path="*" element={<NotFound />} />
-    <Route
-        path="/"
-        element={
-          <ProtectedRoute isAllowed={Boolean(user)}>
-            <Main tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} user = {user}> </Main>
-          </ProtectedRoute>
-        }
-      />
-
-
-<Route
-        path="/favorites"
-        element={
-          <ProtectedRoute isAllowed={Boolean(user)}>
-            <Favorites tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} />
-          </ProtectedRoute>
-        }
-      />
-
-<Route
-        path="/category/:id"
-        element={
-          <ProtectedRoute isAllowed={Boolean(user)}>
-            <Category tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}  />
-          </ProtectedRoute>
-        }
-      />
-  </Routes>
-);
-}*/
