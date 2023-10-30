@@ -13,7 +13,6 @@ import Filter from "../filter/Filter.jsx"
 export default function Playlist ({loading, title, hiden}) {
   const playlist = useSelector(pagePlaylistSelector)
   const dispatch = useDispatch() 
-
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
     dispatch(setCurrentPlaylist(playlist))
@@ -37,19 +36,3 @@ export default function Playlist ({loading, title, hiden}) {
       </S.CenterblockContent></>
     )
 }
-
-
-/*
-{playlist.map((track) =>  <S.PlaylistItem key = {track.id}>
-<S.PlaylistTrack>
-<S.TrackTitle>
-</S.TrackTitle>
-<S.TrackTitleImage>
- <S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg> 
-</S.TrackTitleImage>
-
-  {track.name}
-</S.PlaylistTrack>
-  </S.PlaylistItem>)}
-      </S.CenterblockContent></>
-    )*/

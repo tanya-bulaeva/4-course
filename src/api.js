@@ -88,41 +88,13 @@ export async function getTrack() {
       const token = await res.json()
       return token
     }
-    
-/*
-    const accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwOTcxMjcxLCJpYXQiOjE2OTA5NjAxMzEsImp0aSI6ImE4YzQ5NDNmOWNmNTRlZjI5NmFmNTMyOWUwODM4YWQ5IiwidXNlcl9pZCI6NzkyfQ.5n8YHTjsgAnYnc4gioyV1wPnxM2D16PS6c9kNhC-JoE";
-
-    export async function getTrackFav() {
-      const response = await fetch("https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+    export async function getCategory(id) {
+      const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/selection/${id}`,
+      );
+      
+      if (!response.ok){
+          throw new Error('ошибка сервера')
+      }
       const data = await response.json();
-      console.log (data)
-      return data;
+      return data?.items;
       }
-
-      export function getLike({id, token}){
-        return fetch(postsHost + `/${id}/like`, {
-          method: "POST",
-          headers: {
-            Authorization: token,
-          },
-        }).then ((response) => {
-          return response.json();
-        })
-      }
-       export function getDislike({id, token}){
-        return fetch(postsHost + `/${id}/dislike`, {
-          method: "POST",
-          headers: {
-            Authorization: token,
-          },
-        }).then ((response) => {
-          return response.json();
-        })
-      }
-      */

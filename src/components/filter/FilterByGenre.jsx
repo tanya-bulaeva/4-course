@@ -1,7 +1,8 @@
 import * as S from "./style.js"
-
-export default function FilterByGenre ({tracks}){
-
+import { useSelector } from "react-redux";
+import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors/index.js"
+export default function FilterByGenre (){
+       const tracks = useSelector(pagePlaylistSelector) 
     return (<S.DropStyle>
         <S.DropdownContent>
         {tracks.map((track) => (<S.FilterLink key = {track.id}>

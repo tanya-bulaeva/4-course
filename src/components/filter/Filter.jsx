@@ -28,19 +28,26 @@ export default function Filter({tracks}){
 
     return (
       <S.CenterblockFilter>
-      <S.FilterTitle >Искать по:</S.FilterTitle>
+
       <S.Dropdown>
+       <S.FilterTitle >Искать по:</S.FilterTitle> 
        { openArtist ? (<><S.ButtonActive className = "_btn-text" onClick = {toggleVisibilityArtist}>исполнителю</S.ButtonActive>
         <FilterByArtist tracks ={tracks}/></>): ( <><S.FilterButton className = "_btn-text" onClick = {toggleVisibilityArtist}>исполнителю</S.FilterButton>
 </>)
      } 
-     {openYear ? (<> <S.ButtonActive className="_btn-text" onClick = {toggleVisibilityYear}>году выпуска</S.ButtonActive>
-       <FilterByYear/></>) : (<><S.FilterButton className="_btn-text" onClick = {toggleVisibilityYear}>году выпуска</S.FilterButton></>)}
-
      {openGenre ? (<><S.ButtonActive className="_btn-text" onClick = {toggleVisibilityGenre}>жанру</S.ButtonActive>
         <FilterByGenre tracks ={tracks}/></>) : (<><S.FilterButton className="_btn-text" onClick = {toggleVisibilityGenre}>жанру</S.FilterButton></>)}
+        
      </S.Dropdown>
-     
+
+     <S.Dropdown>
+     <S.FilterTitle >Сортировка</S.FilterTitle>
+  
+     {openYear ? (<> <S.ButtonActive className="_btn-text" onClick = {toggleVisibilityYear}>По умолчанию</S.ButtonActive>
+       <FilterByYear/></>) : (<><S.FilterButton className="_btn-text" onClick = {toggleVisibilityYear}>По умолчанию</S.FilterButton></>)}
+      </S.Dropdown>
+
+
      </S.CenterblockFilter>
      )
     

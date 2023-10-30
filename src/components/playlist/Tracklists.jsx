@@ -52,7 +52,7 @@ const navigate = useNavigate()
     <S.TrackTitle>
     {loading ? (
          <S.TrackTitleImage>
-{isCurrentPlaying ?  (<S.TrackTitleSvg alt="music">  <use xlinkHref="img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>):
+{isCurrentPlaying ?  (<S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>):
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
 }
@@ -90,7 +90,7 @@ const navigate = useNavigate()
 
 {loading ? (  <S.TrackTime>
   <S.TrackTimeSvg alt="time" onClick={() => toggleLikeDislike(track.id)}>
-    {isLiked ? (<use xlinkHref="img/icon/sprite.svg#icon-like" fill="#ad61ff" ></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-like"></use>)}
+    {isLiked ? (<use xlinkHref="/img/icon/sprite.svg#icon-like" fill="#ad61ff" ></use>) : (<use xlinkHref="/img/icon/sprite.svg#icon-like"></use>)}
         
       </S.TrackTimeSvg>
       <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>

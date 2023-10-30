@@ -10,6 +10,7 @@ export const CenterblockFilter = styled.div`
 display: -webkit-box;
 display: -ms-flexbox;
 display: flex;
+justify-content: space-between;
 -webkit-box-orient: horizontal;
 -webkit-box-direction: normal;
 -ms-flex-direction: row;
