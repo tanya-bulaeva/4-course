@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CategoryItems } from "../../components/collections/CategoryItems.jsx";
-import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
-import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
-import { getCategory, getTrack, getTrackCategory } from "../../api";
-import Collections from "../../components/collections/Collections";
+import { pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
+import { pagePlaylists } from "../../store/actions/creators";
+import { getCategory  } from "../../api";
+
 export const Category = ({}) => {
   const params = useParams();
   
@@ -18,7 +18,7 @@ export const Category = ({}) => {
   const playlist = useSelector(pagePlaylistSelector)
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
-console.log (playlist)
+//console.log (playlist)
   useEffect(() => {
    // setLoading(true)
         getCategory(category.id)

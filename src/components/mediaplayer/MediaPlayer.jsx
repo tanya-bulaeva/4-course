@@ -5,6 +5,7 @@ import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
 import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector,  } from "../../store/selectors/index.js";
+import { useMemo } from "react";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -56,7 +57,6 @@ if (index !== tracks.length - 1) {
 
 };//переключение плейлиста на трек вперед
 const handlePrevious = () => {
-
   const index = shuffled
   ? Math.floor(Math.random() * tracks.length) + 1
   : tracks.findIndex((x) => x.id === selectedTrack.id)
@@ -93,7 +93,6 @@ useEffect(() => {
     dispatch(playTrack())
         AudioRef.current.play();
   };//старт вопроизведения трека
-
 
  const togglePlay = isPlaying ? handleStop : handleStart;
 

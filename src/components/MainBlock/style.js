@@ -1,4 +1,3 @@
-
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -117,7 +116,13 @@ width: auto;
 -ms-flex-positive: 3;
 flex-grow: 3;
 padding: 20px 40px 20px 111px;
+display: flex;
+flex-direction: column;
+height: 100%;
+max-height: 100%;
 `
+
+
 export const CenterclockH2 = styled.h2`
 font-style: normal;
 font-weight: 400;

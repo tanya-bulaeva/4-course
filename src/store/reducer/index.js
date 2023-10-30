@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST} from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR} from "../actions/types/index";
 
 // 1.В переменной initialState хранится логика.
 const initialState = {
@@ -8,6 +8,8 @@ track: null,
 shuffledPlaylist: false,
 repeat: false,
 pagePlaylist : [],
+search: "",
+filter: {year: false, artist :[], genre : []}
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
@@ -84,6 +86,39 @@ export default function trackReducer(state = initialState, action) {
       };
     }
 
+    case SEARCH: {
+      return {
+        ...state,
+        search: action.payload,
+      };
+    }
+
+    case FILTER_BY_ARTIST: {
+      const newFilter = {...state.filter}
+      newFilter.artist = action.payload
+      return {
+        ...state,
+        filter: newFilter,
+      };
+    }
+
+    case FILTER_BY_GENRE: {
+      const newFilter = {...state.filter}
+      newFilter.genre = action.payload
+      return {
+        ...state,
+        filter: newFilter,
+      };
+    }
+
+    case FILTER_BY_YEAR: {
+      const newFilter = {...state.filter}
+      newFilter.year = action.payload
+      return {
+        ...state,
+        filter: newFilter,
+      };
+    }
 
       default:
         return state;

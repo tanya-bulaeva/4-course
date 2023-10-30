@@ -8,7 +8,10 @@ display: flex;
 -webkit-box-orient: vertical;
 -webkit-box-direction: normal;
 -ms-flex-direction: column;
-flex-direction: column;`
+flex-direction: column;
+min-height: 0;
+`
+
 
 export const ContentTitle = styled.div`
 display: -webkit-box;
@@ -50,8 +53,9 @@ display: flex;
 -webkit-box-direction: normal;
 -ms-flex-direction: column;
 flex-direction: column;
+height: 1000px;
+box-sizing: border-box;
 overflow-y: auto;
-font-family: inherit;
 `
 
 export const PlaylistItem = styled.div`
@@ -272,7 +276,7 @@ export const BlinkingDot = styled.div`
   background-color: #b672ff;
   border-radius: 50%;
 `;
-export const CenterclockH2 = styled.h2`
+export const CenterblockH2 = styled.h2`
 font-style: normal;
 font-weight: 400;
 font-size: 64px;

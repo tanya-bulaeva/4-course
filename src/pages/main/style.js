@@ -113,6 +113,9 @@ justify-content: space-between;
 
 export const MainCenterblock = styled.div`
 width: auto;
+display: flex;
+flex-direction: column;
+height: 100%;
 -webkit-box-flex: 3;
 -ms-flex-positive: 3;
 flex-grow: 3;

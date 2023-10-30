@@ -33,8 +33,8 @@ return (<>
     <S.MainStyle>
     <NavMenu />
       <S.MainCenterblock>
+        
     <Search />
-
 
       <p>{tracksError}</p>
       {children}

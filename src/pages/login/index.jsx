@@ -31,9 +31,6 @@ await loginUser({email, password}).then ((loginData) => {
     login(loginData)
 })
 
-//getToken({email, password}).then ((tokenData) => {
-//  login(loginData, tokenData.access)
-//})
 
 })
 }catch(error){
@@ -43,11 +40,7 @@ await loginUser({email, password}).then ((loginData) => {
 }
 
 }
-   
- //  const handleButtonClick = () => {
-  //  localStorage.getItem('user') //getItem(key) – получить данные по ключу key.
- //   navigate('/', {replace: true})
-  // }
+
    return ( <>
     <S.GlobalStyle/>
     <S.Wrapper>

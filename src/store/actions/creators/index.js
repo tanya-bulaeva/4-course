@@ -1,4 +1,4 @@
-import {CURRENT_PLAYLIST, NEXT_TRACK, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST} from '../types/index'
+import {CURRENT_PLAYLIST, NEXT_TRACK, PREVIOUS_TRACK, SET_CURRENT_TRACK, SHUFFLE_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR} from '../types/index'
 
 export const setCurrentPlaylist = (playlist) => ({
   type: CURRENT_PLAYLIST,
@@ -44,3 +44,22 @@ export const pagePlaylists = (playlist) => ({
   payload: playlist,
 })
 
+export const searchPage = (value) => ({
+  type: SEARCH,
+  payload: value,
+})
+
+export const filterArtist = (ListArtist ) => ({
+  type: FILTER_BY_ARTIST,
+  payload: value,
+})
+
+export const filterGenre = (ListGenre) => ({
+  type: FILTER_BY_GENRE,
+  payload: value,
+})
+
+export const filterYear = (ListYear) => ({
+  type: FILTER_BY_YEAR,
+  payload: value,
+})

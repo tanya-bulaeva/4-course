@@ -1,5 +1,4 @@
 import * as S from "./style.js";
-import { useState, useEffect } from "react";
 import { CategoryItems } from "./CategoryItems.jsx";
 export const CategoryList = ({loading}) => {
     return (
