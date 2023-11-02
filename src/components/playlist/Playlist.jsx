@@ -18,6 +18,15 @@ export default function Playlist ({loading, title, hiden}) {
     dispatch(setTrackCurrent(track))
     dispatch(setCurrentPlaylist(playlist))
   }
+const tracks = playlist.filter((track) => {
+
+  return  track.name.toLowerCase().includes(search.toLowerCase()) ||track.author.toLowerCase().includes(search.toLowerCase()) 
+
+})
+
+
+
+
 
    return (<>
         <S.CenterblockH2>{title}</S.CenterblockH2>
@@ -35,7 +44,7 @@ export default function Playlist ({loading, title, hiden}) {
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
           <S.ContentPlaylist>
-          {playlist?.map((track) =>  <Tracklists key = {track.id}  track= {track} loading = {loading} onclick = {() => setUpTrack(track)}/>)}
+          {tracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} loading = {loading} onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )

@@ -43,11 +43,12 @@ export const checkToken = async () => {
     localStorage.setItem('token', newToken.access)
   }
   console.log('result', localStorage.getItem('token'))
+  
 }
 
-const getTokenAccess = () => {
+export const getTokenAccess = () => {
   const accessToken = localStorage.getItem('token')
-
+  console.log('res', accessToken)
   return accessToken
 }
 const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track/' })
@@ -57,7 +58,7 @@ const baseQueryWithTokensCheck = async (args, api, extraOptions) => {
 
     let result = await baseQuery(args, api, extraOptions)
     if (result.error && result.error.status === 401) {
-        localStorage.removeItem('token')
+    //    localStorage.removeItem('token')
     }
     return result
 }
@@ -69,7 +70,7 @@ export const favoriteTracksApi = createApi({
     getMyTracks: builder.query({
       query:  () => {
        return {
-          url: `favorite/all/`,
+        url: `favorite/all/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }
       },

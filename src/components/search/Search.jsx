@@ -7,6 +7,7 @@ export default function Search (){
   const dispatch =  useDispatch()
   const searchClick = (event) => {
     const searchQuery = event.target.value;
+   // console.log (searchQuery)
     dispatch(searchPage(searchQuery))
   }
     return(

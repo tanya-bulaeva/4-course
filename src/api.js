@@ -75,6 +75,7 @@ export async function getTrack() {
       }
       return saveToken(data);
     } 
+
     export async function refreshToken(refresh) {
       const res = await fetch(`https://skypro-music-api.skyeng.tech/user/token/refresh/`, {
         method: 'POST',
@@ -85,6 +86,9 @@ export async function getTrack() {
           'content-type': 'application/json',
         },
       })
+     // if (!refreshToken.data){
+    //    console.log ('akkj')
+    //  }
       const token = await res.json()
       return token
     }

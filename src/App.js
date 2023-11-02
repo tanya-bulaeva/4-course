@@ -19,7 +19,7 @@ const [selectedTrack, setSelectedTrack] = useState()
  const handleLogin = () =>   {
  localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
  setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
-// console.log(localStorage);
+ //console.log(localStorage);
 
 
   const handleLogout = () => {
