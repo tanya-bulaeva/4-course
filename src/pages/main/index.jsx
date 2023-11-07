@@ -23,7 +23,7 @@ useEffect(() => {
   getTrack()
     .then((playlist) => {
       dispatch(pagePlaylists(playlist))//получить плейлист
-    //  console.log (playlist)
+      //console.log (playlist)
     })
     .catch(() => {
       setTracksError("Не удалось загрузить плейлист, попробуйте позже")

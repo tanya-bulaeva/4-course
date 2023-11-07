@@ -42,13 +42,13 @@ export const checkToken = async () => {
 
     localStorage.setItem('token', newToken.access)
   }
-  console.log('result', localStorage.getItem('token'))
+  //console.log('result', localStorage.getItem('token'))
   
 }
 
 export const getTokenAccess = () => {
   const accessToken = localStorage.getItem('token')
-  console.log('res', accessToken)
+ // console.log('res', accessToken)
   return accessToken
 }
 const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track/' })

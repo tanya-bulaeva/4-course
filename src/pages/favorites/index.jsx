@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
 import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
-import { getTokenAccess } from "../../services/favoriteTrack";
+
 
 export const Favorites = ({   tracksError, setTracksError}) => {
 //const [playlistError, setPlaylistError ] = useState();
@@ -25,7 +25,7 @@ const dispatch = useDispatch()
 
 useEffect(() => {
   dispatch(pagePlaylists(data))
-  console.log (data)
+//console.log (data)
 }, [data])//получение
 
 

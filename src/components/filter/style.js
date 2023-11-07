@@ -73,12 +73,32 @@ position: absolute;
 `
 
 export const FilterLink= styled.li`
+list-style-type: none;
 :hover{
     border-color: #d9b6ff;
     color: #d9b6ff;
 }
 `
 export const DropStyle = styled.div`
-display: inline
-`
 
+`
+export const TrackItem  = styled.a`
+`
+export const ButtonNumber = styled.div`
+color: white;
+background-color: rgb(173, 97, 255);
+width: 26px;
+height: 26px;
+border-radius: 13px;
+display: flex;
+justify-content: center;
+align-items: center;
+position: absolute;
+right: -8px;
+top: -8px;
+font-family: StratosSkyeng;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: 13px;
+`

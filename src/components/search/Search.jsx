@@ -10,6 +10,7 @@ export default function Search (){
    // console.log (searchQuery)
     dispatch(searchPage(searchQuery))
   }
+  
     return(
         <S.CenterblockSearch>
         <S.SearchSvg>

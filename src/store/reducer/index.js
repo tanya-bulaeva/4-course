@@ -9,7 +9,7 @@ shuffledPlaylist: false,
 repeat: false,
 pagePlaylist : [],
 search: "",
-filter: {year: false, artist :[], genre : []}
+filter: {year: [], artist :[], genre : []}
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
@@ -62,7 +62,6 @@ export default function trackReducer(state = initialState, action) {
     case PREVIOUS_TRACK: {
       return {
         ...state,
-
         track: action.payload
       };
     }
@@ -107,7 +106,7 @@ export default function trackReducer(state = initialState, action) {
       newFilter.genre = action.payload
       return {
         ...state,
-        filter: newFilter,
+        filter: action.payload,
       };
     }
 

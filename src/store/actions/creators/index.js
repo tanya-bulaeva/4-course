@@ -49,17 +49,17 @@ export const searchPage = (value) => ({
   payload: value,
 })
 
-export const filterArtist = (ListArtist ) => ({
+export const filterArtist = (value ) => ({
   type: FILTER_BY_ARTIST,
-  payload: value,
+  payload: ListArtist ,
 })
 
-export const filterGenre = (ListGenre) => ({
+export const filterGenre = (value) => ({
   type: FILTER_BY_GENRE,
   payload: value,
 })
 
-export const filterYear = (ListYear) => ({
+export const filterYear = (value) => ({
   type: FILTER_BY_YEAR,
   payload: value,
 })
