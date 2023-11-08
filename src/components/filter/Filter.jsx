@@ -17,6 +17,7 @@ export default function Filter( ){
   const [openYear, setOpenYear] = useState(false);
   const [openGenre, setOpenGenre] = useState(false);
   const [filterValue, setFilterValue] = useState (null);
+
   const [filterItems, setFilterItems] = useState([
     { id: 1, text: "По умолчанию", number: "" },
     { id: 2, text: "Сначала новые", number: "1" },
@@ -42,11 +43,10 @@ export default function Filter( ){
     setOpenYear(false)
   }
 
-
   const yearChange  = () => {
-      if ( filterValue.text === filterItems[1].text) dispatch(filterYear('>'))
-      else if (filterValue.text === filterItems[2].text) dispatch(filterYear('<'))
-      else if (filterValue.text === filterItems[0].text) dispatch(filterYear(null))
+      if ( filterValue?.text === filterItems[1].text) dispatch(filterYear('>'))
+      else if (filterValue?.text === filterItems[2].text) dispatch(filterYear('<'))
+      else if (filterValue?.text === filterItems[0].text) dispatch(filterYear(null))
       console.log(filterValue?.text);
 
     }//не с первого раза переключает, а только после второго клика, на первый как будто цепляет предудыщее значение

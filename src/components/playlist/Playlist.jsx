@@ -31,6 +31,7 @@ export default function Playlist ({loading, title, hiden}) {
 const tracks = useMemo(() => {
   const newPlaylist = originalPlaylist
   .filter((track) => {
+
     if (search === '') return originalPlaylist;
     else  {
     return  track.name.toLowerCase().includes(search.toLowerCase()) || track.author.toLowerCase().includes(search.toLowerCase()) 

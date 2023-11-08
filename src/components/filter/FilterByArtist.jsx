@@ -1,20 +1,38 @@
 import * as S from "./style.js"
-import { useSelector } from "react-redux"
-import { pagePlaylistSelector } from "../../store/selectors/index.js"
+import { useDispatch, useSelector } from "react-redux"
+import { filterSelector, pagePlaylistSelector } from "../../store/selectors/index.js"
+import { filterArtist } from "../../store/actions/creators/index.js";
+import { useState } from "react";
 export default function FilterByArtist (){
     const tracks = useSelector(pagePlaylistSelector)
+    const dispatch = useDispatch()
+    const filter = useSelector(filterSelector)
     function onlyUnique(value, index, tracks) {
         return tracks.indexOf(value) === index;
       }
-    const TrackAuthor = tracks.map((track) => track.author)
-      const uniqueItem = TrackAuthor .filter(onlyUnique)     
-      const uniqueList = uniqueItem.map((e) => <S.FilterLink key = {e.id}>
+const ArtistChange  = (artist) => {
+//dispatch(filterArtist(tracks))
+console.log(1);
+
+}
+
+    const TrackAuthor = tracks.map((track) =>  track.author)
+    const uniqueItem = TrackAuthor.filter(onlyUnique)     
+    const uniqueList = uniqueItem.map((e) => <S.FilterLink key = {e.id} onClick={ArtistChange}>
       {e}</S.FilterLink>)
+//console.log(uniqueList);
+const [filterValue, setFilterValue] = useState (null);
+
     return (<S.DropStyle>
+
 <S.DropdownContent>
-{tracks.map((track) => track.author).filter(onlyUnique).map((e) => <S.FilterLink key = {e.id}>
-{e}</S.FilterLink>)}
+
+{uniqueList}
+
+
 </S.DropdownContent>
 </S.DropStyle>
 )
 }
+
+//  {tracks?.map((track) => <S.FilterLink  key = {track.id}onClick={ArtistChange}>{track.author}</S.FilterLink>)}
