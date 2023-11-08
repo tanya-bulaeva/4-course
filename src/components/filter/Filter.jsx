@@ -43,11 +43,12 @@ export default function Filter( ){
   }
 
 
-  const yearChange  = ( ) => {
-      if ( filterValue?.text === filterItems[1].text) dispatch(filterYear('>'))
-      else if (filterValue?.text === filterItems[2].text) dispatch(filterYear('<'))
-      else dispatch(filterYear(null))
-console.log(filterValue?.text);
+  const yearChange  = () => {
+      if ( filterValue.text === filterItems[1].text) dispatch(filterYear('>'))
+      else if (filterValue.text === filterItems[2].text) dispatch(filterYear('<'))
+      else if (filterValue.text === filterItems[0].text) dispatch(filterYear(null))
+      console.log(filterValue?.text);
+
     }//не с первого раза переключает, а только после второго клика, на первый как будто цепляет предудыщее значение
 
 
@@ -72,22 +73,22 @@ return (
       {openYear ? (     <S.Filter>  
 
 
-       <S.ButtonActive className="_btn-text" onChange={toggleVisibilityYear}  > {filterValue ? (<><S.FilterLink  >{filterValue.text} </S.FilterLink> </>) : ("По умолчанию") }</S.ButtonActive>
-   
+<S.ButtonActive className="_btn-text" onChange={toggleVisibilityYear}  > {filterValue ? (<><S.FilterLink  >{filterValue.text} </S.FilterLink> </>) : ("По умолчанию") }</S.ButtonActive>
 
-     <S.DropStyle  >
-     
+
+<S.DropStyle  >
 <S.DropdownContent     >
-
-        {filterItems?.map((filterItem) => {
-          return (<S.FilterLink onClick={ ()  => {setFilterValue(filterItem); yearChange()}}  key={filterItem.id}>
-            {filterItem.text}</S.FilterLink>)
-        })}
-    
+ {filterItems?.map((filterItem) => {
+   return (<S.FilterLink onClick={ ()  => {setFilterValue(filterItem); yearChange()}}  key={filterItem.id}>
+     {filterItem.text} </S.FilterLink>)
+ })}
 </S.DropdownContent>
-  {filterValue   ? (<S.ButtonNumber>{filterValue.number}</S.ButtonNumber>   ) : null}
+{filterValue   ? (<S.ButtonNumber>{filterValue.number}</S.ButtonNumber>   ) : null}
 </S.DropStyle>
-</S.Filter>) : (<S.Filter><S.FilterButton className="_btn-text" onClick={toggleVisibilityYear}> {filterValue ? <S.FilterLink  >{filterValue.text}</S.FilterLink> : ("По умолчанию")}</S.FilterButton></S.Filter>)}
+</S.Filter>) : (<S.Filter><S.FilterButton className="_btn-text" onClick={toggleVisibilityYear}> {filterValue ? <S.FilterLink  >{filterValue.text}</S.FilterLink> : ("По умолчанию")}
+
+</S.FilterButton></S.Filter>)}
+
 
        </S.CenterblockFilter>
      </S.BlockMain>
@@ -96,15 +97,3 @@ return (
     
 }
 
-
-{/* <S.CenterblockFilter>
-<S.FilterTitle >Сортировка</S.FilterTitle>
-{openYear ? (<S.Filter> <S.ButtonActive className="_btn-text"  onClick={toggleVisibilityYear}>По умолчанию</S.ButtonActive>
-<S.DropStyle >
-<S.DropdownContent onClick={yearChangeHandler} filter = {filter.year}  onChange={onInputChange}>
-<S.FilterLink  onClick={clickYear} >По умолчанию</S.FilterLink>
-<S.FilterLink   onClick={clickYearNew} >Сначала новые</S.FilterLink>
-<S.FilterLink onClick={clickYearOld} >Сначала старые</S.FilterLink>
-</S.DropdownContent>
-</S.DropStyle></S.Filter>) : (<S.Filter><S.FilterButton className="_btn-text" onClick={toggleVisibilityYear}>По умолчанию </S.FilterButton></S.Filter>)}
- </S.CenterblockFilter> */}

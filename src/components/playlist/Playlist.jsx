@@ -43,7 +43,7 @@ const tracks = useMemo(() => {
     else if (filter.year === ">") return dateB - dateA
     else return originalPlaylist
     })
-   console.log(newPlaylist )
+  // console.log(newPlaylist )
     return newPlaylist
 }, [ filter, originalPlaylist, search])  
    return (<>
@@ -62,7 +62,7 @@ const tracks = useMemo(() => {
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
           <S.ContentPlaylist>
-          {tracks?.map((track, filter) =>  <Tracklists key = {track.id}  track= {track} loading = {loading} filter = {true} onclick = {() => setUpTrack(track)}/>)}
+          {tracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )

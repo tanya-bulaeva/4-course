@@ -106,17 +106,18 @@ export default function trackReducer(state = initialState, action) {
       newFilter.genre = action.payload
       return {
         ...state,
-        filter: action.payload,
+        filter: newFilter,
       };
     }
 
     case FILTER_BY_YEAR: {
-      const newFilter = {...state.filter}
-      newFilter.year = action.payload
-      return {
-        ...state,
-        filter: newFilter,
-      };
+       const newFilter = {...state.filter}
+       newFilter.year = action.payload
+       return {
+         ...state,
+         filter: newFilter,
+       };
+
     }
 
       default:
