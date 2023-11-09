@@ -1,14 +1,16 @@
 import * as S from "./style.js"
 import { useSelector } from "react-redux";
-import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors/index.js"
+import { filterSelector, pagePlaylistSelector, tracksSelectors } from "../../store/selectors/index.js"
 import { filterArtist } from "../../store/actions/creators/index.js";
-export default function FilterByGenre ({
-        selectedValues,
+export default function FilterByGenre ({ selectedValues,
         setSelectedValues,
         list,
         multipleСhoice = true,
       
       }){
+ 
+
+
         const handleItemClick = (item) => {
                 const index = selectedValues.indexOf(item)
                 if (multipleСhoice) {
@@ -23,9 +25,6 @@ export default function FilterByGenre ({
               }
             
 
-
-   //   {tracks.map((track) => track.genre).filter(onlyUnique).map((e) => <S.FilterLink key = {e.id}>
-//{e}</S.FilterLink>) }
     return (
     
         <S.Filter>

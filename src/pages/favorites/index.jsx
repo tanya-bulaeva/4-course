@@ -1,8 +1,7 @@
 import * as S from "../main/style";
 import { useState, useEffect, useRef } from 'react';
 import NavMenu from "../../components/navMenu/NavMenu";
-import Search from "../../components/search/Search";
-import Filter from "../../components/filter/Filter";
+
 import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";

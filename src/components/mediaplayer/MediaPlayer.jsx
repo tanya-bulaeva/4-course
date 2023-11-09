@@ -6,6 +6,7 @@ import * as S from "./style.js"
 import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector,  } from "../../store/selectors/index.js";
 import { useMemo } from "react";
+import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -95,6 +96,41 @@ useEffect(() => {
   };//старт вопроизведения трека
 
  const togglePlay = isPlaying ? handleStop : handleStart;
+ //const isTrackLiked = !!(track.stared_user ?? []).find(
+//  ({ id }) => id === auth.id,
+//)
+ const [like, { error: likeError }] = useLikeTrackMutation()
+  const [dislike, { error: dislikeError }] = useDislikeTrackMutation()
+  const likeCurrentTrack = () => {
+    like({
+      id: track.id,
+    })
+  }
+  const dislikeCurrentTrack = () => {
+    dislike({
+      id: track.id,
+    })
+  }
+
+  const error = likeError ?? dislikeError ?? null
+
+  if (error) {
+    console.error(error)
+    alert(`Ошибка лайка: ${error.message}`)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return(<> 
  <S.BarStyle>
@@ -169,10 +205,14 @@ useEffect(() => {
                       <S.TrackPlayDislikeSvg alt="dislike">
                         <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
                       </S.TrackPlayDislikeSvg>
-                      
-                    </S.TrackPlayDislike>
+                      </S.TrackPlayDislike>
                   </S.TrackPlayLikeDis>  
                   
+
+
+
+
+
                          </S.PlayerTrackPlay>
            </S.BarPlayer>
            <S.BarVolumeBlock>

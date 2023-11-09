@@ -56,13 +56,8 @@ export default function Filter( selectedValues,
       if ( filterValue?.text === filterItems[1].text) {dispatch(filterYear('>'))}
       else if (filterValue?.text === filterItems[2].text) dispatch(filterYear('<'))
       else if (filterValue?.text === filterItems[0].text) dispatch(filterYear(null))
-      console.log(filterValue?.text);
+    //  console.log(filterValue?.text);
     } 
-
-const ArtistFilter  = () => {
-
-  console.log(4);
-    }
 
   const TrackAuthorList = [... new Set (tracks.map((track) =>  track.author))]
   const TrackGenreList = [... new Set (tracks.map((track) =>  track.genre))]
@@ -73,49 +68,35 @@ const ArtistFilter  = () => {
     }
     setSelectedCategory(category)
   }
-  const filterTracks = () => {
-    let filteredTracks = tracks
-    if (selectedGenres.length > 0) {
-      filteredTracks = filteredTracks.filter(({ genre }) =>
-        selectedGenres.includes(genre),
-      )
-    }
-    if (selectedArtists.length > 0) {
-      filteredTracks = filteredTracks.filter(({ author }) =>
-        selectedArtists.includes(author),
-      )
-    }
-  
 
-    return filteredTracks
-  }
-
-  const filteredTracks = filterTracks()
 return (
 <S.BlockMain>
   <S.CenterblockFilter>
        <S.FilterTitle >Искать по:</S.FilterTitle> 
             
     <S.Filter>
-    <FilterByArtist
-              onClick={() => selectCategory('artist')}
-              
+    <CategoryItem
+       title = {"исполнителю"}
+              filter={filter.author}
               list={TrackAuthorList}
               selectedValues={selectedArtists}
               setSelectedValues={setSelectedArtists}
-            ></FilterByArtist>
+              onClick={() => selectCategory('artist')}
+            ></CategoryItem>
 
     
     </S.Filter>
 
 
     <S.Filter>
-    <FilterByGenre
-              onClick={() => selectCategory('genre')}
+    <CategoryItem
+    title = {"жанру"}
+              filter={filter.genre}
               list={TrackGenreList}
               selectedValues={selectedGenres}
               setSelectedValues={setSelectedGenres}
-            ></FilterByGenre>
+              onClick={() => selectCategory('genre')}
+            ></CategoryItem>
 
     
     </S.Filter>
@@ -123,6 +104,15 @@ return (
   </S.CenterblockFilter>
     
 
+
+</S.BlockMain>
+
+     )
+    
+}
+
+
+/*элемент сортировки, рабочий, кроме клика открытие\закрытие
      <S.CenterblockFilter>
       <S.FilterTitle >Сортировка</S.FilterTitle>
       {openYear  ? (
@@ -134,7 +124,7 @@ return (
             {filterItems?.map((filterItem) => {
    return (<S.FilterLink onClick={ ()  => {setFilterValue(filterItem); yearChange()}}  key={filterItem.id}  
                selectedValues={selectedArtists}
-   setSelectedValues={setSelectedArtists}>
+              setSelectedValues={setSelectedArtists}>
      {filterItem.text} </S.FilterLink>)
  })}
             </S.DropdownContent>
@@ -143,14 +133,14 @@ return (
 
      </S.Filter>) : 
      
-     (<S.Filter><S.FilterButton className="_btn-text" onClick = {toggleVisibilityYear} >{filterValue.text}{filterValue && !(filterValue?.text === filterItems[0].text)  ? (<S.StyledNumberCircle>{filterValue.number}</S.StyledNumberCircle>   ) : "По умолчанию"}</S.FilterButton>
+     (<S.Filter><S.FilterButton className="_btn-text" onClick = {toggleVisibilityYear} > {filterValue ? (filterValue.text) : ("По умолчанию")} {filterValue && !(filterValue?.text === filterItems[0].text)  ? (<S.StyledNumberCircle>{filterValue.number}</S.StyledNumberCircle>   ) : "По умолчанию"}</S.FilterButton>
      </S.Filter>)}
-     </S.CenterblockFilter>
-</S.BlockMain>
 
-     )
-    
-}
+
+     
+     </S.CenterblockFilter>
+*/
+
 /*
 export default function Filter(){
   const filter = useSelector(filterSelector)

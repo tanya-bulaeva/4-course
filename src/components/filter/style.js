@@ -57,8 +57,14 @@ color: white;
 
 
 export const ButtonActive = styled(FilterButton)`
-border-color: #b672ff;
-color: #b672ff;
+:hover{
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+}
+: active {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+}
 `
 
 export const DropdownContent= styled.ul`    

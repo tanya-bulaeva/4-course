@@ -3,8 +3,7 @@ import { tracksSelectors } from "../../store/selectors";
 import * as S from "./style.js"
 import Sidebar from "../sidebar/Sidebar";
 import NavMenu from "../navMenu/NavMenu";
-import Search from "../search/Search";
-import Filter from "../filter/Filter";
+
 import UserAccount from "../userAccount/UserAccount";
 import Collections from "../collections/Collections";
 import Playlist from "../playlist/Playlist";
@@ -34,7 +33,7 @@ return (<>
     <NavMenu />
       <S.MainCenterblock>
         
-    <Search />
+
 
       <p>{tracksError}</p>
       {children}

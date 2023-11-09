@@ -1,32 +1,12 @@
+import { useState } from "react"
 import * as S from "./style.js"
-// export default function FilterByArtist (){
-//     const tracks = useSelector(pagePlaylistSelector)
-//     const dispatch = useDispatch()
-//     const filter = useSelector(filterSelector)
-//     function onlyUnique(value, index, tracks) {
-//         return tracks.indexOf(value) === index;
-//       }
 
-//     const TrackAuthor = tracks.map((track) =>  track.author)
-//     const newlist = [...new Set (TrackAuthor)]
-    
-// //const uniqueItem = TrackAuthor.filter(onlyUnique)     
-//       const uniqueList = newlist.map((e) => <S.FilterLink key = {e.id} onClick={ArtistChange}>
-//       {e}</S.FilterLink>)
-// //console.log(uniqueList);
-//     return (<S.DropStyle>
-// <S.DropdownContent>
-
-// </S.DropdownContent>
-// </S.DropStyle>
-// )
-// }
 export  function FilterByArtist ( {
     selectedValues,
     setSelectedValues,
     list,
     multipleСhoice = true,
-  isOpen
+ 
   } ){
 
     const handleItemClick = (item) => {
@@ -42,7 +22,6 @@ export  function FilterByArtist ( {
         setSelectedValues([item])
       }
     
-          
 
 
 
@@ -50,6 +29,7 @@ export  function FilterByArtist ( {
     return (  
           <S.Filter>
         <S.ButtonActive className="_btn-text"  >исполнителю</S.ButtonActive>
+        
           <S.DropdownContent>
             {list?.map((item) => {
               return (
