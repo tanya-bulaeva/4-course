@@ -1,8 +1,8 @@
 import * as S from "./style.js"
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState} from "react";
 import { useUserContext } from "../../context/user.jsx";
-import { getToken, loginUser, registerUser } from "../../api.js";
+import { getToken, registerUser } from "../../api.js";
 export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

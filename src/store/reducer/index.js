@@ -9,7 +9,7 @@ shuffledPlaylist: false,
 repeat: false,
 pagePlaylist : [],
 search: "",
-filter: {year: [], artist :[], genre : []}
+filter: {year: [], author :[], genre : []}
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 

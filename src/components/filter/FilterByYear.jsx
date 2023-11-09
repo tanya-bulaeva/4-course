@@ -3,7 +3,8 @@ import * as S from "./style.js"
 import { filterSelector, pagePlaylistSelector } from "../../store/selectors/index.js";
 import { filterYear } from "../../store/actions/creators/index.js";
 import { useState } from "react";
-export default function FilterByYear (date){
+export default function FilterByYear (  selectedValues,
+   setSelectedValues){
     const tracks = useSelector(pagePlaylistSelector) 
 
     const newTracks = tracks.slice(0)

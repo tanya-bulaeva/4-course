@@ -4,11 +4,11 @@ import { Tracklists } from "./Tracklists.jsx"
 import { PlaylistSelector, filterSelector, isTrackPlayingSelector, pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
 import Search from "../search/Search.jsx"
 import { filterYear, pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js"
-import { useEffect, useMemo, useState } from "react"
+import {useMemo, useState} from "react"
 import { useUserContext } from "../../context/user.jsx"
 import { useNavigate } from "react-router-dom"
 import Filter from "../filter/Filter.jsx"
-import FilterByArtist from "../filter/FilterByArtist.jsx"
+
 
 
 export default function Playlist ({loading, title, hiden}) {
@@ -17,25 +17,34 @@ export default function Playlist ({loading, title, hiden}) {
   const originalPlaylist = playlist
   const search = useSelector(searchSelector)
   const dispatch = useDispatch() 
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedGenres, setSelectedGenres] = useState([])
+  const [selectedArtists, setSelectedArtists] = useState([])
+
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
     dispatch(setCurrentPlaylist(playlist))
   }
 
-  const [filterItems, setFilterItems] = useState([
-    { id: 1, text: "По умолчанию" },
-    { id: 2, text: "Сначала новые" },
-    { id: 3, text: "Сначала старые" },
-  ]);
-
 const tracks = useMemo(() => {
   const newPlaylist = originalPlaylist
   .filter((track) => {
+    if (selectedGenres.length > 0) {
+      originalPlaylist = originalPlaylist.filter(({ genre }) =>
+        selectedGenres.includes(genre),
+      )
+    }
+    if (selectedArtists.length > 0) {
+      originalPlaylist = originalPlaylist.filter(({ author }) =>
+        selectedArtists.includes(author),
+      )
+    }
 
     if (search === '') return originalPlaylist;
-    else  {
+    else   {
     return  track.name.toLowerCase().includes(search.toLowerCase()) || track.author.toLowerCase().includes(search.toLowerCase()) 
-    }
+  
+   }
     //реализовать Ничего не найдено
     }).sort((a, b) => {
       let dateA = new Date(a.release_date)
@@ -47,11 +56,13 @@ const tracks = useMemo(() => {
   // console.log(newPlaylist )
     return newPlaylist
 }, [ filter, originalPlaylist, search])  
+
+
    return (<>
         <S.CenterblockH2>{title}</S.CenterblockH2>
         <S.CenterblockContent >
         
-         {hiden ? ('') : (<Filter data = {true} />)}
+         {hiden ? ('') : (<Filter />)}
           <S.ContentTitle>
             <S.PlaylistTitleCol01 className="col01">Трек</S.PlaylistTitleCol01>
             <S.PlaylistTitleCol02 className="col02">ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>

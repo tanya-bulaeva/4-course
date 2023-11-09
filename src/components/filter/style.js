@@ -102,3 +102,24 @@ font-style: normal;
 font-weight: 400;
 line-height: 13px;
 `
+export const StyledStrongItem = styled.strong`
+   color: #b672ff;
+`
+export  const StyledNumberCircle = styled.div`
+  color: white;
+  background-color: #ad61ff;
+   width: 26px;
+   height: 26px;
+   border-radius: 13px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   right: -8px;
+   top: -8px;
+   font-family: StratosSkyeng;
+   font-size: 13px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 13px; /* 100% */
+ `
