@@ -104,19 +104,22 @@ const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.fin
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack,  ] = useLikeTrackMutation()
 const [dislikeTrack,  ] = useDislikeTrackMutation()
- 
+useEffect(() => {
+  setIsLiked(isUserLike)
+}, [isUserLike])
+
 const handleLike = async (id) => {
   setIsLiked(true)
-
+  
     await likeTrack({ id }).unwrap()
 
 }
 
 const handleDislike = async (id) => {
   setIsLiked(false)
- 
+
     await dislikeTrack({ id }).unwrap()
- 
+
 }
 
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
