@@ -79,7 +79,23 @@ input, select, textarea, button{font-family:"StratosSkyeng"}
   stroke: #ffffff;
   cursor: pointer;
 }
+.category-button {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ffffff;
+  border-radius: 60px;
+  padding: 6px 20px;
+  position: relative;
+  cursor: pointer;
+}
 
+.--active,
+.--active:hover {
+  color: #b672ff;
+  border-color: #b672ff;
+}
 `
 
 export const WrapperStyle = styled.div`

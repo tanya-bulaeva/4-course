@@ -344,8 +344,10 @@ color: white;
 
 
 export const ButtonActive = styled(FilterButton)`
-border-color: #b672ff;
-color: #b672ff;
+
+  border-color: #b672ff;
+  color: #b672ff;
+
 `
 
 export const DropdownContent= styled.ul`    
@@ -364,6 +366,7 @@ list-style-type: none;
 :hover{
     border-color: #d9b6ff;
     color: #d9b6ff;
+
 }
 `
 export const DropStyle = styled.div`

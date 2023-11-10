@@ -1,6 +1,6 @@
 import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
-import {  setTrackCurrent } from "../../store/actions/creators/index.js";
+import {  pagePlaylists, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
@@ -25,6 +25,7 @@ const navigate = useNavigate()
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap()
+
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -90,7 +91,7 @@ const navigate = useNavigate()
 
 {loading ? (  <S.TrackTime>
   <S.TrackTimeSvg alt="time" onClick={() => toggleLikeDislike(track.id)}>
-    {isLiked ? (<use xlinkHref="/img/icon/sprite.svg#icon-like" fill="#ad61ff" ></use>) : (<use xlinkHref="/img/icon/sprite.svg#icon-like"></use>)}
+    {isLiked ? (<use xlinkHref="/img/icon/sprite.svg#icon-like" fill = "#ad61ff"></use>) : (<use xlinkHref="/img/icon/sprite.svg#icon-like"></use>)}
         
       </S.TrackTimeSvg>
       <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>

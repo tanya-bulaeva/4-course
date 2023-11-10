@@ -44,7 +44,7 @@ return (<>
       </S.MainSidebar>
     
     </S.MainStyle>
-     {selectedTrack  ? (<MediaPlayer loading = {loading}   />) : null} 
+     {selectedTrack  ? (<MediaPlayer loading = {loading}  selectedTrack = {selectedTrack }  />) : null} 
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

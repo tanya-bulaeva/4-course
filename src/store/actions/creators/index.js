@@ -63,3 +63,4 @@ export const filterYear = (value) => ({
   type: FILTER_BY_YEAR,
   payload: value,
 })
+

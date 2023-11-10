@@ -3,13 +3,15 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import { nextTrack, pauseTrack, playTrack, prevTrack, repeatTrack, shufflePlaylist } from "../../store/actions/creators/index.js";
+import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector,  } from "../../store/selectors/index.js";
-import { useMemo } from "react";
+ 
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
-export default function MediaPlayer( ){
+import { useUserContext } from "../../context/user.jsx";
+export default function MediaPlayer(  ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
+  
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
   const AudioRef = useRef(null);
@@ -19,7 +21,7 @@ export default function MediaPlayer( ){
   const [volume, setVolume] = useState(100);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
-
+  const {user} = useUserContext()
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
@@ -95,43 +97,29 @@ useEffect(() => {
         AudioRef.current.play();
   };//старт вопроизведения трека
 
- const togglePlay = isPlaying ? handleStop : handleStart;
- //const isTrackLiked = !!(track.stared_user ?? []).find(
-//  ({ id }) => id === auth.id,
-//)
- const [like, { error: likeError }] = useLikeTrackMutation()
-  const [dislike, { error: dislikeError }] = useDislikeTrackMutation()
-  const likeCurrentTrack = () => {
-    like({
-      id: track.id,
-    })
-  }
-  const dislikeCurrentTrack = () => {
-    dislike({
-      id: track.id,
-    })
-  }
-
-  const error = likeError ?? dislikeError ?? null
-
-  if (error) {
-    console.error(error)
-    alert(`Ошибка лайка: ${error.message}`)
-  }
+const togglePlay = isPlaying ? handleStop : handleStart;
 
 
+const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
+const [isLiked, setIsLiked] = useState(isUserLike)
+const [likeTrack,  ] = useLikeTrackMutation()
+const [dislikeTrack,  ] = useDislikeTrackMutation()
+ 
+const handleLike = async (id) => {
+  setIsLiked(true)
 
+    await likeTrack({ id }).unwrap()
 
+}
 
+const handleDislike = async (id) => {
+  setIsLiked(false)
+ 
+    await dislikeTrack({ id }).unwrap()
+ 
+}
 
-
-
-
-
-
-
-
-
+const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>
         {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}  loop = {isLoop} onEnded={handleNext} controls src={selectedTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
@@ -194,19 +182,25 @@ useEffect(() => {
                       <S.TrackPlayAlbumLink href="http://">{selectedTrack ? (selectedTrack.author) : (null)}</S.TrackPlayAlbumLink>
                     </S.TrackPlayAlbum>
                   </S.TrackPlayContain>
-                  
-                  <S.TrackPlayLikeDis>
-                    <S.TrackPlayLike className="_btn-icon">
-                      <S.TrackPlayLikeSvg  alt="like">
-                        <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                      </S.TrackPlayLikeSvg>
-                    </S.TrackPlayLike>
-                    <S.TrackPlayDislike className="_btn-icon">
-                      <S.TrackPlayDislikeSvg alt="dislike">
-                        <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
-                      </S.TrackPlayDislikeSvg>
-                      </S.TrackPlayDislike>
+                     <S.TrackPlayLikeDis >  
+                             <S.TrackPlayLike className="_btn-icon"onClick={() => toggleLikeDislike(selectedTrack.id)}>  
+                          <S.TrackPlayLikeSvg  alt="like" >    
+{isLiked  ? (<use xlinkHref="/img/icon/sprite.svg#icon-like"fill = "#ad61ff"></use>                     
+                     ) : (                 
+                    
+                     
+                       <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>)
+                     
+                      }
+    </S.TrackPlayLikeSvg>
+
+</S.TrackPlayLike>
                   </S.TrackPlayLikeDis>  
+
+
+                    
+   
+
                   
 
 
@@ -240,3 +234,5 @@ useEffect(() => {
        
    </> )
 }
+
+

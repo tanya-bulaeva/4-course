@@ -62,7 +62,7 @@ export const ButtonActive = styled(FilterButton)`
   color: #d9b6ff;
 }
 : active {
-  border-color: #d9b6ff;
+    border-color: #d9b6ff;
   color: #d9b6ff;
 }
 `

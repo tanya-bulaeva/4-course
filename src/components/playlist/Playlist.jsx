@@ -7,7 +7,7 @@ import { filterYear, pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "
 import {useMemo, useState} from "react"
 import { useUserContext } from "../../context/user.jsx"
 import { useNavigate } from "react-router-dom"
-import Filter from "../filter/Filter.jsx"
+
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
 
@@ -106,8 +106,8 @@ const filteredTracks = filterTracks()
           <use xlinkHref="/img/icon/sprite.svg#icon-search"></use>
         </S.SearchSvg>
         <S.SearchText
-          value={searchQ}
-          onChange={(e) => setSearchQ(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setsearchQuery(e.target.value)}
           type="search"
           placeholder="Поиск"
           name="search"
