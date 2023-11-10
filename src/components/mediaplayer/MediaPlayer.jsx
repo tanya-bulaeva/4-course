@@ -8,6 +8,7 @@ import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlayli
  
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
+import { useNavigate } from "react-router-dom";
 export default function MediaPlayer(  ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -22,6 +23,7 @@ export default function MediaPlayer(  ){
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
   const {user} = useUserContext()
+  const navigate = useNavigate()
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
@@ -110,17 +112,27 @@ useEffect(() => {
 
 const handleLike = async (id) => {
   setIsLiked(true)
-  
+  try {
     await likeTrack({ id }).unwrap()
+  } catch (error) {
+    if (error.status == 401) {
+      navigate('/login')
+
+    }
+  }
 }
 
 const handleDislike = async (id) => {
   setIsLiked(false)
-
+  try {
     await dislikeTrack({ id }).unwrap()
-
+  } catch (error) {
+    if (error.status == 401) {
+      navigate('/login')
+    }
+  }
 }
-
+ 
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>
