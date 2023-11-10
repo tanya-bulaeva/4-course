@@ -102,8 +102,8 @@ const togglePlay = isPlaying ? handleStop : handleStart;
 
 const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
 const [isLiked, setIsLiked] = useState(isUserLike)
-const [likeTrack,  ] = useLikeTrackMutation()
-const [dislikeTrack,  ] = useDislikeTrackMutation()
+const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
 useEffect(() => {
   setIsLiked(isUserLike)
 }, [isUserLike])
