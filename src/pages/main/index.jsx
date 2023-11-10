@@ -23,18 +23,19 @@ useEffect(() => {
   getTrack()
     .then((playlist) => {
       dispatch(pagePlaylists(playlist))//получить плейлист
+
       //console.log (playlist)
     })
-    .catch(() => {
-      setTracksError("Не удалось загрузить плейлист, попробуйте позже")
-    })
-    .finally(() => setLoading(false))
+   // .catch(() => {
+    //  setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+  //  })
+ //   .finally(() => setLoading(false))
 }, [])
 
 
 
 return (       <>
- <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  title={"Треки"}   /> 
+ <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  setTracksError = {setTracksError}title={"Треки"}   /> 
 
 </>
 );

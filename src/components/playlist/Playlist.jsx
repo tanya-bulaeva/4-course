@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import * as S from "./style.js"
 import { Tracklists } from "./Tracklists.jsx"
-import { PlaylistSelector, filterSelector, isTrackPlayingSelector, pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
+import { PlaylistSelector, dislikeSelector, filterSelector, isTrackPlayingSelector, likeSelector, pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
 import Search from "../search/Search.jsx"
 import { filterYear, pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js"
 import {useEffect, useMemo, useState} from "react"
@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom"
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
 import { useGetAllTracksQuery, useGetMyTracksQuery } from "../../services/favoriteTrack.js"
+import { getTrack } from "../../api.js"
 
-export default function Playlist ({loading, title, hiden, tracks }) {
+export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError }) {
   const playlist = useSelector(pagePlaylistSelector)
   const filter = useSelector(filterSelector)
   const originalPlaylist = playlist
@@ -27,19 +28,14 @@ export default function Playlist ({loading, title, hiden, tracks }) {
   const DESC_SORT_VALUE = 'Сначала новые'
     const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
   const years = [DEFAULT_SORT_VALUE, ASC_SORT_VALUE, DESC_SORT_VALUE]
-// const tracks = useSelector(pagePlaylistSelector) 
+ 
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
-    dispatch(setCurrentPlaylist(playlist))
+   // dispatch(setCurrentPlaylist(playlist))
+ 
   }
-
- //  const { data } = useGetAllTracksQuery()
-  // console.log (data)
-//  useEffect(() => {
-//      dispatch(pagePlaylists(data))
-//    //console.log (data)
-//    }, [data])//получение
-
+ 
+ 
   
 const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
@@ -155,6 +151,7 @@ const filteredTracks = filterTracks()
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
           <S.ContentPlaylist>
+          {tracksError ? ("Плейлист не найден") : null}
           {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>

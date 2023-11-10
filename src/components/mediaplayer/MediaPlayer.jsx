@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";
-import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector,  } from "../../store/selectors/index.js";
+import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";
+import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector  } from "../../store/selectors/index.js";
  
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function MediaPlayer(  ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
-  
+  const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
   const AudioRef = useRef(null);
@@ -101,7 +101,7 @@ useEffect(() => {
 
 const togglePlay = isPlaying ? handleStop : handleStart;
 
-
+ 
 const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack, { likeLoading }] = useLikeTrackMutation()
@@ -110,11 +110,18 @@ useEffect(() => {
   setIsLiked(isUserLike)
 }, [isUserLike])
 
+
+ // const refreshPage = ()=>{
+ //   window.location.reload();
+ //  }
+
+  
 const handleLike = async (id) => {
   setIsLiked(true)
   try {
-    await likeTrack({ id }).unwrap()
-  } catch (error) {
+    await likeTrack({ id }).unwrap() 
+         //   refreshPage ()
+    } catch (error) {
     if (error.status == 401) {
       navigate('/login')
 
@@ -126,6 +133,7 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
+     //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {
       navigate('/login')

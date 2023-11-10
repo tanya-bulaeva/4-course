@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR} from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR, LIKE_TRACK, DISLIKE_TRACK} from "../actions/types/index";
 
 // 1.В переменной initialState хранится логика.
 const initialState = {
@@ -9,7 +9,9 @@ shuffledPlaylist: false,
 repeat: false,
 pagePlaylist : [],
 search: "",
-filter: {year: [], author :[], genre : []}
+filter: {year: [], author :[], genre : []},
+like: false,
+dislike: false,
 };
 
 // 2.это чистая функция, принимающая два аргумента: state и пришедший action. 
