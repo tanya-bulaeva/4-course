@@ -67,6 +67,14 @@ export const favoriteTracksApi = createApi({
   reducerPath: `tracksAPI`,
   baseQuery: baseQueryWithTokensCheck,
   endpoints: (builder) => ({
+    // getTracks: builder.query({
+    //   query: () => {
+    //    return {
+    //     url: `all/`,
+    //       headers: { Authorization: `Bearer ${getTokenAccess()}` },
+    //     }},
+    //   providesTags: () => [DATA_TAG],
+    // }),
     getMyTracks: builder.query({
       query:  () => {
        return {
@@ -78,7 +86,16 @@ export const favoriteTracksApi = createApi({
         ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
         DATA_TAG,
       ],
+      transformResponse: ( response, meta, arg) => {
+         const transformedResponse = response.map((item ) => ({
+          ...item,
+          stared_user: [JSON.parse(sessionStorage.getItem('user'))],
+         }));
+ console.log(transformedResponse );//список отлайканных треков
+         return transformedResponse;
+     },
     }),
+ 
 
     likeTrack: builder.mutation({
       query(data) {
@@ -106,7 +123,7 @@ export const favoriteTracksApi = createApi({
 
  
 export const {
- 
+// useGetTracksQuery,
   useGetMyTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,

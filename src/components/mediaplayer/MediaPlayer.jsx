@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";
+import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector  } from "../../store/selectors/index.js";
  
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
+import { getTrack } from "../../api.js";
 export default function MediaPlayer(  ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -120,6 +121,12 @@ const handleLike = async (id) => {
   setIsLiked(true)
   try {
     await likeTrack({ id }).unwrap() 
+    getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+
+      //console.log (playlist)
+    })
          //   refreshPage ()
     } catch (error) {
     if (error.status == 401) {
@@ -133,6 +140,12 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
+    getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+
+      //console.log (playlist)
+    })
      //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {
@@ -140,7 +153,7 @@ const handleDislike = async (id) => {
     }
   }
 }
- 
+
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>

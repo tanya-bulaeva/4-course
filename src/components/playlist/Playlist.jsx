@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom"
 
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
-import { useGetAllTracksQuery, useGetMyTracksQuery } from "../../services/favoriteTrack.js"
-import { getTrack } from "../../api.js"
+// import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
+// import { getTrack } from "../../api.js"
 
 export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError }) {
   const playlist = useSelector(pagePlaylistSelector)
@@ -35,7 +35,7 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
  
   }
  
- 
+
   
 const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]

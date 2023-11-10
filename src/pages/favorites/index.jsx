@@ -13,7 +13,7 @@ import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators"
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
-export const Favorites = ({   tracksError, setTracksError}) => {
+export const Favorites = ({   tracksError, setTracksError, tracks}) => {
 //const [playlistError, setPlaylistError ] = useState();
 //const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ useEffect(() => {
 
     return (        <>
 
- <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
+ <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
     </>
     );
  };
