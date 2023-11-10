@@ -11,7 +11,7 @@ export const Main = ({tracks, tracksError, setTracksError}) => {
 
 useEffect(() => {
     // Заводим таймер
-    const timerId = setInterval(() => setLoading(!loading), 5000);		
+    const timerId = setInterval(() => setLoading(!loading), 3000);		
     // Данная функция вызывается при удалении компонента из DOM
     return () => {
         // Наводим порядок после удаления компонента

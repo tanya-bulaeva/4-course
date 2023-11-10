@@ -8,13 +8,13 @@ import { pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
 import { pagePlaylists } from "../../store/actions/creators";
 import { getCategory  } from "../../api";
 
-export const Category = ({}) => {
+export const Category = ({tracks}) => {
   const params = useParams();
   
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
   const [loading, setLoading] = useState(false);
-  const tracks = useSelector(tracksSelectors)
+   
   const playlist = useSelector(pagePlaylistSelector)
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
@@ -42,7 +42,7 @@ useEffect(() => {
 }, []);
   return (       <>
 
-        <Playlist loading = {loading}  tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
+        <Playlist loading = {loading} tracks = {tracks} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
 
 </>
     );

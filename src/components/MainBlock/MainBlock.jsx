@@ -11,14 +11,14 @@ import MediaPlayer from "../mediaplayer/MediaPlayer";
 import { useState, useEffect } from "react";
 
 
-export default function MainBlock({  tracksError, children})
+export default function MainBlock({  tracksError, children })
 {
 const selectedTrack = useSelector(tracksSelectors)
 const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
    // Заводим таймер
-   const timerId = setInterval(() => setLoading(!loading), 5000);		
+   const timerId = setInterval(() => setLoading(!loading), 3000);		
    // Данная функция вызывается при удалении компонента из DOM
    return () => {
        // Наводим порядок после удаления компонента

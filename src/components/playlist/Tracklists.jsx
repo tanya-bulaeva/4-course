@@ -1,6 +1,6 @@
 import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
-import {  pagePlaylists, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
@@ -8,11 +8,11 @@ import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from 
 import { useNavigate } from "react-router-dom";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
-export function Tracklists({loading, track}){
+export function Tracklists({loading, track, tracks}){
 const {user} = useUserContext()
 //console.log(user)
 const dispatch = useDispatch()
-const tracks = useSelector(pagePlaylistSelector)
+ 
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
@@ -25,7 +25,6 @@ const navigate = useNavigate()
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap()
-
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')

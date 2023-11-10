@@ -4,14 +4,15 @@ import { Tracklists } from "./Tracklists.jsx"
 import { PlaylistSelector, filterSelector, isTrackPlayingSelector, pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
 import Search from "../search/Search.jsx"
 import { filterYear, pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js"
-import {useMemo, useState} from "react"
+import {useEffect, useMemo, useState} from "react"
 import { useUserContext } from "../../context/user.jsx"
 import { useNavigate } from "react-router-dom"
 
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
+import { useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 
-export default function Playlist ({loading, title, hiden}) {
+export default function Playlist ({loading, title, hiden, tracks }) {
   const playlist = useSelector(pagePlaylistSelector)
   const filter = useSelector(filterSelector)
   const originalPlaylist = playlist
@@ -26,37 +27,22 @@ export default function Playlist ({loading, title, hiden}) {
   const DESC_SORT_VALUE = 'Сначала новые'
     const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
   const years = [DEFAULT_SORT_VALUE, ASC_SORT_VALUE, DESC_SORT_VALUE]
- const tracks = useSelector(pagePlaylistSelector) 
+// const tracks = useSelector(pagePlaylistSelector) 
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
+
     dispatch(setCurrentPlaylist(playlist))
   }
-/*
-const tracks = useMemo(() => {
-  const newPlaylist = originalPlaylist
-  .filter((track) => {
 
+  // const { data } = useGetMyTracksQuery()
+  // useEffect(() => {
+  //   dispatch(pagePlaylists(data))
+  // //console.log (data)
+  // }, [data])//получение
 
-    if (search === '') return originalPlaylist;
-    else   {
-    return  track.name.toLowerCase().includes(search.toLowerCase()) || track.author.toLowerCase().includes(search.toLowerCase()) 
-     }
-    //реализовать Ничего не найдено
-    }).sort((a, b) => {
-      let dateA = new Date(a.release_date)
-      let dateB = new Date(b.release_date)
-    if (filter.year === "<") return dateA - dateB
-    else if (filter.year === ">") return dateB - dateA
-    else return originalPlaylist
-    })
-  // console.log(newPlaylist )
-    return newPlaylist
-}, [ filter, originalPlaylist, search])  
-*/
-
-
-const TrackAuthorList = [... new Set (tracks?.map((track) =>  track.author))]
-  const TrackGenreList = [... new Set (tracks?.map((track) =>  track.genre))]
+  
+const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
+  const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -169,7 +155,7 @@ const filteredTracks = filterTracks()
             </S.PlaylistTitleCol04>
           </S.ContentTitle>
           <S.ContentPlaylist>
-          {filteredTracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )
