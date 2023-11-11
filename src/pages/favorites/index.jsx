@@ -29,14 +29,14 @@ useEffect(() => {
 }, [data])//получение
 
 
-  const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
-  const [isLiked, setIsLiked] = useState(isUserLike)
-  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
-  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  // const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
+  // const [isLiked, setIsLiked] = useState(isUserLike)
+  // const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  // const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
 
-  useEffect(() => {
-    setIsLiked(isUserLike)
-  }, [isUserLike, track])
+  // useEffect(() => {
+  //   setIsLiked(isUserLike)
+  // }, [isUserLike, track])
 
 //без этого не убираются скелетоны
 useEffect(() => {

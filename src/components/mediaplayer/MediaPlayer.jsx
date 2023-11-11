@@ -105,7 +105,7 @@ const togglePlay = isPlaying ? handleStop : handleStart;
 //const authUser = JSON.parse(sessionStorage.getItem('user'))
 //const isUserLike = Boolean(selectedTrack?.stared.user ? selectedTrack?.stared_user.find(({id}) => id === authUser.id): [])
 
-const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
+const isUserLike = selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack, { likeLoading }] = useLikeTrackMutation()
 const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
