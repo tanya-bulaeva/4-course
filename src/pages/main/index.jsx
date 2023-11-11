@@ -44,7 +44,7 @@ useEffect(() => {
 
 
 return (       <>
- <Playlist loading = {loading} tracks={data} tracksError = {tracksError}  setTracksError = {setTracksError}title={"Треки"}   /> 
+ <Playlist loading = {loading} tracks={data} data = {data} tracksError = {tracksError}  setTracksError = {setTracksError}title={"Треки"}   /> 
 
 </>
 );

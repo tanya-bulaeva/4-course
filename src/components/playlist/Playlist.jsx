@@ -13,7 +13,7 @@ import { compare } from "../../helpers.js"
 // import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import { getTrack } from "../../api.js"
 
-export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError, data }) {
+export default function Playlist ({loading, title, hiden, tracks = [], tracksError, setTracksError, data }) {
   const playlist = useSelector(pagePlaylistSelector)
   const filter = useSelector(filterSelector)
   const originalPlaylist = playlist
@@ -34,15 +34,16 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
    // dispatch(setCurrentPlaylist(playlist))
  
   }
- // const i = [...new Set(tracks?.map((track) => track.author))]
- //console.log("i",i)
+
+  const TrackAuthorList = [... new Set (data?.map((track) =>  track.author))] //в таком случае  не работает фильтр, но есть лайки и они работают, на странице подборок все ок
+   const TrackGenreList = [... new Set (data?.map((track) =>  track.genre))]
+  //  const TrackAuthorList = [... new Set (tracks?.map((track) =>  track.author))] //в таком случае   фильтр работает,на главной все ок, но ругается на странице подборок
+  //  const TrackGenreList = [... new Set (tracks?.map((track) =>  track.genre))]
+
+//  const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))] - // втаком случае ругается на странице подборок
+//    const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
 
 
-
-
-
- const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
-   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -52,7 +53,7 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
   }
 
   const filterTracks = () => {
-    let filteredTracks = originalPlaylist?.items || originalPlaylist
+    let filteredTracks = tracks?.items || tracks
 
     if (selectedGenres.length > 0) {
       filteredTracks = filteredTracks?.filter(({ genre }) =>
@@ -77,7 +78,7 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
     }
 
     if (searchQuery.length > 0) {
-      filteredTracks = filteredTracks?.filter(({ name }) =>
+      filteredTracks = originalPlaylist ?.filter(({ name }) =>
         name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()),
       )
     }
