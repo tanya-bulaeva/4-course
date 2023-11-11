@@ -43,7 +43,6 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
 //  const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))] - // втаком случае ругается на странице подборок
 //    const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
 
-
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -78,7 +77,7 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
     }
 
     if (searchQuery.length > 0) {
-      filteredTracks = originalPlaylist ?.filter(({ name }) =>
+      filteredTracks = filteredTracks ?.filter(({ name }) =>
         name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()),
       )
     }

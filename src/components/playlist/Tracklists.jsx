@@ -17,7 +17,7 @@ const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
 const navigate = useNavigate()
-  const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
+  const isUserLike = Boolean(track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true)
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
