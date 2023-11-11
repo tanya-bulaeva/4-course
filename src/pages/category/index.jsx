@@ -7,29 +7,40 @@ import { CategoryItems } from "../../components/collections/CategoryItems.jsx";
 import { pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
 import { pagePlaylists } from "../../store/actions/creators";
 import { getCategory  } from "../../api";
+import { useUserContext } from "../../context/user.jsx";
+import { useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksCategoryIdQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 
-export const Category = ({tracks}) => {
+export const Category = (tracks = []) => {
   const params = useParams();
   
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
   const [loading, setLoading] = useState(false);
-   
+  const { id } = useParams()
+ const { data } = useGetTracksCategoryIdQuery(id)
+ 
+  
+   useEffect(() => {
+     dispatch(pagePlaylists(data))
+   console.log (data)
+   }, [data])//получение
+  
   const playlist = useSelector(pagePlaylistSelector)
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
 //console.log (playlist)
-  useEffect(() => {
-   // setLoading(true)
-        getCategory(category.id)
-      .then((playlist) => {
-        dispatch(pagePlaylists(playlist))//получить плейлист
-      })
-      .catch(() => {
-        setTracksError("Не удалось загрузить плейлист, попробуйте позже")
-      })
- //     .finally(() => setLoading(false))
-  }, [category.id])
+//   useEffect(() => {
+//    // setLoading(true)
+//         getCategory(category.id)
+     
+//       .then((playlist) => {
+//         dispatch(pagePlaylists(playlist))//получить плейлист
+//       })
+//       .catch(() => {
+//         setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+//       })
+//  //     .finally(() => setLoading(false))
+//   }, [category.id])
 //без этого не убираются скелетоны
 useEffect(() => {
   // Заводим таймер
@@ -40,9 +51,10 @@ useEffect(() => {
       clearInterval(timerId);
   };
 }, []);
+
   return (       <>
 
-        <Playlist loading = {loading} tracks = {tracks} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
+        <Playlist loading = {loading} tracks = {data} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
 
 </>
     );

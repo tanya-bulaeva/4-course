@@ -17,6 +17,8 @@ const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
 const navigate = useNavigate()
+//const authUser = JSON.parse(sessionStorage.getItem('user'))
+//const isUserLike =Boolean(  selectedTrack.staredUser.find(({ id }) => id === authUser.id)  )
   const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()

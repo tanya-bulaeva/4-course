@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
-import { useGetMyTracksQuery } from "../../services/favoriteTrack.js"
+import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteTrack.js"
 // import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import { getTrack } from "../../api.js"
 
@@ -35,7 +35,7 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
    // dispatch(setCurrentPlaylist(playlist))
  
   }
-  const { data } = useGetMyTracksQuery()
+  const { data } = useGetTracksQuery()
  
   
   useEffect(() => {
@@ -161,7 +161,8 @@ const filteredTracks = filterTracks()
           </S.ContentTitle>
           <S.ContentPlaylist>
           {tracksError ? ("Плейлист не найден") : null}
-          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+         
+          {playlist?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )

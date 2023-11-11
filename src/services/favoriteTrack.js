@@ -51,7 +51,7 @@ export const getTokenAccess = () => {
  // console.log('res', accessToken)
   return accessToken
 }
-const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track/' })
+const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/' })
 
 const baseQueryWithTokensCheck = async (args, api, extraOptions) => {
     await checkToken();
@@ -70,15 +70,32 @@ export const favoriteTracksApi = createApi({
     getTracks: builder.query({
       query: () => {
        return {
-        url: `all/`,
+        url: `track/all/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }},
       providesTags: () => [DATA_TAG],
     }),
+    getTracksCategory: builder.query({
+      query: () => {
+       return {
+        url: ` selection/`,
+        }},
+    }),
+    getTracksCategoryId: builder.query({
+      query: (id) => ({
+        url: `/selection/${id}`,
+      }),
+      providesTags: (result = []) => [
+        ...(Array.isArray(result)
+          ? result.map(({ id }) => ({ type: DATA_TAG.type, id }))
+          : []),
+        DATA_TAG,
+      ],
+    }),
     getMyTracks: builder.query({
       query:  () => {
        return {
-        url: `favorite/all/`,
+        url: `track/favorite/all/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }
       },
@@ -99,7 +116,7 @@ export const favoriteTracksApi = createApi({
         const { id } = data
 
         return {
-          url: `${id}/favorite/`,
+          url: `track/${id}/favorite/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
           method: 'POST',
         }
@@ -109,7 +126,7 @@ export const favoriteTracksApi = createApi({
 
     dislikeTrack: builder.mutation({
       query: ({ id }) => ({
-        url: `${id}/favorite/`,
+        url: `track/${id}/favorite/`,
         headers: { Authorization: `Bearer ${getTokenAccess()}` },
         method: 'DELETE',
       }),
@@ -120,7 +137,9 @@ export const favoriteTracksApi = createApi({
 
  
 export const {
-// useGetTracksQuery,
+  useGetTracksCategoryIdQuery,
+  useGetTracksCategoryQuery,
+ useGetTracksQuery,
   useGetMyTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,
