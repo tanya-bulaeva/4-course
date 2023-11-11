@@ -16,7 +16,7 @@
 
 курсовая 
 планируемое время - 48 часов.
-фактическое время -    часов.
+фактическое время -   50 часов.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
