@@ -49,7 +49,7 @@ useEffect(() => {
   };
 }, []);
 
-console.log (data?.stared_user)
+ 
     return (        <>
 
  <Playlist loading = {loading}  tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 

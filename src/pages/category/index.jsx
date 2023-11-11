@@ -24,23 +24,11 @@ export const Category = ( ) => {
      dispatch(pagePlaylists(data))
    console.log (data)
    }, [data])//получение
-  
-  const playlist = useSelector(pagePlaylistSelector)
+
+
+ 
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
-//console.log (playlist)
-//   useEffect(() => {
-//    // setLoading(true)
-//         getCategory(category.id)
-     
-//       .then((playlist) => {
-//         dispatch(pagePlaylists(playlist))//получить плейлист
-//       })
-//       .catch(() => {
-//         setTracksError("Не удалось загрузить плейлист, попробуйте позже")
-//       })
-//  //     .finally(() => setLoading(false))
-//   }, [category.id])
 //без этого не убираются скелетоны
 useEffect(() => {
   // Заводим таймер
@@ -54,7 +42,7 @@ useEffect(() => {
 
   return (       <>
 
-        <Playlist loading = {loading} tracks = {data} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
+        <Playlist loading = {loading} tracks = {data } tracksError = {tracksError}    title={categoryName}  hiden = {true}   /> 
 
 </>
     );

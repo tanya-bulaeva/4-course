@@ -10,13 +10,12 @@ import { useNavigate } from "react-router-dom"
 
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
-import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteTrack.js"
 // import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import { getTrack } from "../../api.js"
 
-export default function Playlist ({loading, title, hiden,  tracks, tracksError}) {
+export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError, data }) {
   const playlist = useSelector(pagePlaylistSelector)
-
+  const filter = useSelector(filterSelector)
   const originalPlaylist = playlist
   const search = useSelector(searchSelector)
   const dispatch = useDispatch() 
@@ -27,21 +26,21 @@ export default function Playlist ({loading, title, hiden,  tracks, tracksError})
   const DEFAULT_SORT_VALUE = 'По умолчанию'
   const ASC_SORT_VALUE = 'Сначала старые'
   const DESC_SORT_VALUE = 'Сначала новые'
-  const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
+    const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
   const years = [DEFAULT_SORT_VALUE, ASC_SORT_VALUE, DESC_SORT_VALUE]
-
+ 
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
    // dispatch(setCurrentPlaylist(playlist))
  
   }
+ // const i = [...new Set(tracks?.map((track) => track.author))]
+ //console.log("i",i)
 
-    useEffect(() => {
-    dispatch(pagePlaylists(playlist))
-  //console.log (data)
-  }, [playlist])//получение
 
-  console.log (playlist)
+//const TrackAuthorList = [... new Set (playlist?.items?.map((track) =>  track.author))]
+//console.log(playlist.items)
+
 const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
   const selectCategory = (category) => {
@@ -87,7 +86,6 @@ const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   }
 
 const filteredTracks = filterTracks()
- 
    return (<>
         <S.CenterblockSearch>
         <S.SearchSvg>
@@ -158,8 +156,7 @@ const filteredTracks = filterTracks()
           </S.ContentTitle>
           <S.ContentPlaylist>
           {tracksError ? ("Плейлист не найден") : null}
-         
-          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {filteredTracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )
