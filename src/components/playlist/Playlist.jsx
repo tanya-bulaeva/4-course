@@ -38,11 +38,11 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
  //console.log("i",i)
 
 
-//const TrackAuthorList = [... new Set (playlist?.items?.map((track) =>  track.author))]
-//console.log(playlist.items)
 
-const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
-  const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
+
+
+ const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
+   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -52,7 +52,7 @@ const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   }
 
   const filterTracks = () => {
-    let filteredTracks = originalPlaylist
+    let filteredTracks = originalPlaylist?.items || originalPlaylist
 
     if (selectedGenres.length > 0) {
       filteredTracks = filteredTracks?.filter(({ genre }) =>
@@ -86,78 +86,80 @@ const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   }
 
 const filteredTracks = filterTracks()
-   return (<>
-        <S.CenterblockSearch>
-        <S.SearchSvg>
-          <use xlinkHref="/img/icon/sprite.svg#icon-search"></use>
-        </S.SearchSvg>
-        <S.SearchText
-          value={searchQuery}
-          onChange={(e) => setsearchQuery(e.target.value)}
-          type="search"
-          placeholder="Поиск"
-          name="search"
-        />
+ 
+
+return (<>
+  <S.CenterblockSearch>
+  <S.SearchSvg>
+    <use xlinkHref="/img/icon/sprite.svg#icon-search"></use>
+  </S.SearchSvg>
+  <S.SearchText
+    value={searchQuery}
+    onChange={(e) => setsearchQuery(e.target.value)}
+    type="search"
+    placeholder="Поиск"
+    name="search"
+  />
 </S.CenterblockSearch>
 
-        <S.CenterblockH2>{title}</S.CenterblockH2>
-        <S.CenterblockContent >
+  <S.CenterblockH2>{title}</S.CenterblockH2>
+  <S.CenterblockContent >
 
-         {hiden ? ('') : (<S.BlockMain>
-  <S.CenterblockFilter>
-       <S.FilterTitle >Искать по:</S.FilterTitle> 
-            
-    <S.Filter>
-    <CategoryItem
-              title="исполнителю"
-              isOpen={selectedCategory === 'artist'}  
-              list={TrackAuthorList}        
-              selectedValues={selectedArtists}
-              setSelectedValues={setSelectedArtists}
-              onClick={() => selectCategory('artist')}
-            ></CategoryItem>
-      </S.Filter>
-    <S.Filter>
-    <CategoryItem
-              title="жанру"
-              isOpen={selectedCategory === 'genre'}
-              list={TrackGenreList}                   
-              selectedValues={selectedGenres}
-              setSelectedValues={setSelectedGenres}
-              onClick={() => selectCategory('genre')}
-            ></CategoryItem>
+   {hiden ? ('') : (<S.BlockMain>
+<S.CenterblockFilter>
+ <S.FilterTitle >Искать по:</S.FilterTitle> 
+      
+<S.Filter>
+<CategoryItem
+        title="исполнителю"
+        isOpen={selectedCategory === 'artist'}  
+        list={TrackAuthorList}        
+        selectedValues={selectedArtists}
+        setSelectedValues={setSelectedArtists}
+        onClick={() => selectCategory('artist')}
+      ></CategoryItem>
+</S.Filter>
+<S.Filter>
+<CategoryItem
+        title="жанру"
+        isOpen={selectedCategory === 'genre'}
+        list={TrackGenreList}                   
+        selectedValues={selectedGenres}
+        setSelectedValues={setSelectedGenres}
+        onClick={() => selectCategory('genre')}
+      ></CategoryItem>
 
 
-    
-    </S.Filter>
 
-  </S.CenterblockFilter>
-  <S.CenterblockFilter>
-  <CategoryItem
-                title={selectedYears[0]}
-                isOpen={selectedCategory === 'year'}
-                list={years}
-                selectedValues={selectedYears}
-                setSelectedValues={setSelectedYears}
-                multipleСhoice={false}
-                onClick={() => selectCategory('year')}
-                ></CategoryItem>
+</S.Filter>
+
+</S.CenterblockFilter>
+<S.CenterblockFilter>
+<CategoryItem
+          title={selectedYears[0]}
+          isOpen={selectedCategory === 'year'}
+          list={years}
+          selectedValues={selectedYears}
+          setSelectedValues={setSelectedYears}
+          multipleСhoice={false}
+          onClick={() => selectCategory('year')}
+          ></CategoryItem>
 </S.CenterblockFilter>
 </S.BlockMain>)}
-          <S.ContentTitle>
-            <S.PlaylistTitleCol01 className="col01">Трек</S.PlaylistTitleCol01>
-            <S.PlaylistTitleCol02 className="col02">ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
-            <S.PlaylistTitleCol03 className="col03">АЛЬБОМ</S.PlaylistTitleCol03>
-            <S.PlaylistTitleCol04 className="col04">
-              <S.PlaylistTitleSvg alt="time">
-                <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
-              </S.PlaylistTitleSvg>
-            </S.PlaylistTitleCol04>
-          </S.ContentTitle>
-          <S.ContentPlaylist>
-          {tracksError ? ("Плейлист не найден") : null}
-          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
-          </S.ContentPlaylist>
-      </S.CenterblockContent></>
-    )
+    <S.ContentTitle>
+      <S.PlaylistTitleCol01 className="col01">Трек</S.PlaylistTitleCol01>
+      <S.PlaylistTitleCol02 className="col02">ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol02>
+      <S.PlaylistTitleCol03 className="col03">АЛЬБОМ</S.PlaylistTitleCol03>
+      <S.PlaylistTitleCol04 className="col04">
+        <S.PlaylistTitleSvg alt="time">
+          <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
+        </S.PlaylistTitleSvg>
+      </S.PlaylistTitleCol04>
+    </S.ContentTitle>
+    <S.ContentPlaylist>
+    {tracksError ? ("Плейлист не найден") : null}
+    {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+    </S.ContentPlaylist>
+</S.CenterblockContent></>
+)
 }
