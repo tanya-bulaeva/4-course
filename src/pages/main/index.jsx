@@ -5,6 +5,7 @@ import { pagePlaylistSelector, tracksSelectors } from "../../store/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { pagePlaylists } from "../../store/actions/creators";
 import { getTrack } from "../../api";
+import { useGetTracksQuery } from "../../services/favoriteTrack";
 //import { useGetTracksQuery } from "../../services/favoriteTrack";
 export const Main = ({tracks, tracksError, setTracksError}) => {
  const dispatch = useDispatch();
@@ -21,23 +22,29 @@ useEffect(() => {
     };
 }, []);
 
- useEffect(() => {
-  getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
+//  useEffect(() => {
+//   getTrack()
+//     .then((playlist) => {
+//       dispatch(pagePlaylists(playlist))//получить плейлист
 
-      //console.log (playlist)
-    })
-   // .catch(() => {
-    //  setTracksError("Не удалось загрузить плейлист, попробуйте позже")
-  //  })
- //   .finally(() => setLoading(false))
-}, [])
+//       //console.log (playlist)
+//     })
+//    // .catch(() => {
+//     //  setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+//   //  })
+//  //   .finally(() => setLoading(false))
+// }, [])
+  const { data } = useGetTracksQuery()
+ 
 
+  useEffect(() => {
+   dispatch(pagePlaylists(data))
+   //console.log (data)
+   }, [data])//получение
 
 
 return (       <>
- <Playlist loading = {loading} tracks={tracks} tracksError = {tracksError}  setTracksError = {setTracksError}title={"Треки"}   /> 
+ <Playlist loading = {loading} tracks={data} tracksError = {tracksError}  setTracksError = {setTracksError}title={"Треки"}   /> 
 
 </>
 );

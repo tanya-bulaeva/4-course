@@ -10,7 +10,7 @@ import { getCategory  } from "../../api";
 import { useUserContext } from "../../context/user.jsx";
 import { useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksCategoryIdQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 
-export const Category = (tracks = []) => {
+export const Category = ( ) => {
   const params = useParams();
   
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
@@ -18,7 +18,7 @@ export const Category = (tracks = []) => {
   const [loading, setLoading] = useState(false);
   const { id } = useParams()
  const { data } = useGetTracksCategoryIdQuery(id)
- 
+ const tracks = data?.items || []
   
    useEffect(() => {
      dispatch(pagePlaylists(data))
@@ -54,7 +54,7 @@ useEffect(() => {
 
   return (       <>
 
-        <Playlist loading = {loading} tracks = {data} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
+        <Playlist loading = {loading} tracks = {tracks} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
 
 </>
     );

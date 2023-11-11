@@ -14,8 +14,9 @@ import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteT
 // import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import { getTrack } from "../../api.js"
 
-export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError }) {
+export default function Playlist ({loading, title, hiden,  tracks, tracksError, setTracksError}) {
   const playlist = useSelector(pagePlaylistSelector)
+
   const filter = useSelector(filterSelector)
   const originalPlaylist = playlist
   const search = useSelector(searchSelector)
@@ -35,15 +36,17 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
    // dispatch(setCurrentPlaylist(playlist))
  
   }
-  const { data } = useGetTracksQuery()
+  // const { data } = useGetTracksQuery()
  
   
-  useEffect(() => {
-    dispatch(pagePlaylists(data))
+  // useEffect(() => {
+  //   dispatch(pagePlaylists(data))
+  // //console.log (data)
+  // }, [data])//получение
+    useEffect(() => {
+    dispatch(pagePlaylists(playlist))
   //console.log (data)
-  }, [data])//получение
-  
-  
+  }, [playlist])//получение
 
   
 const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
@@ -162,7 +165,7 @@ const filteredTracks = filterTracks()
           <S.ContentPlaylist>
           {tracksError ? ("Плейлист не найден") : null}
          
-          {playlist?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+          {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
           </S.ContentPlaylist>
       </S.CenterblockContent></>
     )

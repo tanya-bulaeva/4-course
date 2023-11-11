@@ -14,7 +14,7 @@ import { useDislikeTrackMutation, useGetMyTracksQuery, useLikeTrackMutation } fr
 import { useUserContext } from "../../context/user";
 
 
-export const Favorites = ({   tracksError, setTracksError, tracks}) => {
+export const Favorites = ({   tracksError, setTracksError, track}) => {
 //const [playlistError, setPlaylistError ] = useState();
 //const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
@@ -22,38 +22,18 @@ const [loading, setLoading] = useState(false);
 const playlist = useSelector(pagePlaylistSelector)
 const { data } = useGetMyTracksQuery()
 const dispatch = useDispatch()
-const track = useSelector(tracksSelectors)
+
 useEffect(() => {
   dispatch(pagePlaylists(data))
 //console.log (data)
 }, [data])//получение
-const {user} = useUserContext()
-const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
+
+
+  const isUserLike = track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
-  const handleLike = async (id) => {
-    setIsLiked(true)
-    try {
-      await likeTrack({ id }).unwrap()
-    } catch (error) {
-      if (error.status == 401) {
-        navigate('/login')
 
-      }
-    }
-  }
-
-  const handleDislike = async (id) => {
-    setIsLiked(false)
-    try {
-      await dislikeTrack({ id }).unwrap()
-    } catch (error) {
-      if (error.status == 401) {
-        navigate('/login')
-      }
-    }
-  }
   useEffect(() => {
     setIsLiked(isUserLike)
   }, [isUserLike, track])
@@ -72,7 +52,7 @@ useEffect(() => {
 
     return (        <>
 
- <Playlist loading = {loading} tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
+ <Playlist loading = {loading}   tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
     </>
     );
  };
