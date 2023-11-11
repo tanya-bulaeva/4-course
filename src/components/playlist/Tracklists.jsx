@@ -2,7 +2,7 @@ import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
 import { setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,9 @@ const navigate = useNavigate()
       }
     }
   }
-
+  useEffect(() => {
+    setIsLiked(isUserLike)
+  }, [isUserLike, track])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
   return (

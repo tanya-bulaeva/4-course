@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { refreshToken } from "../api";
-const DATA_TAG = { type: "favoriteTracks", id: "LIST" };
+const DATA_TAG = ["LIST"];
 export default function parseJwt(token) {
   let jsonPayload
 
@@ -67,14 +67,14 @@ export const favoriteTracksApi = createApi({
   reducerPath: `tracksAPI`,
   baseQuery: baseQueryWithTokensCheck,
   endpoints: (builder) => ({
-    // getTracks: builder.query({
-    //   query: () => {
-    //    return {
-    //     url: `all/`,
-    //       headers: { Authorization: `Bearer ${getTokenAccess()}` },
-    //     }},
-    //   providesTags: () => [DATA_TAG],
-    // }),
+    getTracks: builder.query({
+      query: () => {
+       return {
+        url: `all/`,
+          headers: { Authorization: `Bearer ${getTokenAccess()}` },
+        }},
+      providesTags: () => [DATA_TAG],
+    }),
     getMyTracks: builder.query({
       query:  () => {
        return {
@@ -82,10 +82,7 @@ export const favoriteTracksApi = createApi({
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }
       },
-      providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
-        DATA_TAG,
-      ],
+      providesTags: [DATA_TAG],
       transformResponse: ( response, meta, arg) => {
          const transformedResponse = response.map((item ) => ({
           ...item,

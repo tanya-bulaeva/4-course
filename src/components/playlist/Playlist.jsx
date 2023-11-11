@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
+import { useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import {   useGetMyTracksQuery } from "../../services/favoriteTrack.js"
 // import { getTrack } from "../../api.js"
 
@@ -34,7 +35,15 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
    // dispatch(setCurrentPlaylist(playlist))
  
   }
+  const { data } = useGetMyTracksQuery()
  
+  
+  useEffect(() => {
+    dispatch(pagePlaylists(data))
+  //console.log (data)
+  }, [data])//получение
+  
+  
 
   
 const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]

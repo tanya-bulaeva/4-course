@@ -103,29 +103,30 @@ useEffect(() => {
 const togglePlay = isPlaying ? handleStop : handleStart;
 
  
+//const isUserLike = Boolean(selectedTrack?.stared.user ? selectedTrack?.stared_user.find(({id}) => id === user.id): [])
+
 const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack, { likeLoading }] = useLikeTrackMutation()
 const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
-useEffect(() => {
-  setIsLiked(isUserLike)
-}, [isUserLike])
 
 
  // const refreshPage = ()=>{
  //   window.location.reload();
  //  }
-
-  
+useEffect(() => {
+  setIsLiked(isUserLike)
+}, [isUserLike, selectedTrack])
 const handleLike = async (id) => {
+
   setIsLiked(true)
   try {
     await likeTrack({ id }).unwrap() 
     getTrack()
     .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
+     dispatch(pagePlaylists(playlist))//получить плейлист
 
-      //console.log (playlist)
+      console.log (playlist)
     })
          //   refreshPage ()
     } catch (error) {
@@ -153,7 +154,7 @@ const handleDislike = async (id) => {
     }
   }
 }
-
+ 
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>
