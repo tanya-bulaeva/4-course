@@ -18,7 +18,7 @@ export const Category = ( ) => {
   const [loading, setLoading] = useState(false);
   const { id } = useParams()
  const { data } = useGetTracksCategoryIdQuery(id)
- const tracks = data?.items || []
+
   
    useEffect(() => {
      dispatch(pagePlaylists(data))
@@ -54,7 +54,7 @@ useEffect(() => {
 
   return (       <>
 
-        <Playlist loading = {loading} tracks = {tracks} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
+        <Playlist loading = {loading} tracks = {data} tracksError = {tracksError}  title={categoryName}  hiden = {true}   /> 
 
 </>
     );
