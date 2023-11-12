@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import { tracksSelectors } from "../../store/selectors";
+import { tracksSelectors } from "../../store/selectors/index.js";
 import * as S from "./style.js"
-import Sidebar from "../sidebar/Sidebar";
-import NavMenu from "../navMenu/NavMenu";
+import Sidebar from "../sidebar/Sidebar.jsx";
+import NavMenu from "../navMenu/NavMenu.jsx";
 
-import UserAccount from "../userAccount/UserAccount";
-import Collections from "../collections/Collections";
-import Playlist from "../playlist/Playlist";
-import MediaPlayer from "../mediaplayer/MediaPlayer";
+import UserAccount from "../userAccount/UserAccount.jsx";
+import Collections from "../collections/Collections.jsx";
+import Playlist from "../playlist/Playlist.jsx";
+import MediaPlayer from "../mediaplayer/MediaPlayer.jsx";
 import { useState, useEffect } from "react";
 
 
