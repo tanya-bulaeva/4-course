@@ -125,7 +125,7 @@ const handleLike = async (id) => {
     getTrack()
     .then((playlist) => {
      dispatch(pagePlaylists(playlist))//получить плейлист
-
+     dispatch(setTrackCurrent(track))
       console.log (playlist)
     })
          //   refreshPage ()
@@ -144,7 +144,7 @@ const handleDislike = async (id) => {
     getTrack()
     .then((playlist) => {
       dispatch(pagePlaylists(playlist))//получить плейлист
-
+      dispatch(setTrackCurrent(track))
       //console.log (playlist)
     })
      //   refreshPage ()
