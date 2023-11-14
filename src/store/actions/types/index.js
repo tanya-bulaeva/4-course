@@ -11,3 +11,4 @@ export const SEARCH = "SEARCH"
 export const FILTER_BY_ARTIST = "FILTER_BY_ARTIST"
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE"
 export const FILTER_BY_YEAR = "FILTER_BY_YEAR"
+export const RESET_STATE = 'RESET_STATE';

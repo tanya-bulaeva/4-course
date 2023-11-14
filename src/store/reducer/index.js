@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR} from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK,  PREVIOUS_TRACK, CURRENT_PLAYLIST, PLAY_TRACK, PAUSE_TRACK, SHUFFLE_PLAYLIST, REPEAT_TRACK, PAGE_PLAYLIST, SEARCH, FILTER_BY_ARTIST, FILTER_BY_GENRE, FILTER_BY_YEAR, RESET_STATE } from "../actions/types/index";
 
 // 1.В переменной initialState хранится логика.
 const initialState = {
@@ -119,6 +119,11 @@ export default function trackReducer(state = initialState, action) {
        };
 
     }
+
+    case RESET_STATE: {
+    return initialState;
+
+   }
 
       default:
         return state;

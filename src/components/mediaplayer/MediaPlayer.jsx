@@ -16,6 +16,7 @@ export default function MediaPlayer(  ){
   const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
+
   const AudioRef = useRef(null);
   const shuffled = useSelector(shuffledPlaylistSelector)
   const isLoop = useSelector(repeatTrackSelector)

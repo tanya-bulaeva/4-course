@@ -85,6 +85,8 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
     return filteredTracks
   }
 
+
+
 const filteredTracks = filterTracks()
 return (<>
   <S.CenterblockSearch>
@@ -156,9 +158,10 @@ return (<>
     </S.ContentTitle>
     <S.ContentPlaylist>
     {tracksError ? ("Плейлист не найден") : null}
-    {tracks?.length > 0 ? (filteredTracks?.length > 0 ? (filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено')) : ("Не удалось загрузить плейлист") }
+    { tracks?.length > 0 ? (filteredTracks?.length > 0 ? (filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено')) : ("Не удалось загрузить плейлист, попробуйте позже") }
 
     </S.ContentPlaylist>
 </S.CenterblockContent></>
 )
 }
+//{loading ? ( tracks?.length > 0 ? (filteredTracks?.length > 0 ? (filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено')) : ("Не удалось загрузить плейлист, попробуйте позже") ) : (<TracklistsSkeleton />)}
