@@ -16,7 +16,6 @@ export default function MediaPlayer(  ){
   const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
-
   const AudioRef = useRef(null);
   const shuffled = useSelector(shuffledPlaylistSelector)
   const isLoop = useSelector(repeatTrackSelector)
@@ -122,10 +121,10 @@ const handleLike = async (id) => {
   setIsLiked(true)
   try {
     await likeTrack({ id }).unwrap() 
+    dispatch(setTrackCurrent(selectedTrack))
     getTrack()
     .then((playlist) => {
      dispatch(pagePlaylists(playlist))//получить плейлист
-     dispatch(setTrackCurrent(track))
       console.log (playlist)
     })
          //   refreshPage ()
@@ -141,10 +140,10 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
+    dispatch(setTrackCurrent(selectedTrack))
     getTrack()
     .then((playlist) => {
       dispatch(pagePlaylists(playlist))//получить плейлист
-      dispatch(setTrackCurrent(track))
       //console.log (playlist)
     })
      //   refreshPage ()

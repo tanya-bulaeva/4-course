@@ -1,6 +1,6 @@
 import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
-import { setTrackCurrent } from "../../store/actions/creators/index.js";
+import { resetState, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
@@ -24,10 +24,11 @@ const navigate = useNavigate()
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
+      dispatch(setTrackCurrent(selectedTrack))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
-
+        dispatch(resetState())
       }
     }
   }
@@ -36,10 +37,12 @@ const navigate = useNavigate()
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
+      dispatch(setTrackCurrent(selectedTrack))
         //console.log (playlist)
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
+        dispatch(resetState())
       }
     }
   }
