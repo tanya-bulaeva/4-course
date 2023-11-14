@@ -86,8 +86,6 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
   }
 
 const filteredTracks = filterTracks()
- 
-
 return (<>
   <S.CenterblockSearch>
   <S.SearchSvg>
@@ -158,7 +156,9 @@ return (<>
     </S.ContentTitle>
     <S.ContentPlaylist>
     {tracksError ? ("Плейлист не найден") : null}
-    {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+    {tracks?.length > 0 ? (filteredTracks?.length > 0 ? (filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено')) : ("Не удалось загрузить плейлист") }
+
+ 
     </S.ContentPlaylist>
 </S.CenterblockContent></>
 )

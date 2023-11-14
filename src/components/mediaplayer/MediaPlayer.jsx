@@ -97,7 +97,7 @@ useEffect(() => {
   const handleStart = () => {
      //   setPlaying(true);  
     dispatch(playTrack())
-        AudioRef.current.play();
+    AudioRef.current.play();
   };//старт вопроизведения трека
 
 const togglePlay = isPlaying ? handleStop : handleStart;
@@ -105,16 +105,16 @@ const togglePlay = isPlaying ? handleStop : handleStart;
 //const authUser = JSON.parse(sessionStorage.getItem('user'))
 //const isUserLike = Boolean(selectedTrack?.stared.user ? selectedTrack?.stared_user.find(({id}) => id === authUser.id): [])
 
-const isUserLike = selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
+const isUserLike = Boolean(selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true)
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack, { likeLoading }] = useLikeTrackMutation()
 const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
 
-
+ 
  // const refreshPage = ()=>{
  //   window.location.reload();
  //  }
-useEffect(() => {
+ useEffect(() => {
   setIsLiked(isUserLike)
 }, [isUserLike, selectedTrack])
 const handleLike = async (id) => {
@@ -154,7 +154,7 @@ const handleDislike = async (id) => {
     }
   }
 }
- 
+
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>

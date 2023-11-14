@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 
 import { useNavigate } from "react-router-dom";
-import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { checkToken, useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 export function Tracklists({loading,  track, tracks}){
 const {user} = useUserContext()
 //console.log(user)
 const dispatch = useDispatch()
- 
 const selectedTrack = useSelector(tracksSelectors)
 const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id

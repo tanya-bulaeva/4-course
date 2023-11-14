@@ -31,7 +31,7 @@ ul li {
 }
 
 @font-face {
-  font-family: "StratosSkyeng";
+  font-family: "StratosSkyeng",  sans-serif;
   src: local("StratosSkyeng"), local("StratosSkyeng"),
     url("../fonts/StratosSkyeng.woff") format("woff2"),
     url("../fonts/StratosSkyeng.woff") format("woff");
@@ -165,6 +165,7 @@ input, select, textarea, button{font-family:"StratosSkyeng"}
   line-height: 24px;
   letter-spacing: -0.05px;
   color: #ffffff;
+  font-family: "StratosSkyeng",  sans-serif;
   :hover {
   background-color: #3f007d;
   }
