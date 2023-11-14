@@ -23,7 +23,7 @@ const navigate = useNavigate()
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
-      await likeTrack({ id }).unwrap()
+      await likeTrack({ id }).unwrap() 
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -36,14 +36,17 @@ const navigate = useNavigate()
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
+        //console.log (playlist)
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
       }
     }
   }
+
 useEffect(() => {
   setIsLiked(isUserLike)
+ 
 }, [isUserLike, track])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 

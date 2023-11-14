@@ -87,7 +87,6 @@ useEffect(() => {
   if (selectedTrack.duration_in_seconds){
     setDuration(AudioRef.current.duration)
 }})
-
   const handleStop = () => {
         AudioRef.current.pause();
         dispatch(pauseTrack())
