@@ -61,7 +61,7 @@ overflow-y: auto;
 export const PlaylistItem = styled.div`
 width: 100%;
 display: block;
-margin-bottom: 12px;`
+`
 
 export const PlaylistTrack  = styled.div`  display: -webkit-box;
 display: -ms-flexbox;
@@ -75,7 +75,8 @@ flex-direction: row;
 justify-content: space-between;
 -webkit-box-align: center;
 -ms-flex-align: center;
-align-items: center;`
+align-items: center;
+margin-bottom: 12px`
 
 export const TrackTitle = styled.div`
 display: -webkit-box;
@@ -89,7 +90,7 @@ flex-direction: row;
 -ms-flex-align: center;
 align-items: center;
 width: 447px;
-margin-bottom: 12px`
+`
 
 export const TrackTitleImage = styled.div` 
  width: 51px;

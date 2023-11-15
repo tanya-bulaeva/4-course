@@ -81,7 +81,6 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
         name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()),
       )
     }
-
     return filteredTracks
   }
 
@@ -157,8 +156,8 @@ return (<>
       </S.PlaylistTitleCol04>
     </S.ContentTitle>
     <S.ContentPlaylist>
-    {tracksError ? ("Плейлист не найден") : null}
-    { filteredTracks?.length > 0 ? (filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено') }
+    {tracksError    ?("Плейлист не найден") : null}
+    {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
 
     </S.ContentPlaylist>
 </S.CenterblockContent></>

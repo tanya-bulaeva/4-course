@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";
+import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector  } from "../../store/selectors/index.js";
  
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
@@ -118,20 +118,19 @@ const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
 }, [isUserLike, selectedTrack])
 const handleLike = async (id) => {
 
-  setIsLiked(true)
+  setIsLiked(true) 
   try {
-    await likeTrack({ id }).unwrap() 
-    dispatch(setTrackCurrent(selectedTrack))
-    getTrack()
+    await likeTrack({ id }).unwrap()
+     getTrack()
     .then((playlist) => {
-     dispatch(pagePlaylists(playlist))//получить плейлист
-      console.log (playlist)
-    })
+      dispatch(pagePlaylists(playlist))//получить плейлист
+     // console.log (playlist)
+     })
          //   refreshPage ()
     } catch (error) {
     if (error.status == 401) {
       navigate('/login')
-
+      dispatch(resetState())
     }
   }
 }
@@ -140,7 +139,6 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
-    dispatch(setTrackCurrent(selectedTrack))
     getTrack()
     .then((playlist) => {
       dispatch(pagePlaylists(playlist))//получить плейлист
@@ -150,6 +148,7 @@ const handleDislike = async (id) => {
   } catch (error) {
     if (error.status == 401) {
       navigate('/login')
+      dispatch(resetState())
     }
   }
 }

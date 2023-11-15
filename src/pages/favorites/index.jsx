@@ -48,10 +48,10 @@ useEffect(() => {
       clearInterval(timerId);
   };
 }, []);
-console.log(data?.length);
+
  
     return (        <>
-{data?.length > 0 ? ( <Playlist loading = {loading}  tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}/> ) : ("В плейлист не добавлены треки")}
+{data?.length > 0 ? ( <Playlist loading = {loading}  tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}/> ) : ("В плейлист не добавлены треки либо произошла ошибка загрузки")}
 
     </>
     );

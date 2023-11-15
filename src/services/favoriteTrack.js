@@ -71,7 +71,6 @@ export const favoriteTracksApi = createApi({
       query: () => {
        return {
         url: `track/all/`,
-          headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }},
       providesTags: () => [DATA_TAG],
     }),
@@ -105,7 +104,7 @@ export const favoriteTracksApi = createApi({
           ...item,
          // stared_user: [JSON.parse(sessionStorage.getItem('user'))],
          }));
- console.log(transformedResponse );//список отлайканных треков
+        //console.log(transformedResponse );//список отлайканных треков
          return transformedResponse;
      },
     }),

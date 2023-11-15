@@ -8,7 +8,7 @@ import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from 
 import { useNavigate } from "react-router-dom";
 import { checkToken, useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
-export function Tracklists({loading,  track, tracks}){
+export function Tracklists({loading,  track, tracks, tracksError}){
 const {user} = useUserContext()
 //console.log(user)
 const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const navigate = useNavigate()
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
-      dispatch(setTrackCurrent(selectedTrack))
+
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -37,8 +37,6 @@ const navigate = useNavigate()
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
-      dispatch(setTrackCurrent(selectedTrack))
-        //console.log (playlist)
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -49,7 +47,8 @@ const navigate = useNavigate()
 
 useEffect(() => {
   setIsLiked(isUserLike)
- 
+  dispatch(setTrackCurrent(track))
+
 }, [isUserLike, track])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
