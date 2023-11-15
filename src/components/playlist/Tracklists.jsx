@@ -47,7 +47,7 @@ const navigate = useNavigate()
 
 useEffect(() => {
   setIsLiked(isUserLike)
-  dispatch(setTrackCurrent(track))
+ // dispatch(setTrackCurrent(track)) - ошибка, лайки ставятся, но ошибка в редаксе и другие ошибки
 
 }, [isUserLike ])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)

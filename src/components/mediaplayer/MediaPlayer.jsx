@@ -28,10 +28,7 @@ export default function MediaPlayer(  ){
    useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
-   //   handleStart(); - если убрать то перестает проигрываться трек сразу ппосле того как пользователь залогинился
-        if(isPlaying){
-          handleStop()
-        }else handleStart()
+      handleStart();
       })
       AudioRef.current.src = selectedTrack .track_file;    
     }
@@ -43,9 +40,9 @@ export default function MediaPlayer(  ){
     }
   }, [volume, AudioRef]);//настройка ползунка громкости  
   
-  const onLoadedMetadata = () => {
-    setDuration(AudioRef.current.duration);
-  };
+  // const onLoadedMetadata = () => {
+  //   setDuration(AudioRef.current.duration);
+  // };
   const onTimeUpdate = () => {
     setCurrentTime(AudioRef.current.currentTime);
   };
@@ -155,12 +152,12 @@ const handleDislike = async (id) => {
     }
   }
 }
-//
+//onLoadedMetadata ={onLoadedMetadata}
 
 const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
     return(<> 
  <S.BarStyle>
-        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef} onLoadedMetadata ={onLoadedMetadata} loop = {isLoop} onEnded={handleNext} controls src={selectedTrack.track_file}   onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
+        {selectedTrack? (<audio   style={{ display: 'none' }} ref={AudioRef}  loop = {isLoop} onEnded={handleNext} controls src={selectedTrack.track_file}   onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}        
        <S.BarContent>
          <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime}  ></ProgressBar>
          <S.BarPlayerBlock >
