@@ -49,7 +49,7 @@ useEffect(() => {
   setIsLiked(isUserLike)
   dispatch(setTrackCurrent(track))
 
-}, [isUserLike, track])
+}, [isUserLike ])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
   return (

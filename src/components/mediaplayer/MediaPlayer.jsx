@@ -32,7 +32,7 @@ export default function MediaPlayer(  ){
       })
       AudioRef.current.src = selectedTrack .track_file;    
     }
-  }, [selectedTrack]);//проигрывание сразу после клика на выбранный трек
+  }, [ selectedTrack .track_file]);//проигрывание сразу после клика на выбранный трек
 
   useEffect(() => {
     if (AudioRef) {
@@ -115,7 +115,7 @@ const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
  //  }
  useEffect(() => {
   setIsLiked(isUserLike)
-}, [isUserLike, selectedTrack])
+}, [isUserLike, selectedTrack.track_file])
 const handleLike = async (id) => {
 
   setIsLiked(true) 
