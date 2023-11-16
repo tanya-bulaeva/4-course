@@ -9,13 +9,14 @@ import Collections from "../collections/Collections.jsx";
 import Playlist from "../playlist/Playlist.jsx";
 import MediaPlayer from "../mediaplayer/MediaPlayer.jsx";
 import { useState, useEffect } from "react";
-import { useGetTracksQuery } from "../../services/favoriteTrack.js";
+import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteTrack.js";
 
 
 export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
-const { data } = useGetTracksQuery()
+//const { data } = useGetTracksQuery()
+const { data } = useGetMyTracksQuery()
 const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {

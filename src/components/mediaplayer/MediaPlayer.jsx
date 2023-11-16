@@ -123,13 +123,12 @@ const handleLike = async (id) => {
   setIsLiked(true) 
   try {
     await likeTrack({ id }).unwrap()
-     getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(data))
-   //   dispatch(pagePlaylists(playlist))//получить плейлист
-     // console.log (playlist)
-     })
-   // 
+    //  getTrack()
+    // .then((playlist) => {
+    //   dispatch(pagePlaylists(playlist))//получить плейлист
+    //  // console.log (playlist)
+    //  })
+    dispatch(pagePlaylists(data))
          //   refreshPage ()
     } catch (error) {
     if (error.status == 401) {
@@ -143,13 +142,12 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
-    getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(data))
-      //dispatch(pagePlaylists(playlist))//получить плейлист
-      console.log (playlist)
-    })
-   // 
+    // getTrack()
+    // .then((playlist) => {
+    //   dispatch(pagePlaylists(playlist))//получить плейлист
+    //   console.log (playlist)
+    // })
+    dispatch(pagePlaylists(data))
      //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {
