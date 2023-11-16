@@ -3,7 +3,7 @@ import { formatTime } from "../../helpers.js";
 import { pagePlaylists, resetState, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
+import { isTrackPlayingSelector,    pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 import { useNavigate } from "react-router-dom";
 import { checkToken, useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksCategoryQuery, useGetTracksQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
@@ -20,13 +20,16 @@ const navigate = useNavigate()
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const tracklist = useSelector(pagePlaylistSelector)
-  
+ 
+
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
-      console.log ("tracklist tracklist", tracklist)
-      dispatch(pagePlaylists(tracklist))
+      // console.log ("tracklist tracklist", tracklist)
+      // dispatch(pagePlaylists(tracklist))
+      console.log ("tracklist tracklist", data)
+      dispatch(pagePlaylists(data))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -39,8 +42,9 @@ const navigate = useNavigate()
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
-      console.log ("tracklist tracklist", tracklist)
-      dispatch(pagePlaylists(tracklist))
+      console.log ("tracklist tracklist", data)
+      
+      dispatch(pagePlaylists(data))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -52,7 +56,6 @@ const navigate = useNavigate()
 useEffect(() => {
   setIsLiked(isUserLike)
  // dispatch(setTrackCurrent(track)) - ошибка, лайки ставятся, но ошибка в редаксе и другие ошибки
- dispatch(pagePlaylists(tracklist))
 }, [isUserLike, tracklist ])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 

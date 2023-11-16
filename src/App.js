@@ -4,7 +4,8 @@ import { getTrack } from "./api";
 import { UserProvaider } from "./context/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCurrentPlaylist } from "./store/actions/creators";
+import { pagePlaylists, setCurrentPlaylist } from "./store/actions/creators";
+import { useGetTracksQuery } from "./services/favoriteTrack";
 
 
 function App() {
@@ -38,12 +39,19 @@ useEffect(() => {
     })
     .finally(() => setLoading(false))
 }, [])
+// const { data } = useGetTracksQuery()
+ 
+
+// useEffect(() => {
+//  dispatch(pagePlaylists(data))
+//  //console.log (data)
+//  }, [data])//получение
 
 
 //onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (
     <UserProvaider>
-        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading} setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />
+        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}  setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />
         </UserProvaider>
   );
 }

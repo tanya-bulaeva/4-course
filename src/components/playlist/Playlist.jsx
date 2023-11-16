@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import * as S from "./style.js"
 import { Tracklists } from "./Tracklists.jsx"
-import { PlaylistSelector, dislikeSelector, filterSelector, isTrackPlayingSelector, likeSelector, pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
+import { PlaylistSelector,  filterSelector, isTrackPlayingSelector,  pagePlaylistSelector, searchSelector, tracksSelectors } from "../../store/selectors/index.js"
 import Search from "../search/Search.jsx"
 import { filterYear, pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js"
 import {useEffect, useMemo, useState} from "react"
@@ -26,7 +26,7 @@ export default function Playlist ({loading, title, hiden, tracks = [], tracksErr
   const DEFAULT_SORT_VALUE = 'По умолчанию'
   const ASC_SORT_VALUE = 'Сначала старые'
   const DESC_SORT_VALUE = 'Сначала новые'
-    const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
+  const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
   const years = [DEFAULT_SORT_VALUE, ASC_SORT_VALUE, DESC_SORT_VALUE]
  
   const setUpTrack = (track) => {

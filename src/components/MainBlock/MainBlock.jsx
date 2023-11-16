@@ -12,10 +12,9 @@ import { useState, useEffect } from "react";
 import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteTrack.js";
 
 
-export default function MainBlock({  tracksError, children})
+export default function MainBlock({  tracksError, children, data})
 {
 const selectedTrack = useSelector(tracksSelectors)
-const { data } = useGetTracksQuery()
 //const { data } = useGetMyTracksQuery()
 const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);

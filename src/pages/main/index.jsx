@@ -9,6 +9,7 @@ import { useGetTracksQuery } from "../../services/favoriteTrack";
 export const Main = ({tracks, tracksError, setTracksError}) => {
  const dispatch = useDispatch();
  const [loading, setLoading] = useState(false);
+//const {data} =  useGetTracksQuery()
 //const [playlist, setPlaylist] = useState(data)
 useEffect(() => {
     // Заводим таймер

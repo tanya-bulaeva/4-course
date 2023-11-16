@@ -6,7 +6,7 @@ import {NotFound} from "./pages/not-found"
 import { Category } from "./pages/category";
 import { Register } from "./pages/register";
 import { ProtectedRoute } from "./components/protected-route";
-export const AppRoutes = ({user, token,  tracksError, loading, selectedTrack, setSelectedTrack, setLoading}) => {
+export const AppRoutes = ({user, token,  tracksError, loading, selectedTrack, setSelectedTrack, setLoading,   }) => {
   
   return (
     <Routes>

@@ -9,7 +9,7 @@ import { useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksQuery, useLik
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { getTrack } from "../../api.js";
-export default function MediaPlayer(){
+export default function MediaPlayer({data}){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
   const tracklist = useSelector(pagePlaylistSelector)
@@ -114,7 +114,7 @@ const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
  //  }
  useEffect(() => {
   setIsLiked(isUserLike)
-  dispatch(pagePlaylists(tracklist))
+
 }, [isUserLike, selectedTrack])
 
 const handleLike = async (id) => {
@@ -122,11 +122,13 @@ const handleLike = async (id) => {
   setIsLiked(true) 
   try {
     await likeTrack({ id }).unwrap()
-     getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
-     // console.log (playlist)
-     })
+    //  getTrack()
+    // .then((playlist) => {
+    //   dispatch(setCurrentPlaylist(playlist))//получить плейлист
+    //   console.log (playlist)
+    //  }) 
+    dispatch(pagePlaylists(data))
+     console.log("data", data);
     //  dispatch(pagePlaylists(data)) 
          //   refreshPage ()
     } catch (error) {
@@ -141,13 +143,14 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
-    getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
-      console.log (playlist)
-    })
+    // getTrack()
+    // .then((playlist) => {
+    //   dispatch(pagePlaylists(playlist))//получить плейлист
+    //   // console.log (playlist)
+    // })
      //   dispatch(pagePlaylists(newPlaylist)) 
-
+     dispatch(pagePlaylists(data))
+     console.log("data", data);
      //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {

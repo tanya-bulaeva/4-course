@@ -121,6 +121,7 @@ export const favoriteTracksApi = createApi({
         }
       },
       invalidatesTags: [DATA_TAG],
+
     }),
 
     dislikeTrack: builder.mutation({

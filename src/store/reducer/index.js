@@ -122,7 +122,7 @@ export default function trackReducer(state = initialState, action) {
 
     case RESET_STATE: {
     return initialState;
-
+    
    }
 
       default:
