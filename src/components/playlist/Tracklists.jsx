@@ -1,14 +1,13 @@
 import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
-import { resetState, setTrackCurrent } from "../../store/actions/creators/index.js";
+import { pagePlaylists, resetState, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
-
 import { useNavigate } from "react-router-dom";
-import { checkToken, useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { checkToken, useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksCategoryQuery, useGetTracksQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
-export function Tracklists({loading,  track, tracks, tracksError}){
+export function Tracklists({loading,  track, tracks, tracksError }){
 const {user} = useUserContext()
 //console.log(user)
 const dispatch = useDispatch()
@@ -20,11 +19,14 @@ const navigate = useNavigate()
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const tracklist = useSelector(pagePlaylistSelector)
+  
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
-
+      console.log ("tracklist tracklist", tracklist)
+      dispatch(pagePlaylists(tracklist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -37,6 +39,8 @@ const navigate = useNavigate()
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
+      console.log ("tracklist tracklist", tracklist)
+      dispatch(pagePlaylists(tracklist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -48,8 +52,8 @@ const navigate = useNavigate()
 useEffect(() => {
   setIsLiked(isUserLike)
  // dispatch(setTrackCurrent(track)) - ошибка, лайки ставятся, но ошибка в редаксе и другие ошибки
-
-}, [isUserLike ])
+ dispatch(pagePlaylists(tracklist))
+}, [isUserLike, tracklist ])
   const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
   return (

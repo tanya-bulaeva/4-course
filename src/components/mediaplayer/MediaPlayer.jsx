@@ -5,12 +5,11 @@ import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
 import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector  } from "../../store/selectors/index.js";
- 
 import { useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { getTrack } from "../../api.js";
-export default function MediaPlayer( {data}){
+export default function MediaPlayer(){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
   const tracklist = useSelector(pagePlaylistSelector)
@@ -108,14 +107,14 @@ const isUserLike = Boolean(selectedTrack?.stared_user  ?  (selectedTrack?.stared
 const [isLiked, setIsLiked] = useState(isUserLike)
 const [likeTrack, { likeLoading }] = useLikeTrackMutation()
 const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+ 
 
- 
- 
  // const refreshPage = ()=>{
  //   window.location.reload();
  //  }
  useEffect(() => {
   setIsLiked(isUserLike)
+  dispatch(pagePlaylists(tracklist))
 }, [isUserLike, selectedTrack])
 
 const handleLike = async (id) => {
@@ -123,12 +122,12 @@ const handleLike = async (id) => {
   setIsLiked(true) 
   try {
     await likeTrack({ id }).unwrap()
-    //  getTrack()
-    // .then((playlist) => {
-    //   dispatch(pagePlaylists(playlist))//получить плейлист
-    //  // console.log (playlist)
-    //  })
-    dispatch(pagePlaylists(data))
+     getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+     // console.log (playlist)
+     })
+    //  dispatch(pagePlaylists(data)) 
          //   refreshPage ()
     } catch (error) {
     if (error.status == 401) {
@@ -142,12 +141,13 @@ const handleDislike = async (id) => {
   setIsLiked(false)
   try {
     await dislikeTrack({ id }).unwrap()
-    // getTrack()
-    // .then((playlist) => {
-    //   dispatch(pagePlaylists(playlist))//получить плейлист
-    //   console.log (playlist)
-    // })
-    dispatch(pagePlaylists(data))
+    getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+      console.log (playlist)
+    })
+     //   dispatch(pagePlaylists(newPlaylist)) 
+
      //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {

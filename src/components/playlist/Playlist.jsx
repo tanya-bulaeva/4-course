@@ -157,7 +157,7 @@ return (<>
     </S.ContentTitle>
     <S.ContentPlaylist>
     {tracksError    ?("Плейлист не найден") : null}
-    {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+    {filteredTracks?.map((track) =>  <Tracklists key = {track.id} tracks = {tracks} track= {track} data = {data} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
 
     </S.ContentPlaylist>
 </S.CenterblockContent></>

@@ -15,8 +15,8 @@ import { useGetMyTracksQuery, useGetTracksQuery } from "../../services/favoriteT
 export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
-//const { data } = useGetTracksQuery()
-const { data } = useGetMyTracksQuery()
+const { data } = useGetTracksQuery()
+//const { data } = useGetMyTracksQuery()
 const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
