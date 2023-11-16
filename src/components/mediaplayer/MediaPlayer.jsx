@@ -6,11 +6,11 @@ import * as S from "./style.js"
 import {  nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";
 import { PlaylistSelector,  isTrackPlayingSelector,  tracksSelectors, pagePlaylistSelector, repeatTrackSelector,  shuffledPlaylistSelector  } from "../../store/selectors/index.js";
  
-import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { useDislikeTrackMutation, useGetMyTracksQuery, useGetTracksQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { getTrack } from "../../api.js";
-export default function MediaPlayer(  ){
+export default function MediaPlayer( {data}){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
   const tracklist = useSelector(pagePlaylistSelector)
@@ -110,12 +110,14 @@ const [likeTrack, { likeLoading }] = useLikeTrackMutation()
 const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
 
  
+ 
  // const refreshPage = ()=>{
  //   window.location.reload();
  //  }
  useEffect(() => {
   setIsLiked(isUserLike)
 }, [isUserLike, selectedTrack])
+
 const handleLike = async (id) => {
 
   setIsLiked(true) 
@@ -123,9 +125,11 @@ const handleLike = async (id) => {
     await likeTrack({ id }).unwrap()
      getTrack()
     .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
+      dispatch(pagePlaylists(data))
+   //   dispatch(pagePlaylists(playlist))//получить плейлист
      // console.log (playlist)
      })
+   // 
          //   refreshPage ()
     } catch (error) {
     if (error.status == 401) {
@@ -141,9 +145,11 @@ const handleDislike = async (id) => {
     await dislikeTrack({ id }).unwrap()
     getTrack()
     .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
-      //console.log (playlist)
+      dispatch(pagePlaylists(data))
+      //dispatch(pagePlaylists(playlist))//получить плейлист
+      console.log (playlist)
     })
+   // 
      //   refreshPage ()
   } catch (error) {
     if (error.status == 401) {

@@ -9,11 +9,13 @@ import Collections from "../collections/Collections.jsx";
 import Playlist from "../playlist/Playlist.jsx";
 import MediaPlayer from "../mediaplayer/MediaPlayer.jsx";
 import { useState, useEffect } from "react";
+import { useGetTracksQuery } from "../../services/favoriteTrack.js";
 
 
 export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
+const { data } = useGetTracksQuery()
 const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
@@ -44,7 +46,7 @@ return (<>
       </S.MainSidebar>
     
     </S.MainStyle>
-     {selectedTrack  ? (<MediaPlayer loading = {loading}  selectedTrack = {selectedTrack }  />) : null} 
+     {selectedTrack  ? (<MediaPlayer loading = {loading}  data = {data} selectedTrack = {selectedTrack }  />) : null} 
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>
