@@ -10,3 +10,10 @@ export   const formatTime = (time) => {
     }
     return '00:00';
   };
+
+  export function compare(a, b) {
+    let dateA = new Date(a.release_date)
+    let dateB = new Date(b.release_date)
+  
+    return dateA - dateB
+  }

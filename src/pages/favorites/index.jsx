@@ -1,7 +1,6 @@
 import * as S from "../main/style";
 import { useState, useEffect, useRef } from 'react';
 import NavMenu from "../../components/navMenu/NavMenu";
-import Search from "../../components/search/Search";
 import Filter from "../../components/filter/Filter";
 import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
@@ -15,10 +14,7 @@ import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
 export const Favorites = ({   tracksError, setTracksError}) => {
-//const [playlistError, setPlaylistError ] = useState();
-//const  selectedTrack = useSelector(tracksSelectors);
 const [loading, setLoading] = useState(false);
-//const tracks = useSelector(tracksSelectors)
 const playlist = useSelector(pagePlaylistSelector)
 const { data } = useGetMyTracksQuery()
 const dispatch = useDispatch()

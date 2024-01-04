@@ -3,7 +3,6 @@ import { tracksSelectors } from "../../store/selectors";
 import * as S from "./style.js"
 import Sidebar from "../sidebar/Sidebar";
 import NavMenu from "../navMenu/NavMenu";
-import Search from "../search/Search";
 import Filter from "../filter/Filter";
 import UserAccount from "../userAccount/UserAccount";
 import Collections from "../collections/Collections";
@@ -33,7 +32,6 @@ return (<>
     <S.MainStyle>
     <NavMenu />
       <S.MainCenterblock>
-    <Search />
 
 
       <p>{tracksError}</p>
@@ -45,7 +43,7 @@ return (<>
       </S.MainSidebar>
     
     </S.MainStyle>
-     {selectedTrack  ? (<MediaPlayer loading = {loading}   />) : null} 
+     {selectedTrack  ? (<MediaPlayer loading = {loading} selectedTrack = {selectedTrack }  />) : null} 
     <footer className="footer"></footer>
   </S.ContainerStyle>
 </S.WrapperStyle>

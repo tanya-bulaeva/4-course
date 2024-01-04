@@ -1,7 +1,6 @@
 import * as S from "./style";
 import { useState, useEffect } from 'react';
 import NavMenu from "../../components/navMenu/NavMenu";
-import Search from "../../components/search/Search";
 import Filter from "../../components/filter/Filter";
 import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";

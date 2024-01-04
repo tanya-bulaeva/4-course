@@ -126,3 +126,15 @@ export async function getTrack() {
         })
       }
       */
+
+      export async function getCategory(id) {
+        const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/selection/${id}`,
+        );
+  
+        if (!response.ok){
+            throw new Error('ошибка сервера')
+
+          }
+          const data = await response.json();
+          return data?.items;
+          }
