@@ -3,14 +3,14 @@ import * as S from "./style.js"
 import { Tracklists } from "./Tracklists.jsx"
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors } from "../../store/selectors/index.js"
 import {  pagePlaylists, setCurrentPlaylist, setTrackCurrent } from "../../store/actions/creators/index.js"
-import {useMemo, useState} from "react"
+import {useEffect, useMemo, useState} from "react"
 import { useUserContext } from "../../context/user.jsx"
 import { useNavigate } from "react-router-dom"
-import Filter from "../filter/Filter.jsx"
+import { getTrack } from "../../api.js"
 import { CategoryItem } from "../filter/CategoryItem.jsx"
 import { compare } from "../../helpers.js"
-
-export default function Playlist ({loading, title, hiden}) {
+import { useGetAllTracksQuery, useGetMyTracksQuery } from "../../services/favoriteTrack.js"
+export default function Playlist ({loading, title, hiden, tracks, tracksError, setTracksError}) {
   const playlist = useSelector(pagePlaylistSelector)
   const originalPlaylist = playlist
   const dispatch = useDispatch() 
@@ -23,13 +23,15 @@ export default function Playlist ({loading, title, hiden}) {
   const DESC_SORT_VALUE = 'Сначала новые'
   const [selectedYears, setSelectedYears] = useState([DEFAULT_SORT_VALUE])
   const years = [DEFAULT_SORT_VALUE, ASC_SORT_VALUE, DESC_SORT_VALUE]
-  const tracks = useSelector(pagePlaylistSelector) 
+  //const tracks = useSelector(pagePlaylistSelector) 
   const setUpTrack = (track) => {
     dispatch(setTrackCurrent(track))
     dispatch(setCurrentPlaylist(playlist))
   }
-  const TrackAuthorList = [... new Set (tracks?.map((track) =>  track.author))]
-  const TrackGenreList = [... new Set (tracks?.map((track) =>  track.genre))]
+  const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
+  const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
+  console.log(TrackAuthorList);
+  console.log(TrackGenreList );
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -142,7 +144,8 @@ return (<>
       </S.PlaylistTitleCol04>
     </S.ContentTitle>
     <S.ContentPlaylist>
-    {filteredTracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
+
+    {filteredTracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} tracks = {tracks} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
     </S.ContentPlaylist>
 </S.CenterblockContent></>
 )

@@ -9,12 +9,12 @@ import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksS
 import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
 import { getCategory, getTrack, getTrackCategory } from "../../api";
 import Collections from "../../components/collections/Collections";
-export const Category = () => {
+export const Category = ({tracks}) => {
   const params = useParams();
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
   const [loading, setLoading] = useState(false);
-  const tracks = useSelector(tracksSelectors)
+  //const tracks = useSelector(tracksSelectors)
   const playlist = useSelector(pagePlaylistSelector)
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
@@ -26,14 +26,14 @@ console.log (playlist)
         dispatch(pagePlaylists(playlist))//получить плейлист
       })
       .catch(() => {
-        setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+       // setTracksError("Не удалось загрузить плейлист, попробуйте позже")
       })
  //     .finally(() => setLoading(false))
   }, [category.id])
 //без этого не убираются скелетоны
 useEffect(() => {
   // Заводим таймер
-  const timerId = setInterval(() => setLoading(!loading), 5000);		
+  const timerId = setInterval(() => setLoading(!loading), 3000);		
   // Данная функция вызывается при удалении компонента из DOM
   return () => {
       // Наводим порядок после удаления компонента
@@ -42,7 +42,7 @@ useEffect(() => {
 }, []);
   return (       <>
 
-<Playlist loading = {loading} tracksError = {tracksError} title={categoryName} hiden = {true} />
+<Playlist loading = {loading} tracksError = {tracksError}tracks={tracks} title={categoryName} hiden = {true} />
 
 </>
     );

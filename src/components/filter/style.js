@@ -51,6 +51,8 @@ color: white;
 `
 
 export const ButtonActive = styled(FilterButton)`
+border-color: rgb(182, 114, 255);
+color: rgb(182, 114, 255);
 :hover{
   border-color: #d9b6ff;
   color: #d9b6ff;

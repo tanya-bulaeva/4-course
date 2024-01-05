@@ -34,7 +34,7 @@ useEffect(() => {
       dispatch(setCurrentPlaylist(playlist))//получить плейлист
     })
     .catch(() => {
-      setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+      //setTracksError("Не удалось загрузить плейлист, попробуйте позже")
     })
     .finally(() => setLoading(false))
 }, [])

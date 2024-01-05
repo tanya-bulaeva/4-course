@@ -1,11 +1,13 @@
 import * as S from "./style.js"
 import { useUserContext } from "../../context/user.jsx"
-
+import { useDispatch } from "react-redux";
+import { resetState } from "../../store/actions/creators/index.js";
 export default function UserAccount (){
   const { user, logout } = useUserContext();
-  
+  const dispatch = useDispatch()
   const handleLogout = () => {
     logout()
+    dispatch(resetState())
   }
 //console.log (user.username)
   return ( 

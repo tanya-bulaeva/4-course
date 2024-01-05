@@ -6,10 +6,12 @@ import * as S from "./style.js"
 import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";import { useMemo } from "react";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
-import { PlaylistSelector, isTrackPlayingSelector, repeatTrackSelector, shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
+import { useNavigate } from "react-router-dom";
+import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, repeatTrackSelector, shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
+  const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
   const AudioRef = useRef(null);
@@ -20,6 +22,7 @@ export default function MediaPlayer( ){
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
   const {user} = useUserContext() 
+  const navigate = useNavigate()
   useEffect(() => {
     if (selectedTrack ) {
       AudioRef.current.addEventListener('loadeddata', () => {
@@ -91,24 +94,34 @@ useEffect(() => {
 
   const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
   const [isLiked, setIsLiked] = useState(isUserLike)
-  const [likeTrack,  ] = useLikeTrackMutation()
-  const [dislikeTrack,  ] = useDislikeTrackMutation()
+  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   useEffect(() => {
     setIsLiked(isUserLike)
   }, [isUserLike])
   const handleLike = async (id) => {
     setIsLiked(true)
-  
+    try {
       await likeTrack({ id }).unwrap()
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
   
+      }
+    }
   }
   
   const handleDislike = async (id) => {
     setIsLiked(false)
-  
+    try {
       await dislikeTrack({ id }).unwrap()
-  
+    } catch (error) {
+      if (error.status == 401) {
+        navigate('/login')
+      }
+    }
   }
+   
   
   const toggleLikeDislike = (id) => isLiked? handleDislike(id) : handleLike(id)
 

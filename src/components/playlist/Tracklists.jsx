@@ -8,7 +8,7 @@ import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from 
 import { useNavigate } from "react-router-dom";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
-export function Tracklists({loading, track}){
+export function Tracklists({loading, track, tracks}){
 const {user} = useUserContext()
 //console.log(user)
 const dispatch = useDispatch()

@@ -3,7 +3,7 @@ import { tracksSelectors } from "../../store/selectors";
 import * as S from "./style.js"
 import Sidebar from "../sidebar/Sidebar";
 import NavMenu from "../navMenu/NavMenu";
-import Filter from "../filter/Filter";
+
 import UserAccount from "../userAccount/UserAccount";
 import Collections from "../collections/Collections";
 import Playlist from "../playlist/Playlist";
@@ -18,7 +18,7 @@ const [loading, setLoading] = useState(false);
 // const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
    // Заводим таймер
-   const timerId = setInterval(() => setLoading(!loading), 5000);		
+   const timerId = setInterval(() => setLoading(!loading), 3000);		
    // Данная функция вызывается при удалении компонента из DOM
    return () => {
        // Наводим порядок после удаления компонента

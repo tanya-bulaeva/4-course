@@ -25,9 +25,9 @@ export  function CategoryItem({
     return (
 
         <S.Filter>
-{isOpen ? (<S.FilterButton  className= '_btn-text'
-        onClick={onClick}  > {title}</S.FilterButton>) : ( <S.ButtonActive   className= '_btn-text'
-        onClick={onClick}  > {title}</S.ButtonActive>)}
+{isOpen ? (<S.ButtonActive className= '_btn-text'
+        onClick={onClick}  > {title}</S.ButtonActive>) : ( <S.FilterButton  className= '_btn-text'
+        onClick={onClick}  > {title}</S.FilterButton>)}
     
     
                 {!isOpen ? null : (

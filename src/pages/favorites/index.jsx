@@ -1,7 +1,7 @@
 import * as S from "../main/style";
 import { useState, useEffect, useRef } from 'react';
 import NavMenu from "../../components/navMenu/NavMenu";
-import Filter from "../../components/filter/Filter";
+
 import UserAccount from "../../components/userAccount/UserAccount";
 import Collections from "../../components/collections/Collections";
 import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
@@ -40,7 +40,7 @@ useEffect(() => {
 
     return (        <>
 
- <Playlist loading = {loading}  tracksError = {tracksError}  title={"Мои треки"} hiden={true}    /> 
+{data?.length > 0 ? ( <Playlist loading = {loading}  tracks={data} tracksError = {tracksError}  title={"Мои треки"} hiden={true}/> ) : ("В плейлист не добавлены треки либо произошла ошибка загрузки")}
     </>
     );
  };

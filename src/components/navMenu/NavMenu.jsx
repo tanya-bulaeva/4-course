@@ -3,12 +3,14 @@ import { useState } from 'react';
 import Logo from "../logo/Logo.jsx";
 import { NavLink } from "react-router-dom";
 import { useUserContext } from "../../context/user.jsx"
+import { resetState } from "../../store/actions/creators/index.js";
 export default function NavMenu (){
   const [openMenu, setOpenMenu] = useState(false);
   const toggleVisibility  = () => setOpenMenu(!openMenu);
   const { logout } = useUserContext();
   const handleLogout = () => {
     logout()
+    dispatch(resetState())
   }
     return (
         <S.MainNav>
