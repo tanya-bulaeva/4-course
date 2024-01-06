@@ -52,10 +52,12 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
       )
     }
     if (selectedYears[0] === ASC_SORT_VALUE) {
-      filteredTracks = filteredTracks?.sort(compare)
+      //filteredTracks = filteredTracks?.sort(compare)
+      filteredTracks = [...filteredTracks]?.sort(compare)
     }
     if (selectedYears[0] === DESC_SORT_VALUE) {
-      filteredTracks = filteredTracks?.sort(compare).reverse();
+     // filteredTracks = filteredTracks?.sort(compare).reverse();
+     filteredTracks = [...filteredTracks]?.sort(compare).reverse();
       
     }
     if (searchQuery.length > 0) {
@@ -137,23 +139,8 @@ return (<>
     </S.ContentTitle>
     <S.ContentPlaylist>
 
-    {filteredTracks?.map((track) =>  <Tracklists key = {track.id}  track= {track} tracks = {tracks} loading = {loading}  onclick = {() => setUpTrack(track)}/>)}
-    </S.ContentPlaylist>
+    {playlist?.length > 0 ? (filteredTracks?.length > 0 ? (filteredTracks?.map((track) => <Tracklists key = {track.id} tracks = {tracks} track= {track} loading = {loading} onclick = {() => setUpTrack(track)}/>)) : ('Ничего не найдено')) : ("Не удалось загрузить плейлист") }    </S.ContentPlaylist>
 </S.CenterblockContent></>
 )
 }
 
-/*
-{playlist.map((track) =>  <S.PlaylistItem key = {track.id}>
-<S.PlaylistTrack>
-<S.TrackTitle>
-</S.TrackTitle>
-<S.TrackTitleImage>
- <S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg> 
-</S.TrackTitleImage>
-
-  {track.name}
-</S.PlaylistTrack>
-  </S.PlaylistItem>)}
-      </S.CenterblockContent></>
-    )*/

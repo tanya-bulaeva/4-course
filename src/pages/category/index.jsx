@@ -9,6 +9,7 @@ import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksS
 import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
 import { getCategory, getTrack, getTrackCategory } from "../../api";
 import Collections from "../../components/collections/Collections";
+import { useGetTracksCategoryIdQuery } from "../../services/favoriteTrack.js";
 export const Category = ({tracks}) => {
   const params = useParams();
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
@@ -16,9 +17,11 @@ export const Category = ({tracks}) => {
   const [loading, setLoading] = useState(false);
   //const tracks = useSelector(tracksSelectors)
   const playlist = useSelector(pagePlaylistSelector)
+  console.log(playlist);
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
-console.log (playlist)
+
+//console.log (playlist)
   useEffect(() => {
    // setLoading(true)
         getCategory(category.id)

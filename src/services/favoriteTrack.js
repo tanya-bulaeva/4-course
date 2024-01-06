@@ -102,7 +102,7 @@ export const favoriteTracksApi = createApi({
       transformResponse: ( response, meta, arg) => {
          const transformedResponse = response.map((item ) => ({
           ...item,
-         // stared_user: [JSON.parse(sessionStorage.getItem('user'))],
+          // stared_user: [JSON.parse(sessionStorage.getItem('user'))],
          }));
         //console.log(transformedResponse );//список отлайканных треков
          return transformedResponse;

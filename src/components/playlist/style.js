@@ -88,7 +88,8 @@ flex-direction: row;
 -webkit-box-align: center;
 -ms-flex-align: center;
 align-items: center;
-width: 447px;`
+width: 447px;
+margin-bottom: 12px`
 
 export const TrackTitleImage = styled.div` 
  width: 51px;

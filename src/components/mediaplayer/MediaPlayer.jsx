@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, setCurrentPlaylist, shufflePlaylist } from "../../store/actions/creators/index.js";import { useMemo } from "react";
+import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";import { useMemo } from "react";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, repeatT
 import { getTrack } from "../../api.js";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
-  const tracks = useSelector(PlaylistSelector)
+  const tracks = useSelector(PlaylistSelector);
   const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
@@ -31,13 +31,12 @@ export default function MediaPlayer( ){
       })
       AudioRef.current.src = selectedTrack .track_file;    
     }
-  }, [selectedTrack]);//проигрывание сразу после клика на выбранный трек
+  }, [selectedTrack.track_file]);//проигрывание сразу после клика на выбранный трек
   useEffect(() => {
     if (AudioRef) {
       AudioRef.current.volume = volume / 100;
     }
   }, [volume, AudioRef]);//настройка ползунка громкости  
-  
   const onLoadedMetadata = () => {
     setDuration(AudioRef.current.duration);
   };
@@ -92,28 +91,40 @@ useEffect(() => {
   };//старт вопроизведения трека
 
   const togglePlay = isPlaying ? handleStop : handleStart;
-
-  const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack?.id === user.id)) : true
+  // const isUserLike = useMemo(() => {
+  //   const track = tracklist?.find((elem) => elem?.id === selectedTrack?.id)
+  //   if (track && !track?.stared_user) return true
+  //   if (track) return track.stared_user?.find((item) => item.id === user.id)
+  //   else return selectedTrack?.stared_user?.find((item) => item.id === user.id)
+  // }, [tracklist, selectedTrack, user])
+  const isUserLike = Boolean(selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true)
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   useEffect(() => {
     setIsLiked(isUserLike)
   }, [isUserLike, selectedTrack])
+
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
-      await likeTrack({ id }).unwrap()
-      getTrack()
-      .then((playlist) => {
-        dispatch(pagePlaylists(playlist))//получить плейлист
-  
-        //console.log (playlist)
-      })
+      // await likeTrack({ id }).unwrap()
+      // getTrack()
+      // .then((playlist) => {
+      //   dispatch(pagePlaylists(playlist))//получить плейлист, в таком случае лайк из плеера появляется в плейлисте, но на стр категории поставитьлайк в плеера, то диспатчится страница со всеми треками
+   
+      //   //console.log (playlist)
+      // })
+      const originalPlaylist = tracklist
+
+      const item = originalPlaylist?.find((elem) => elem.id === id)
+      if (!item) return
+      item.stared_user.push(user)
+      dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
-  
+        dispatch(resetState())
       }
     }
   }
@@ -122,15 +133,23 @@ useEffect(() => {
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
-      getTrack()
-    .then((playlist) => {
-      dispatch(pagePlaylists(playlist))//получить плейлист
+    //   getTrack()
+    // .then((playlist) => {
+    //   dispatch(pagePlaylists(playlist))//получить плейлист
 
-      //console.log (playlist)
-    })
+    //   //console.log (playlist)
+    // })
+    const originalPlaylist = tracklist;
+    const item = originalPlaylist?.find((elem) => elem.id === id)
+    if (!item) return
+    const index = item.stared_user.findIndex((i) => i.id === user.id)
+    item.stared_user.splice(index, 1)
+console.log(2);
+    dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
+        dispatch(resetState())
       }
     }
   }

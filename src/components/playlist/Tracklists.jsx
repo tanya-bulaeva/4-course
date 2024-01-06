@@ -2,7 +2,7 @@ import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
 import {  resetState, pagePlaylists, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 
 import { useNavigate } from "react-router-dom";
@@ -18,17 +18,34 @@ const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
 const navigate = useNavigate()
   const isUserLike = Boolean(track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true)
-  const [isLiked, setIsLiked] = useState(isUserLike)
+  //   const isUserLike = useMemo(() => {
+  //   const track = tracklist?.find((elem) => elem?.id === selectedTrack?.id)
+  //   if (track && !track?.stared_user) return true
+  //   if (track) return track.stared_user?.find((item) => item.id === user.id)
+  //   else return selectedTrack?.stared_user?.find((item) => item.id === user.id)
+  // }, [tracklist, selectedTrack, user])
+ const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+
+  useEffect(() => {
+    setIsLiked(isUserLike)
+  }, [isUserLike ])
+
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
-      // console.log ("tracklist tracklist", tracklist)
-      // dispatch(pagePlaylists(tracklist))
-      console.log ("tracklist tracklist", data)
-      dispatch(pagePlaylists(data))
+      // getTrack()
+      // .then((playlist) => {
+      //   dispatch(pagePlaylists(playlist))//получить плейлист
+  
+      //   //console.log (playlist)
+      // })
+      const originalPlaylist = tracklist;
+      const item = originalPlaylist?.find((elem) => elem.id === id)
+      item.stared_user.push(user)
+      dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -38,12 +55,21 @@ const navigate = useNavigate()
   }
 
   const handleDislike = async (id) => {
-    setIsLiked(false)
+    setIsLiked(false)//дизлайк убирается только со 2 клика
     try {
       await dislikeTrack({ id }).unwrap()
-      console.log ("tracklist tracklist", data)
-      
-      dispatch(pagePlaylists(data))
+      // getTrack()
+      // .then((playlist) => {
+      //   dispatch(pagePlaylists(playlist))//получить плейлист
+  
+      //   //console.log (playlist)
+      // })
+      const originalPlaylist = tracklist;
+      console.log(1);
+      const item = originalPlaylist?.find((elem) => elem.id === id)
+      const index = item.stared_user.findIndex((i) => i.id === user.id)
+      item.stared_user.splice(index, 1)
+      dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -51,10 +77,8 @@ const navigate = useNavigate()
       }
     }
   }
-  useEffect(() => {
-    setIsLiked(isUserLike)
-  }, [isUserLike, tracklist ])
-    const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
+
+  const toggleLikeDislike = (id) => isLiked ? handleDislike(id) : handleLike(id)
 
   return (
   <S.PlaylistItem >
