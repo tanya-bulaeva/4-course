@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 
 import { useNavigate } from "react-router-dom";
-import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
+import { useDislikeTrackMutation, useGetMyTracksQuery, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 export function Tracklists({loading, track, tracks}){
 const {user} = useUserContext()
@@ -25,7 +25,11 @@ const navigate = useNavigate()
   useEffect(() => {
     setIsLiked(isUserLike)
   }, [isUserLike ])
+  const { data } = useGetMyTracksQuery()
 
+  
+
+  
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
@@ -39,7 +43,7 @@ const navigate = useNavigate()
       const originalPlaylist = tracklist;
       const item = originalPlaylist?.find((elem) => elem.id === id)
       item.stared_user.push(user)
-      dispatch(pagePlaylists(originalPlaylist))
+      dispatch(pagePlaylists(data))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -63,7 +67,8 @@ const navigate = useNavigate()
       const item = originalPlaylist?.find((elem) => elem.id === id)
       const index = item.stared_user.findIndex((i) => i.id === user.id)
       item.stared_user.splice(index, 1)
-      dispatch(pagePlaylists(originalPlaylist))
+      //dispatch(pagePlaylists(originalPlaylist))
+      dispatch(pagePlaylists(data))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
