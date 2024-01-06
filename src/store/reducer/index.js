@@ -5,7 +5,8 @@ const initialState = {
 playing: false,
 playlist: [],
 track: null,
-shuffledPlaylist: false,
+shuffledPlaylist:[],
+shuffled: false,
 repeat: false,
 pagePlaylist : [],
 
@@ -52,23 +53,38 @@ export default function trackReducer(state = initialState, action) {
  
      }
     case NEXT_TRACK: {
+      const pagePlaylist = state.shuffled ? state.shuffledPlaylist :state.pagePlaylist
+      const currentTrackIndex = pagePlaylist.findIndex((track) => {
+        return track.id === state.track.id
+      })
+
+      const newTrack = pagePlaylist[currentTrackIndex + 1]
+
 
       return {
         ...state ,
-        track: action.payload,
+        track: newTrack,
       };
     }
     case PREVIOUS_TRACK: {
+      const pagePlaylist = state.shuffled ? state.shuffledPlaylist :state.pagePlaylist
+      const currentTrackIndex = pagePlaylist.findIndex((track) => {
+        return track.id === state.track.id
+      })
+
+      const newTrack = pagePlaylist[currentTrackIndex - 1]
 
       return {
         ...state,
-        track: action.payload,
+
+        track: newTrack,
       };
     }
     case SHUFFLE_PLAYLIST: {
       return {
         ...state,
-        shuffledPlaylist: !state.shuffledPlaylist,
+        shuffled: !state.shuffled,
+        shuffledPlaylist: [...state.playlist].sort(() => 0.5 - Math.random()),
       };
     }
     case REPEAT_TRACK: {
