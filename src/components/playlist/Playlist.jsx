@@ -30,8 +30,8 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
   }
   const TrackAuthorList = [... new Set (playlist?.map((track) =>  track.author))]
   const TrackGenreList = [... new Set (playlist?.map((track) =>  track.genre))]
-  console.log(TrackAuthorList);
-  console.log(TrackGenreList );
+  //console.log(TrackAuthorList);
+  //console.log(TrackGenreList );
   const selectCategory = (category) => {
     if (category === selectedCategory) {
       setSelectedCategory(null)
@@ -39,42 +39,34 @@ export default function Playlist ({loading, title, hiden, tracks, tracksError, s
     }
     setSelectedCategory(category)
   }
-
   const filterTracks = () => {
     let filteredTracks = originalPlaylist
-
     if (selectedGenres.length > 0) {
       filteredTracks = filteredTracks?.filter(({ genre }) =>
         selectedGenres.includes(genre),
       )
     }
-
     if (selectedArtists.length > 0) {
       filteredTracks = filteredTracks?.filter(({ author }) =>
         selectedArtists.includes(author),
       )
     }
-
     if (selectedYears[0] === ASC_SORT_VALUE) {
       filteredTracks = filteredTracks?.sort(compare)
-
     }
-
     if (selectedYears[0] === DESC_SORT_VALUE) {
       filteredTracks = filteredTracks?.sort(compare).reverse();
-
+      
     }
-
     if (searchQuery.length > 0) {
       filteredTracks = filteredTracks?.filter(({ name }) =>
         name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()),
       )
     }
-
     return filteredTracks
   }
-
 const filteredTracks = filterTracks()
+
 return (<>
   <S.CenterblockSearch>
   <S.SearchSvg>

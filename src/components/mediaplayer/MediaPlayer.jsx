@@ -8,6 +8,7 @@ import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/fa
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, repeatTrackSelector, shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
+import { getTrack } from "../../api.js";
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector)
@@ -92,17 +93,23 @@ useEffect(() => {
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
-  const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true
+  const isUserLike = selectedTrack.stared_user  ?  (selectedTrack.stared_user?.find((selectedTrack) => selectedTrack?.id === user.id)) : true
   const [isLiked, setIsLiked] = useState(isUserLike)
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   useEffect(() => {
     setIsLiked(isUserLike)
-  }, [isUserLike])
+  }, [isUserLike, selectedTrack])
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap()
+      getTrack()
+      .then((playlist) => {
+        dispatch(pagePlaylists(playlist))//получить плейлист
+  
+        //console.log (playlist)
+      })
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -115,6 +122,12 @@ useEffect(() => {
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
+      getTrack()
+    .then((playlist) => {
+      dispatch(pagePlaylists(playlist))//получить плейлист
+
+      //console.log (playlist)
+    })
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
