@@ -45,9 +45,7 @@ padding: 6px 20px;
 position: relative;
 background-color: transparent;
 color: white;
-:not(:last-child) {
-    margin-right: 10px;
-  }
+
 `
 
 export const ButtonActive = styled(FilterButton)`
