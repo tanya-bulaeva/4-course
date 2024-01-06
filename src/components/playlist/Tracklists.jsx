@@ -18,15 +18,9 @@ const isPlaying = useSelector(isTrackPlayingSelector)
 const isCurrentPlaying = selectedTrack?.id !== track.id
 const navigate = useNavigate()
   const isUserLike = Boolean(track.stared_user  ?  (track.stared_user?.find((track) => track?.id === user.id)) : true)
-  //   const isUserLike = useMemo(() => {
-  //   const track = tracklist?.find((elem) => elem?.id === selectedTrack?.id)
-  //   if (track && !track?.stared_user) return true
-  //   if (track) return track.stared_user?.find((item) => item.id === user.id)
-  //   else return selectedTrack?.stared_user?.find((item) => item.id === user.id)
-  // }, [tracklist, selectedTrack, user])
  const [isLiked, setIsLiked] = useState(isUserLike)
-  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
-  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const [likeTrack, ] = useLikeTrackMutation()
+  const [dislikeTrack, ] = useDislikeTrackMutation()
 
   useEffect(() => {
     setIsLiked(isUserLike)

@@ -91,16 +91,10 @@ useEffect(() => {
   };//старт вопроизведения трека
 
   const togglePlay = isPlaying ? handleStop : handleStart;
-  // const isUserLike = useMemo(() => {
-  //   const track = tracklist?.find((elem) => elem?.id === selectedTrack?.id)
-  //   if (track && !track?.stared_user) return true
-  //   if (track) return track.stared_user?.find((item) => item.id === user.id)
-  //   else return selectedTrack?.stared_user?.find((item) => item.id === user.id)
-  // }, [tracklist, selectedTrack, user])
   const isUserLike = Boolean(selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true)
   const [isLiked, setIsLiked] = useState(isUserLike)
-  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
-  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const [likeTrack, ] = useLikeTrackMutation()
+  const [dislikeTrack, ] = useDislikeTrackMutation()
   useEffect(() => {
     setIsLiked(isUserLike)
   }, [isUserLike, selectedTrack])
@@ -108,7 +102,7 @@ useEffect(() => {
   const handleLike = async (id) => {
     setIsLiked(true)
     try {
-      // await likeTrack({ id }).unwrap()
+      await likeTrack({ id }).unwrap()
       // getTrack()
       // .then((playlist) => {
       //   dispatch(pagePlaylists(playlist))//получить плейлист, в таком случае лайк из плеера появляется в плейлисте, но на стр категории поставитьлайк в плеера, то диспатчится страница со всеми треками
