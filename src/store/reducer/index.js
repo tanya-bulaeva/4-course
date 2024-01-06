@@ -52,31 +52,17 @@ export default function trackReducer(state = initialState, action) {
  
      }
     case NEXT_TRACK: {
-      const pagePlaylist = state.pagePlaylist
-      const currentTrackIndex = pagePlaylist.findIndex((track) => {
-        return track.id === state.track.id
-      })
-
-      const newTrack = pagePlaylist[currentTrackIndex + 1]
-
 
       return {
         ...state ,
-        track: newTrack,
+        track: action.payload,
       };
     }
     case PREVIOUS_TRACK: {
-      const pagePlaylist = state.pagePlaylist
-      const currentTrackIndex = pagePlaylist.findIndex((track) => {
-        return track.id === state.track.id
-      })
-
-      const newTrack = pagePlaylist[currentTrackIndex - 1]
 
       return {
         ...state,
-
-        track: newTrack,
+        track: action.payload,
       };
     }
     case SHUFFLE_PLAYLIST: {
