@@ -15,6 +15,15 @@ const [tracksError, setTracksError] = useState(null)
 const navigate = useNavigate()
 const [selectedTrack, setSelectedTrack] = useState()
 
+useEffect(() => {
+    // Заводим таймер
+    const timerId = setInterval(() => setLoading(!loading), 300);		
+    // Данная функция вызывается при удалении компонента из DOM
+    return () => {
+        // Наводим порядок после удаления компонента
+        clearInterval(timerId);
+    };
+}, []);
 
  const handleLogin = () =>   {
  localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
@@ -28,22 +37,23 @@ const [selectedTrack, setSelectedTrack] = useState()
  };
 
 useEffect(() => {
-  setLoading(true)
+ // setLoading(true)
   getTrack()
     .then((playlist) => {
+      console.log('app', playlist);
       dispatch(setCurrentPlaylist(playlist))//получить плейлист
     })
     .catch(() => {
       //setTracksError("Не удалось загрузить плейлист, попробуйте позже")
     })
-    .finally(() => setLoading(false))
+  //  .finally(() => setLoading(false))
 }, [])
 
 
 //onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (
     <UserProvaider>
-        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading} setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />
+        <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}  setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />
         </UserProvaider>
   );
 }

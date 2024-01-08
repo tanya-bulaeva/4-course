@@ -1,15 +1,9 @@
-import * as S from "../main/style";
-import { useState, useEffect, useRef } from 'react';
-import NavMenu from "../../components/navMenu/NavMenu";
 
-import UserAccount from "../../components/userAccount/UserAccount";
-import Collections from "../../components/collections/Collections";
-import MediaPlayer from "../../components/mediaplayer/MediaPlayer";
+import { useState, useEffect} from 'react';
 import Playlist from "../../components/playlist/Playlist";
-
 import { useDispatch, useSelector } from "react-redux";
-import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, tracksSelectors} from "../../store/selectors";
-import { pagePlaylists, setCurrentPlaylist } from "../../store/actions/creators";
+import { pagePlaylistSelector} from "../../store/selectors";
+import { pagePlaylists} from "../../store/actions/creators";
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
@@ -26,16 +20,16 @@ useEffect(() => {
 
 
 
-//без этого не убираются скелетоны
-useEffect(() => {
-  // Заводим таймер
-  const timerId = setInterval(() => setLoading(!loading), 5000);		
-  // Данная функция вызывается при удалении компонента из DOM
-  return () => {
-      // Наводим порядок после удаления компонента
-      clearInterval(timerId);
-  };
-}, []);
+// //без этого не убираются скелетоны
+// useEffect(() => {
+//   // Заводим таймер
+//   const timerId = setInterval(() => setLoading(!loading), 1000);		
+//   // Данная функция вызывается при удалении компонента из DOM
+//   return () => {
+//       // Наводим порядок после удаления компонента
+//       clearInterval(timerId);
+//   };
+// }, []);
 
 
     return (        <>

@@ -1,12 +1,9 @@
 import { useSelector } from "react-redux";
 import { tracksSelectors } from "../../store/selectors";
 import * as S from "./style.js"
-import Sidebar from "../sidebar/Sidebar";
 import NavMenu from "../navMenu/NavMenu";
-
 import UserAccount from "../userAccount/UserAccount";
 import Collections from "../collections/Collections";
-import Playlist from "../playlist/Playlist";
 import MediaPlayer from "../mediaplayer/MediaPlayer";
 import { useState, useEffect } from "react";
 
@@ -15,10 +12,10 @@ export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
 const [loading, setLoading] = useState(false);
-// const [currentTrack, setCurrentTrack] = useState (null);
+const [currentTrack, setCurrentTrack] = useState (null);
 useEffect(() => {
    // Заводим таймер
-   const timerId = setInterval(() => setLoading(!loading), 3000);		
+   const timerId = setInterval(() => setLoading(!loading), 500);		
    // Данная функция вызывается при удалении компонента из DOM
    return () => {
        // Наводим порядок после удаления компонента

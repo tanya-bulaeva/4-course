@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ProgressBar from "./ProgressBar.jsx";
 import * as S from "./style.js"
-import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState, setCurrentPlaylist, setTrackCurrent, shufflePlaylist } from "../../store/actions/creators/index.js";import { useMemo } from "react";
+import { nextTrack, pagePlaylists, pauseTrack, playTrack, prevTrack, repeatTrack, resetState,  shufflePlaylist } from "../../store/actions/creators/index.js";import { useMemo } from "react";
 import { useDislikeTrackMutation, useLikeTrackMutation } from "../../services/favoriteTrack.js";
 import { useUserContext } from "../../context/user.jsx";
 import { useNavigate } from "react-router-dom";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, repeatTrackSelector, shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
-import { getTrack } from "../../api.js";
+
 export default function MediaPlayer( ){
   const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
   const tracks = useSelector(PlaylistSelector);
@@ -46,27 +46,15 @@ export default function MediaPlayer( ){
   const handleRepeat = () => {
 dispatch(repeatTrack())
   }//повторк трека
-const handleNext = () => {
- const index = shuffled
- ? Math.floor(Math.random() * (tracks.length - 1))
- : tracks.findIndex((x) => x.id === selectedTrack.id)
-if (index !== tracks.length - 1) {
- dispatch(nextTrack(tracks[index + 1]))
-} else if (shuffled) {
- dispatch(nextTrack(tracks[index + 1]))
-} else return
-};//переключение плейлиста на трек вперед
+
+  const handleNext = useCallback(() => {
+    dispatch(nextTrack())
+  }, [dispatch])//переключение плейлиста на трек вперед
+
 const handlePrevious = () => {
-  const index = shuffled
-  ? Math.floor(Math.random() * tracks.length) + 1
-  : tracks.findIndex((x) => x.id === selectedTrack.id)
- if (index !== 0) {
-  dispatch(prevTrack(tracks[index - 1]))
- } else if (shuffled) {
-  dispatch(prevTrack(tracks[index - 1]))
- } else return
- 
-};
+    dispatch(prevTrack())
+  
+}
 //переключение плейлиста на трек назад
 const handleShuffle =() => {
   dispatch(shufflePlaylist())
@@ -103,12 +91,6 @@ useEffect(() => {
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap()
-      // getTrack()
-      // .then((playlist) => {
-      //   dispatch(pagePlaylists(playlist))//получить плейлист, в таком случае лайк из плеера появляется в плейлисте, но на стр категории поставитьлайк в плеера, то диспатчится страница со всеми треками
-   
-      //   //console.log (playlist)
-      // })
       const originalPlaylist = tracklist
 
       const item = originalPlaylist?.find((elem) => elem.id === id)
@@ -127,12 +109,6 @@ useEffect(() => {
     setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
-    //   getTrack()
-    // .then((playlist) => {
-    //   dispatch(pagePlaylists(playlist))//получить плейлист
-
-    //   //console.log (playlist)
-    // })
     const originalPlaylist = tracklist;
     const item = originalPlaylist?.find((elem) => elem.id === id)
     if (!item) return

@@ -67,30 +67,6 @@ export const favoriteTracksApi = createApi({
   reducerPath: `tracksAPI`,
   baseQuery: baseQueryWithTokensCheck,
   endpoints: (builder) => ({
-    getTracks: builder.query({
-      query: () => {
-       return {
-        url: `track/all/`,
-        }},
-      providesTags: () => [DATA_TAG],
-    }),
-    getTracksCategory: builder.query({
-      query: () => {
-       return {
-        url: ` selection/`,
-        }},
-    }),
-    getTracksCategoryId: builder.query({
-      query: (id) => ({
-        url: `/selection/${id}`,
-      }),
-      providesTags: (result = []) => [
-        ...(Array.isArray(result)
-          ? result.map(({ id }) => ({ type: DATA_TAG.type, id }))
-          : []),
-        DATA_TAG,
-      ],
-    }),
     getMyTracks: builder.query({
       query:  () => {
        return {
@@ -137,9 +113,6 @@ export const favoriteTracksApi = createApi({
 
  
 export const {
-  useGetTracksCategoryIdQuery,
-  useGetTracksCategoryQuery,
- useGetTracksQuery,
   useGetMyTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,

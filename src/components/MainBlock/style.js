@@ -48,7 +48,10 @@ body {
   color: #ffffff;
 }
 
-input, select, textarea, button{font-family:"StratosSkyeng"}
+input, select, textarea, button
+{
+  font-family:"StratosSkyeng", sans-serif;
+}
 
 ._btn-text:hover {
   border-color: #d9b6ff;

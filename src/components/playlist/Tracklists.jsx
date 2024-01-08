@@ -2,7 +2,7 @@ import * as S from "./style.js";
 import { formatTime } from "../../helpers.js";
 import {  resetState, pagePlaylists, setTrackCurrent } from "../../store/actions/creators/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { isTrackPlayingSelector,  pagePlaylistSelector,  tracksSelectors } from "../../store/selectors/index.js";
 
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import { useDislikeTrackMutation, useGetMyTracksQuery, useLikeTrackMutation } fr
 import { useUserContext } from "../../context/user.jsx";
 export function Tracklists({loading, track, tracks}){
 const {user} = useUserContext()
-//console.log(user)
 const dispatch = useDispatch()
 const tracklist = useSelector(pagePlaylistSelector)
 const selectedTrack = useSelector(tracksSelectors)
@@ -34,16 +33,11 @@ const navigate = useNavigate()
     setIsLiked(true)
     try {
       await likeTrack({ id }).unwrap() 
-      // getTrack()
-      // .then((playlist) => {
-      //   dispatch(pagePlaylists(playlist))//получить плейлист
-  
-      //   //console.log (playlist)
-      // })
+
       const originalPlaylist = tracklist;
       const item = originalPlaylist?.find((elem) => elem.id === id)
       item.stared_user.push(user)
-      dispatch(pagePlaylists(data))
+      dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -53,22 +47,16 @@ const navigate = useNavigate()
   }
 
   const handleDislike = async (id) => {
-    setIsLiked(false)//дизлайк убирается только со 2 клика
+    setIsLiked(false)
     try {
       await dislikeTrack({ id }).unwrap()
-      // getTrack()
-      // .then((playlist) => {
-      //   dispatch(pagePlaylists(playlist))//получить плейлист
-  
-      //   //console.log (playlist)
-      // })
+
       const originalPlaylist = tracklist;
       console.log(1);
       const item = originalPlaylist?.find((elem) => elem.id === id)
       const index = item.stared_user.findIndex((i) => i.id === user.id)
       item.stared_user.splice(index, 1)
-      //dispatch(pagePlaylists(originalPlaylist))
-      dispatch(pagePlaylists(data))
+      dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {
         navigate('/login')
@@ -83,56 +71,36 @@ const navigate = useNavigate()
   <S.PlaylistItem >
   <S.PlaylistTrack>
     <S.TrackTitle>
-    {loading ? (
          <S.TrackTitleImage>
 {isCurrentPlaying ?  (<S.TrackTitleSvg alt="music">  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use></S.TrackTitleSvg>):
 
 ( isPlaying ? (<S.BlinkingDotActive/>) : (<S.BlinkingDot/>) )
 }
+      </S.TrackTitleImage>
 
-      </S.TrackTitleImage>) : 
-      ( <S.TrackTitleImageSkeleton>
-    </S.TrackTitleImageSkeleton>)}
-
-
-  {loading ? ( <S.TrackTitleText>
+ <S.TrackTitleText>
         <S.TrackTitleLink  onClick={() =>  {dispatch(setTrackCurrent(track))}}> {track.name}
           <S.TrackTitleSpan>{track.trackTitle}</S.TrackTitleSpan></S.TrackTitleLink>
-      </S.TrackTitleText>) : 
-      (<S.TrackTitleTextSkeleton >
-      <S.TrackTitleLinkSkeleton>{track.name}
-       </S.TrackTitleLinkSkeleton>
-    </S.TrackTitleTextSkeleton>)}
+      </S.TrackTitleText>
 
     </S.TrackTitle>
 
-    {loading ? ( <S.TrackAuthor>
+<S.TrackAuthor>
       <S.TrackAuthorLink >{track.author}</S.TrackAuthorLink>
-    </S.TrackAuthor>) : 
-    ( <S.TrackAuthorSkeleton>
-    <S.TrackAuthorLinkSkeleton >{track.author}</S.TrackAuthorLinkSkeleton>
-  </S.TrackAuthorSkeleton>)}
+    </S.TrackAuthor>
 
-{loading ? ( <S.TrackAlbum  >
+ <S.TrackAlbum  >
       <S.TrackAlbumLink href="http://"
         > {track.album}</S.TrackAlbumLink>
-    </S.TrackAlbum >) : (            <S.TrackAlbumSkeleton >
-    <S.TrackAlbumLinkSkeleton 
-      >{track.album}</S.TrackAlbumLinkSkeleton>
-  </S.TrackAlbumSkeleton>)}
+    </S.TrackAlbum >
 
-{loading ? (  <S.TrackTime>
+  <S.TrackTime>
   <S.TrackTimeSvg alt="time" onClick={() => toggleLikeDislike(track.id)}>
   {isLiked ? (<use xlinkHref="/img/icon/sprite.svg#icon-like" fill = "#ad61ff"></use>) : (<use xlinkHref="/img/icon/sprite.svg#icon-like"></use>)}
         
       </S.TrackTimeSvg>
       <S.TrackTimeText >{formatTime(track.duration_in_seconds)}</S.TrackTimeText>
-    </S.TrackTime>) : 
-    ( <S.TrackTimeSkeleton>
-    <S.TrackTimeSvgSkeleton alt="time">
-    </S.TrackTimeSvgSkeleton>
-    <S.TrackTimeTextSkeleton > </S.TrackTimeTextSkeleton>
-  </S.TrackTimeSkeleton>)}
+    </S.TrackTime>
   </S.PlaylistTrack>
   </S.PlaylistItem>
 )
