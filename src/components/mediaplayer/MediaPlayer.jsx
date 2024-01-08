@@ -114,7 +114,7 @@ useEffect(() => {
     if (!item) return
     const index = item.stared_user.findIndex((i) => i.id === user.id)
     item.stared_user.splice(index, 1)
-console.log(2);
+//console.log(2);
     dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {

@@ -14,7 +14,7 @@ export const Category = ({tracks}) => {
   const categoryName = `${category.name}`;
   const [loading, setLoading] = useState(false);
   const playlist = useSelector(pagePlaylistSelector)
-  console.log(playlist);
+  //console.log(playlist);
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
 

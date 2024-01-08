@@ -26,7 +26,7 @@ export const Main = ({tracks, tracksError, setTracksError}) => {
     .then((playlist) => {
 
       dispatch(pagePlaylists(playlist))//получить плейлист
-      console.log ('main',playlist)
+     // console.log ('main',playlist)
     })
     .catch((error) => {
       console.log(error.message);

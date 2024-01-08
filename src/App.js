@@ -40,7 +40,7 @@ useEffect(() => {
  // setLoading(true)
   getTrack()
     .then((playlist) => {
-      console.log('app', playlist);
+     // console.log('app', playlist);
       dispatch(setCurrentPlaylist(playlist))//получить плейлист
     })
     .catch(() => {

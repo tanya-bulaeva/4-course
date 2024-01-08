@@ -52,7 +52,7 @@ const navigate = useNavigate()
       await dislikeTrack({ id }).unwrap()
 
       const originalPlaylist = tracklist;
-      console.log(1);
+      //console.log(1);
       const item = originalPlaylist?.find((elem) => elem.id === id)
       const index = item.stared_user.findIndex((i) => i.id === user.id)
       item.stared_user.splice(index, 1)
