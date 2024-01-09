@@ -7,4 +7,4 @@ export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
 export const CURRENT_PLAYLIST = "CURRENT_PLAYLIST";
 export const REPEAT_TRACK = "REPEAT_TRACK";
 export const PAGE_PLAYLIST = "PAGE_PLAYLIST";
-
+export const RESET_STATE = 'RESET_STATE';

@@ -8,7 +8,9 @@ display: flex;
 -webkit-box-orient: vertical;
 -webkit-box-direction: normal;
 -ms-flex-direction: column;
-flex-direction: column;`
+flex-direction: column;
+flex-direction: column;
+min-height: 0;`
 
 export const ContentTitle = styled.div`
 display: -webkit-box;
@@ -52,6 +54,8 @@ display: flex;
 flex-direction: column;
 overflow-y: auto;
 font-family: inherit;
+height: 1000px;
+box-sizing: border-box;
 `
 
 export const PlaylistItem = styled.div`
@@ -84,7 +88,8 @@ flex-direction: row;
 -webkit-box-align: center;
 -ms-flex-align: center;
 align-items: center;
-width: 447px;`
+width: 447px;
+margin-bottom: 12px`
 
 export const TrackTitleImage = styled.div` 
  width: 51px;
@@ -272,11 +277,186 @@ export const BlinkingDot = styled.div`
   background-color: #b672ff;
   border-radius: 50%;
 `;
-export const CenterclockH2 = styled.h2`
+export const CenterblockH2 = styled.h2`
 font-style: normal;
 font-weight: 400;
 font-size: 64px;
 line-height: 72px;
 letter-spacing: -0.8px;
 margin-bottom: 45px;
+`
+
+
+
+export const BlockMain = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
+export const CenterblockFilter = styled.div`
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+justify-content: space-between;
+-webkit-box-orient: horizontal;
+-webkit-box-direction: normal;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+margin-bottom: 51px;
+ul li {
+margin: 18px 10px;}
+`
+export const Dropdown = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
+export const FilterTitle = styled.div`
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+margin-right: 15px;`
+
+export const Filter = styled.div`
+position: relative;
+:not(:last-child) {
+  margin-right: 10px;
+}
+`
+
+export const FilterButton = styled.div`
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+border: 1px solid #ffffff;
+border-radius: 60px;
+padding: 6px 20px;
+position: relative;
+background-color: transparent;
+color: white;
+`
+
+
+export const ButtonActive = styled(FilterButton)`
+border-color: #b672ff;
+color: #b672ff;
+`
+
+export const DropdownContent= styled.ul`    
+overflow-y: auto;
+box-sizing: border-box;
+height: 200px;
+width: auto;
+background-color: #313131;
+border-radius: 20px;
+position: absolute;
+`
+
+export const FilterLink= styled.li`
+list-style-type: none;
+:hover{
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+}
+`
+export const DropStyle = styled.div`
+`
+export const TrackItem  = styled.a`
+`
+export const ButtonNumber = styled.div`
+color: white;
+background-color: rgb(173, 97, 255);
+width: 26px;
+height: 26px;
+border-radius: 13px;
+display: flex;
+justify-content: center;
+align-items: center;
+position: absolute;
+right: -8px;
+top: -8px;
+font-family: StratosSkyeng;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: 13px;
+`
+export const StyledStrongItem = styled.strong`
+   color: #b672ff;
+`
+export  const StyledNumberCircle = styled.div`
+  color: white;
+  background-color: #ad61ff;
+   width: 26px;
+   height: 26px;
+   border-radius: 13px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   right: -8px;
+   top: -8px;
+   font-family: StratosSkyeng;
+   font-size: 13px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 13px; /* 100% */
+ `
+
+
+export const CenterblockSearch = styled.div`
+width: 100%;
+border-bottom: 1px solid #4e4e4e;
+margin-bottom: 51px;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-orient: horizontal;
+-webkit-box-direction: normal;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+`
+export const SearchSvg  = styled.svg`
+width: 17px;
+height: 17px;
+margin-right: 5px;
+stroke: #ffffff;
+fill: transparent;
+`
+export const SearchText = styled.input`
+-webkit-box-flex: 100;
+-ms-flex-positive: 100;
+flex-grow: 100;
+background-color: transparent;
+border: none;
+padding: 13px 10px 14px;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+color: #ffffff;
+::-webkit-input-placeholder {
+    background-color: transparent;
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  ::placeholder {
+    background-color: transparent;
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
 `

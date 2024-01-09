@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { refreshToken } from "../api";
-const DATA_TAG = { type: "favoriteTracks", id: "LIST" };
+const DATA_TAG = ["LIST"];
 export default function parseJwt(token) {
   let jsonPayload
 
@@ -42,22 +42,23 @@ export const checkToken = async () => {
 
     localStorage.setItem('token', newToken.access)
   }
-  console.log('result', localStorage.getItem('token'))
+  //console.log('result', localStorage.getItem('token'))
+  
 }
 
-const getTokenAccess = () => {
+export const getTokenAccess = () => {
   const accessToken = localStorage.getItem('token')
-
+ // console.log('res', accessToken)
   return accessToken
 }
-const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/track/' })
+const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/' })
 
 const baseQueryWithTokensCheck = async (args, api, extraOptions) => {
     await checkToken();
 
     let result = await baseQuery(args, api, extraOptions)
     if (result.error && result.error.status === 401) {
-        localStorage.removeItem('token')
+       localStorage.removeItem('token')
     }
     return result
 }
@@ -69,32 +70,39 @@ export const favoriteTracksApi = createApi({
     getMyTracks: builder.query({
       query:  () => {
        return {
-          url: `favorite/all/`,
+        url: `track/favorite/all/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
         }
       },
-      providesTags: (result = []) => [
-        ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
-        DATA_TAG,
-      ],
+      providesTags: [DATA_TAG],
+      transformResponse: ( response, meta, arg) => {
+         const transformedResponse = response.map((item ) => ({
+          ...item,
+          // stared_user: [JSON.parse(sessionStorage.getItem('user'))],
+         }));
+        //console.log(transformedResponse );//список отлайканных треков
+         return transformedResponse;
+     },
     }),
+ 
 
     likeTrack: builder.mutation({
       query(data) {
         const { id } = data
 
         return {
-          url: `${id}/favorite/`,
+          url: `track/${id}/favorite/`,
           headers: { Authorization: `Bearer ${getTokenAccess()}` },
           method: 'POST',
         }
       },
       invalidatesTags: [DATA_TAG],
+
     }),
 
     dislikeTrack: builder.mutation({
       query: ({ id }) => ({
-        url: `${id}/favorite/`,
+        url: `track/${id}/favorite/`,
         headers: { Authorization: `Bearer ${getTokenAccess()}` },
         method: 'DELETE',
       }),
@@ -103,6 +111,7 @@ export const favoriteTracksApi = createApi({
   }),
 })
 
+ 
 export const {
   useGetMyTracksQuery,
   useLikeTrackMutation,

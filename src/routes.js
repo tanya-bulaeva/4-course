@@ -12,8 +12,8 @@ export const AppRoutes = ({user, token,  tracksError, loading, selectedTrack, se
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} /> 
-      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Main tracksError={tracksError} user = {user} loading = {loading} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack} setLoading={setLoading}> </Main>} />
+      <Route element={<ProtectedRoute isAllowed={Boolean(user)} loading = {loading} />}>
+        <Route path="/" element={<Main tracksError={tracksError} user = {user} loading = {loading}  selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack} setLoading={setLoading}> </Main>} />
         <Route path="/favorites" element={<Favorites  tracksError={tracksError} loading = {loading} />} />
         <Route path="/category/:id" element={<Category   tracksError={tracksError}  loading = {loading}  />} />
       </Route>
