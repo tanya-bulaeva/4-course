@@ -25,3 +25,19 @@
 -   Установить зависимости: npm install;
 -   Запустить приложение: npm run start;
 -   Откройте http://localhost:3000, чтобы просмотреть приложение.
+
+## Ссылка на приложение:
+https://legendary-meerkat-9308d1.netlify.app/
+
+## Визуал:
+![image](https://github.com/tanya-bulaeva/skypro-music/assets/131000104/374883c8-2594-44d4-a745-f8b19623981c)
+![image](https://github.com/tanya-bulaeva/skypro-music/assets/131000104/7c452b11-8f95-45f5-b6b9-6bebaa7fc507)
+![image](https://github.com/tanya-bulaeva/skypro-music/assets/131000104/cf3346fd-cd54-43ab-bf35-868896b55ea4)
+![image](https://github.com/tanya-bulaeva/skypro-music/assets/131000104/83124ce2-b51a-4688-b02b-5a6ef8739236)
+
+
+
+
+
+
+
