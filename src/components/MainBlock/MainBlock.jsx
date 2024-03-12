@@ -12,16 +12,15 @@ export default function MainBlock({  tracksError, children})
 {
 const selectedTrack = useSelector(tracksSelectors)
 const [loading, setLoading] = useState(false);
-const [currentTrack, setCurrentTrack] = useState (null);
+
 useEffect(() => {
-   // Заводим таймер
    const timerId = setInterval(() => setLoading(!loading), 500);		
-   // Данная функция вызывается при удалении компонента из DOM
    return () => {
-       // Наводим порядок после удаления компонента
+
        clearInterval(timerId);
    };
 }, []);
+
 return (<>
     <S.GlobalStyle />
 <S.WrapperStyle>

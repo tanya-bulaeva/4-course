@@ -15,5 +15,4 @@ export const store = configureStore({
     serializableCheck: false,}
 ).concat(favoriteTracksApi.middleware),
 });
-//configureStore которая позволит нам объединить все редьюсеры в проекте, чтобы собрать из них глобальный store. 
-//Редьюсеров может быть сколько угодно, так что вы не ограничены в их количестве
+

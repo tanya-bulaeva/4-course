@@ -7,29 +7,16 @@ import { pagePlaylists} from "../../store/actions/creators";
 import { useGetMyTracksQuery } from "../../services/favoriteTrack";
 
 
-export const Favorites = ({   tracksError, setTracksError, tracks}) => {
+export const Favorites = ({   tracksError, tracks}) => {
 const [loading, setLoading] = useState(false);
-const playlist = useSelector(pagePlaylistSelector)
 const { data } = useGetMyTracksQuery()
 const dispatch = useDispatch()
 
 useEffect(() => {
   dispatch(pagePlaylists(data))
-  console.log (data)
-}, [data])//получение
+}, [data])
 
 
-
-// //без этого не убираются скелетоны
-// useEffect(() => {
-//   // Заводим таймер
-//   const timerId = setInterval(() => setLoading(!loading), 1000);		
-//   // Данная функция вызывается при удалении компонента из DOM
-//   return () => {
-//       // Наводим порядок после удаления компонента
-//       clearInterval(timerId);
-//   };
-// }, []);
 
 
     return (        <>

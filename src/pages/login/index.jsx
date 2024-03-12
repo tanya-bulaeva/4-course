@@ -1,5 +1,5 @@
 import * as S from "./style.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { loginUser, getToken } from "../../api.js";
 import { useUserContext } from "../../context/user.jsx";
@@ -31,10 +31,6 @@ await loginUser({email, password}).then ((loginData) => {
     login(loginData)
 })
 
-//getToken({email, password}).then ((tokenData) => {
-//  login(loginData, tokenData.access)
-//})
-
 })
 }catch(error){
   setError(error.message)
@@ -43,11 +39,7 @@ await loginUser({email, password}).then ((loginData) => {
 }
 
 }
-   
- //  const handleButtonClick = () => {
-  //  localStorage.getItem('user') //getItem(key) – получить данные по ключу key.
- //   navigate('/', {replace: true})
-  // }
+
    return ( <>
     <S.GlobalStyle/>
     <S.Wrapper>

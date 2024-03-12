@@ -1,4 +1,3 @@
-import * as S from "../main/style";
 
 import Playlist from "../../components/playlist/Playlist";
 import { useParams } from "react-router-dom";
@@ -13,32 +12,21 @@ export const Category = ({tracks}) => {
   const category = CategoryItems.find((categoryItem) => categoryItem.id === Number(params.id));
   const categoryName = `${category.name}`;
   const [loading, setLoading] = useState(false);
-  const playlist = useSelector(pagePlaylistSelector)
-  //console.log(playlist);
+
   const dispatch = useDispatch()
   const [tracksError, setTracksError] = useState(null)
 
   useEffect(() => {
-   // setLoading(true)
+
         getCategory(category.id)
       .then((playlist) => {
-        dispatch(pagePlaylists(playlist))//получить плейлист
+        dispatch(pagePlaylists(playlist))
       })
       .catch(() => {
-       // setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+       setTracksError("Не удалось загрузить плейлист, попробуйте позже")
       })
- //     .finally(() => setLoading(false))
   }, [category.id])
-//без этого не убираются скелетоны
-// useEffect(() => {
-//   // Заводим таймер
-//   const timerId = setInterval(() => setLoading(!loading), 3000);		
-//   // Данная функция вызывается при удалении компонента из DOM
-//   return () => {
-//       // Наводим порядок после удаления компонента
-//       clearInterval(timerId);
-//   };
-// }, []);
+
   return (       <>
 
 <Playlist loading = {loading} tracksError = {tracksError}tracks={tracks} title={categoryName} hiden = {true} />

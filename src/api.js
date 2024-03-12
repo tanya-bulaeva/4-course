@@ -86,9 +86,7 @@ export async function getTrack() {
           'content-type': 'application/json',
         },
       })
-     // if (!refreshToken.data){
-    //    console.log ('akkj')
-    //  }
+
       const token = await res.json()
       return token
     }
