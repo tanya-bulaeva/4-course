@@ -1,9 +1,8 @@
-import Logo from "../../components/logo/Logo.jsx";
 import NavMenu from "../../components/navMenu/NavMenu.jsx";
 import * as S from "./style.js"
 import UserAccount from '../../components/userAccount/UserAccount.jsx';
-import MediaPlayer from '../../components/mediaplayer/MediaPlayer.jsx';
-export const NotFound = ({user}) => {
+
+export const NotFound = () => {
     return (       <>
         <S.GlobalStyle />
     <S.Wrapper>

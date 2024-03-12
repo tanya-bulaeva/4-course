@@ -10,18 +10,16 @@ import { useNavigate } from "react-router-dom";
 import { PlaylistSelector, isTrackPlayingSelector, pagePlaylistSelector, repeatTrackSelector, shuffledPlaylistSelector, tracksSelectors } from "../../store/selectors/index.js";
 
 export default function MediaPlayer( ){
-  const dispatch = useDispatch() //Хук useDispatch   позволяет нам получить функцию dispatch, которая поможет нам отправлять действия в store.
-  const tracks = useSelector(PlaylistSelector);
+  const dispatch = useDispatch() 
   const tracklist = useSelector(pagePlaylistSelector)
   const selectedTrack = useSelector(tracksSelectors)
   const isPlaying = useSelector(isTrackPlayingSelector)
   const AudioRef = useRef(null);
   const shuffled = useSelector(shuffledPlaylistSelector)
   const isLoop = useSelector(repeatTrackSelector)
-  //const [isLoop, setIsLoop] = useState(false);
   const [volume, setVolume] = useState(100);
-  const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
-  const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
+  const [duration, setDuration] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const {user} = useUserContext() 
   const navigate = useNavigate()
   useEffect(() => {
@@ -31,12 +29,12 @@ export default function MediaPlayer( ){
       })
       AudioRef.current.src = selectedTrack .track_file;    
     }
-  }, [selectedTrack.track_file]);//проигрывание сразу после клика на выбранный трек
+  }, [selectedTrack.track_file]);
   useEffect(() => {
     if (AudioRef) {
       AudioRef.current.volume = volume / 100;
     }
-  }, [volume, AudioRef]);//настройка ползунка громкости  
+  }, [volume, AudioRef]);
   const onLoadedMetadata = () => {
     setDuration(AudioRef.current.duration);
   };
@@ -45,24 +43,25 @@ export default function MediaPlayer( ){
   };
   const handleRepeat = () => {
 dispatch(repeatTrack())
-  }//повторк трека
+  }
 
   const handleNext = useCallback(() => {
     dispatch(nextTrack())
-  }, [dispatch])//переключение плейлиста на трек вперед
+  }, [dispatch])
 
 const handlePrevious = () => {
     dispatch(prevTrack())
   
 }
-//переключение плейлиста на трек назад
+
 const handleShuffle =() => {
   dispatch(shufflePlaylist())
 }
 const handleDurationChange = (e) => {
   setCurrentTime(e.target.value);
   AudioRef.current.currentTime = e.target.value
-}//изменение ползунка прокрутки
+}
+
 useEffect(() => {
   if (selectedTrack.duration_in_seconds){
     setDuration(AudioRef.current.duration)
@@ -70,13 +69,12 @@ useEffect(() => {
   const handleStop = () => {
         AudioRef.current.pause();
         dispatch(pauseTrack())
-   //  setPlaying(false); 
-  };//остановка воспроизведения трека
+
+  };
   const handleStart = () => {
-     //   setPlaying(true);  
     dispatch(playTrack())
         AudioRef.current.play();
-  };//старт вопроизведения трека
+  };
 
   const togglePlay = isPlaying ? handleStop : handleStart;
   const isUserLike = Boolean(selectedTrack?.stared_user  ?  (selectedTrack?.stared_user?.find((selectedTrack) => selectedTrack.id === user.id)) : true)
@@ -114,7 +112,6 @@ useEffect(() => {
     if (!item) return
     const index = item.stared_user.findIndex((i) => i.id === user.id)
     item.stared_user.splice(index, 1)
-//console.log(2);
     dispatch(pagePlaylists(originalPlaylist))
     } catch (error) {
       if (error.status == 401) {

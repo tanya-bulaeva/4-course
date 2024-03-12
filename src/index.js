@@ -15,5 +15,5 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-//В Provider от Redux мы прокидываем store, который ранее сконфигурировали.
+
      

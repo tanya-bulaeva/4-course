@@ -16,41 +16,36 @@ const navigate = useNavigate()
 const [selectedTrack, setSelectedTrack] = useState()
 
 useEffect(() => {
-    // Заводим таймер
     const timerId = setInterval(() => setLoading(!loading), 300);		
-    // Данная функция вызывается при удалении компонента из DOM
     return () => {
-        // Наводим порядок после удаления компонента
         clearInterval(timerId);
     };
 }, []);
 
  const handleLogin = () =>   {
- localStorage.setItem('user', true)// setItem(key, value) – сохранить пару ключ/значение.
- setUser(localStorage.getItem('user'));} //getItem(key) – получить данные по ключу key.
-// console.log(localStorage);
+ localStorage.setItem('user', true)
+ setUser(localStorage.getItem('user'));}
+
 
 
   const handleLogout = () => {
-    setUser(localStorage.clear())//clear() – удалить всё.
+    setUser(localStorage.clear())
     navigate('/login', {replace : true})
  };
 
 useEffect(() => {
- // setLoading(true)
+
   getTrack()
     .then((playlist) => {
-     // console.log('app', playlist);
-      dispatch(setCurrentPlaylist(playlist))//получить плейлист
+
+      dispatch(setCurrentPlaylist(playlist))
     })
     .catch(() => {
-      //setTracksError("Не удалось загрузить плейлист, попробуйте позже")
+      setTracksError("Не удалось загрузить плейлист, попробуйте позже")
     })
-  //  .finally(() => setLoading(false))
+
 }, [])
 
-
-//onAuthButtonClick= {user ? handleLogout : handleLogin} 
   return (
     <UserProvaider>
         <AppRoutes user={user} onAuthButtonClick= { handleLogin} loading = {loading}  setLoading ={setLoading}  tracksError={tracksError} selectedTrack={selectedTrack} setSelectedTrack ={setSelectedTrack}   />

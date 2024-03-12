@@ -42,13 +42,13 @@ export const checkToken = async () => {
 
     localStorage.setItem('token', newToken.access)
   }
-  //console.log('result', localStorage.getItem('token'))
+ 
   
 }
 
 export const getTokenAccess = () => {
   const accessToken = localStorage.getItem('token')
- // console.log('res', accessToken)
+
   return accessToken
 }
 const baseQuery = fetchBaseQuery({ baseUrl: 'https://skypro-music-api.skyeng.tech/catalog/' })
@@ -78,9 +78,9 @@ export const favoriteTracksApi = createApi({
       transformResponse: ( response, meta, arg) => {
          const transformedResponse = response.map((item ) => ({
           ...item,
-          // stared_user: [JSON.parse(sessionStorage.getItem('user'))],
+          
          }));
-        //console.log(transformedResponse );//список отлайканных треков
+        
          return transformedResponse;
      },
     }),

@@ -9,7 +9,7 @@ export default function UserAccount (){
     logout()
     dispatch(resetState())
   }
-//console.log (user.username)
+
   return ( 
 
     <S.SidebarPersonal> 
